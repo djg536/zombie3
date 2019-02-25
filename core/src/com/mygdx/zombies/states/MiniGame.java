@@ -52,7 +52,7 @@ public class MiniGame extends State {
         spawnInterval = 2000;
 
         // Camera used to translate mouse screen coordinates into world coordinates
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera = new OrthographicCamera();
         camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
 
@@ -113,17 +113,17 @@ public class MiniGame extends State {
         if (gameOver) {
             UIBatch.begin();
             UIBatch.draw(background, 0, 0);
-            Zombies.mainFont.draw(UIBatch, "Game Over", Gdx.graphics.getWidth() / 2, (Gdx.graphics.getHeight() / 2) + 32);
-            Zombies.mainFont.draw(UIBatch, "Points: " + Integer.toString(points), Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-            Zombies.mainFont.draw(UIBatch, "Press escape to exit.", Gdx.graphics.getWidth() / 2, (Gdx.graphics.getHeight() / 2) - 64);
+            Zombies.mainFont.draw(UIBatch, "Game Over", Zombies.InitialWindowWidth / 2, Zombies.InitialWindowHeight / 2 + 32);
+            Zombies.mainFont.draw(UIBatch, "Points: " + Integer.toString(points), Zombies.InitialWindowWidth / 2, Zombies.InitialWindowHeight / 2);
+            Zombies.mainFont.draw(UIBatch, "Press escape to exit.", Zombies.InitialWindowWidth / 2, Zombies.InitialWindowHeight / 2 - 64);
 
             UIBatch.end();
         } else {
             // Render all UI
             UIBatch.begin();
             UIBatch.draw(background, 0, 0);
-            Zombies.mainFont.draw(UIBatch, "Time remaining: " + Double.toString(this.timeRemaining / 1000), 16, Gdx.graphics.getHeight() - 16);
-            Zombies.mainFont.draw(UIBatch, "Score: " + Integer.toString(points), 16, Gdx.graphics.getHeight() - 64);
+            Zombies.mainFont.draw(UIBatch, "Time remaining: " + Double.toString(this.timeRemaining / 1000), 16, Zombies.InitialWindowHeight - 16);
+            Zombies.mainFont.draw(UIBatch, "Score: " + Integer.toString(points), 16, Zombies.InitialWindowHeight - 64);
             UIBatch.end();
 
             // Render all geese

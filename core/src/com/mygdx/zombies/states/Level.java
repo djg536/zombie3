@@ -398,13 +398,6 @@ public class Level extends State {
             return;
         }
 
-            //*Code for Assessment 3*
-            if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-				gamePaused = true;
-                System.out.println("Game is paused");
-            }
-            //*Code for Assessment 3*
-
             //Update the camera position
             camera.position.set(player.getPositionX(), player.getPositionY(), 0);
             camera.update();
@@ -436,6 +429,13 @@ public class Level extends State {
 
 		//Update player
 		player.update(camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0)));
+
+        //*Code for Assessment 3*
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            gamePaused = true;
+            System.out.println("Game is paused");
+        }
+        //*Code for Assessment 3*
 	}
 	
 	public Player getPlayer() {

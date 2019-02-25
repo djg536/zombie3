@@ -48,14 +48,12 @@ public class PauseMenu extends State {
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.justTouched()) {
             if (resume.isHover()) {
                 soundSelect.play();
-                super.dispose();
                 level.resumeGame();
             }
             else if (exit.isHover()) {
                 level.resumeGame();
                 soundSelect.play();
                 //Return to Main Menu
-                super.dispose();
                 Zombies.soundAmbientWind.stop();
 
                 Player.health = null;
