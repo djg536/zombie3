@@ -29,8 +29,8 @@ public class UDiedScreen extends State {
     @Override
     public void render(){
         UIBatch.begin();
-        Zombies.mainFont.draw(UIBatch, "You died", Gdx.graphics.getWidth()/2-100, Gdx.graphics.getHeight()/2);
-        Zombies.mainFont.draw(UIBatch, "[click to continue]", Gdx.graphics.getWidth()/2-230, Gdx.graphics.getHeight()/2-100);
+        Zombies.mainFont.draw(UIBatch, "You died", Zombies.InitialWindowWidth/2-100, Zombies.InitialWindowHeight/2);
+        Zombies.mainFont.draw(UIBatch, "[click to continue]", Zombies.InitialWindowWidth/2-230, Zombies.InitialWindowHeight/2-100);
         UIBatch.end();
     }
 }

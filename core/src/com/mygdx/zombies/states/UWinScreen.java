@@ -45,10 +45,10 @@ public class UWinScreen extends State {
     @Override
     public void render(){
         UIBatch.begin();
-        Zombies.mainFont.draw(UIBatch, "YOU WIN!", Gdx.graphics.getWidth()/2-200, Gdx.graphics.getHeight()/2+100);
-        Zombies.mainFont.draw(UIBatch, "Bonus Points: " + String.valueOf((int)pointsfromtime),Gdx.graphics.getWidth()/2-200, Gdx.graphics.getHeight()/2+25);
-        Zombies.mainFont.draw(UIBatch, "Total Score: " + String.valueOf((int)totalpoints), Gdx.graphics.getWidth()/2-200, Gdx.graphics.getHeight()/2-25);
-        Zombies.mainFont.draw(UIBatch, "[click to continue]", Gdx.graphics.getWidth()/2-230, Gdx.graphics.getHeight()/2-100);
+        Zombies.mainFont.draw(UIBatch, "YOU WIN!", Zombies.InitialWindowWidth/2-200, Zombies.InitialWindowHeight/2+100);
+        Zombies.mainFont.draw(UIBatch, "Bonus Points: " + String.valueOf((int)pointsfromtime),Zombies.InitialWindowWidth/2-200, Zombies.InitialWindowHeight/2+25);
+        Zombies.mainFont.draw(UIBatch, "Total Score: " + String.valueOf((int)totalpoints), Zombies.InitialWindowWidth/2-200, Zombies.InitialWindowHeight/2-25);
+        Zombies.mainFont.draw(UIBatch, "[click to continue]", Zombies.InitialWindowWidth/2-230, Zombies.InitialWindowHeight/2-100);
         UIBatch.end();
     }
 }
