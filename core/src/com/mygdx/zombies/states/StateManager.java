@@ -15,7 +15,7 @@ public class StateManager {
 		MAINMENU, CREDITSMENU, OPTIONSMENU, ENDSCREEN, BRIEFINGSCREEN,
 		PLAYERSELECTMENU, STAGE1, STAGE2, STAGE3, TESTSTAGE1, TESTSTAGE2,
 		// Added new StateID's for assessment 3
-		STAGE4, STAGE5, STAGE6, UDIED, UWIN, PAUSEMENU,
+		STAGE4, STAGE5, STAGE6, UDIED, UWIN,
 		// Running the minigame from the main menu (MINIGAMEMM) or from ingame (MINIGAMEIG)
 		MINIGAMEMM, MINIGAMEIG
 
@@ -120,9 +120,6 @@ public class StateManager {
 			case STAGE6:
 				tempState = new Level("World_Six", entryID);
 				break;
-            case PAUSEMENU:
-				tempState = new PauseMenu();
-				break;
             case MINIGAMEMM:
             	// Return to main game when done
                 tempState = new MiniGame("menu");
@@ -153,7 +150,7 @@ public class StateManager {
 	 */
 	public void render() {
 		currentState.render();
-		Gdx.graphics.setTitle(Zombies.windowTitle+" ["+Gdx.graphics.getFramesPerSecond() + "]");
+		Gdx.graphics.setTitle(Zombies.windowTitle +" ["+Gdx.graphics.getFramesPerSecond() + "]");
 	}
 
 	/**

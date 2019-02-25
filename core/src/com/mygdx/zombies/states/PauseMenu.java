@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.zombies.Player;
 import com.mygdx.zombies.Zombies;
-
 import static com.mygdx.zombies.Zombies.soundSelect;
 
 public class PauseMenu extends State {
@@ -17,11 +16,12 @@ public class PauseMenu extends State {
     private Button exit;
     private Button resume;
     private Level level;
-    private Zombies zombies;
 
 
-    public PauseMenu(){
+    PauseMenu(Level level){
         super();
+
+        this.level = level;
 
         background = new Texture("background.jpg");
         logo = new Texture("logo.png");
@@ -49,11 +49,10 @@ public class PauseMenu extends State {
             if (resume.isHover()) {
                 soundSelect.play();
                 super.dispose();
-                level.isPaused = false;
-
+                level.resumeGame();
             }
             else if (exit.isHover()) {
-                level.isPaused = false;
+                level.resumeGame();
                 soundSelect.play();
                 //Return to Main Menu
                 super.dispose();
@@ -70,6 +69,8 @@ public class PauseMenu extends State {
 
     @Override
     public void dispose(){
+        background.dispose();
+        logo.dispose();
         resume.dispose();
         exit.dispose();
     }

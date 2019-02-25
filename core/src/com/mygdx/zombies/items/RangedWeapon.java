@@ -3,6 +3,7 @@ package com.mygdx.zombies.items;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.zombies.states.Level;
+import static com.mygdx.zombies.InfoContainer.BodyID.PROJECTILE;
 
 /**
  * Ranged weapon class which fires projectiles
@@ -58,7 +59,7 @@ public class RangedWeapon implements Weapon {
 			timerTicks++;
 			Vector2 pos = level.getPlayer().getHandsPosition();
 			level.getBulletsList().add(new Projectile(level, (int)pos.x + level.getPlayer().getPositionX(), (int)pos.y + level.getPlayer().getPositionY(),
-					(float)(level.getPlayer().getAngleRadians() + Math.PI/2), projectileSpritePath, bulletSpeed));
+					(float)(level.getPlayer().getAngleRadians() + Math.PI/2), projectileSpritePath, bulletSpeed, PROJECTILE));
 			firing = true;
 			shootSound.play();
 		}

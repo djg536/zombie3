@@ -9,7 +9,6 @@ import com.mygdx.zombies.items.PowerUp;
 import com.mygdx.zombies.items.Projectile;
 import com.mygdx.zombies.items.Weapon;
 import com.mygdx.zombies.states.StateManager;
-import com.mygdx.zombies.items.ZombieProjectile;
 
 /**
  * Class for handling Box2D collisions and collision events
@@ -49,17 +48,11 @@ public class CustomContactListener implements ContactListener {
 		switch(aType) {
 		
 			case WALL:
-				if (bType == InfoContainer.BodyID.ZOMBIE) {
-					Enemy zombie = (Enemy)b.getObj();
-					//zombie.reverseVelocity();
-					System.out.println("Collision between zombie and wall");
-				}
-				else if (bType == InfoContainer.BodyID.ZOMBIEPROJECTILE) {
-                    ZombieProjectile zombieprojectile = (ZombieProjectile)b.getObj();
-                    zombieprojectile.getInfo().flagForDeletion();
-                    System.out.println("Zombie Bullet has hit wall");
+                if (bType == InfoContainer.BodyID.ZOMBIEPROJECTILE) {
+                    System.out.println("Zombie bullet has hit wall");
+                    Projectile zombieProjectile = (Projectile) b.getObj();
+                    zombieProjectile.getInfo().flagForDeletion();
                 }
-
 				break;
 
 			//changed for assessment 3 to only work when open
@@ -73,27 +66,21 @@ public class CustomContactListener implements ContactListener {
 						player.closeGate();
 						System.out.println("Player has contacted open gate");
 					}
-					else{
+					else
 						System.out.println("Player has contacted closed gate");
-					}
-
 				}
 				break;
 				
 			case PROJECTILE:
 				if (bType == InfoContainer.BodyID.ZOMBIE) {
-					Projectile projectile = (Projectile)a.getObj();
-					projectile.getInfo().flagForDeletion();
 					Enemy zombie = (Enemy)b.getObj();
 					zombie.setHealth(zombie.getHealth()-1);
-
 					System.out.println("Zombie has been damaged");
 				}
-				else if (bType == InfoContainer.BodyID.WALL) {
-					Projectile projectile = (Projectile)a.getObj();
-					projectile.getInfo().flagForDeletion();
+				else if (bType == InfoContainer.BodyID.WALL)
 					System.out.println("Bullet has hit wall");
-				}
+				Projectile projectile = (Projectile)a.getObj();
+				projectile.getInfo().flagForDeletion();
 				break;
 
 			case PLAYER:
@@ -107,15 +94,13 @@ public class CustomContactListener implements ContactListener {
 						//Code for Assessment 3
 						zombie.hit = true;
 						//Code for Assessment 3
-
 					}
 					else {
 						player.setHealth(player.getHealth() - (player.getDamage()));
-						if (player.points < 10){
+						if (player.points < 10)
 						    player.points = 0;
-                        } else {
+                        else
                             player.points -= 10;
-                        }
 					}
 					System.out.println("Player has contacted zombie");
 				}
@@ -126,13 +111,13 @@ public class CustomContactListener implements ContactListener {
 					weaponPickUp.getInfo().flagForDeletion();
 					System.out.println("Player has picked up weapon");
 				}
-				else if (bType == InfoContainer.BodyID.ZOMBIEPROJECTILE) {
-				    ZombieProjectile zombieprojectile = (ZombieProjectile)b.getObj();
-				    zombieprojectile.getInfo().flagForDeletion();
-				    Player player = (Player)a.getObj();
+                else if (bType == InfoContainer.BodyID.ZOMBIEPROJECTILE) {
+                    Player player = (Player)a.getObj();
                     player.setHealth(player.getHealth()-1);
+                    Projectile zombieProjectile = (Projectile)b.getObj();
+                    zombieProjectile.getInfo().flagForDeletion();
+                    System.out.println("Player has been shot");
                 }
-
 				break;
 				
 			case PICKUP:
@@ -151,10 +136,6 @@ public class CustomContactListener implements ContactListener {
 					npc.setHealth(npc.getHealth()-1);
 					System.out.println("NPC has contacted zombie");
 				}
-				break;
-				
-			default:
-				System.err.println("Error: Unrecognised collision event");
 				break;
 		}		
 	}

@@ -26,8 +26,9 @@ public class Projectile extends Entity {
 	 * @param angle - the angle to move
 	 * @param spritePath - the file name of the sprite to use
 	 * @param speed - the speed that the projectile moves
+	 * @param bodyID - the Box2D body ID to use
 	 */
-	public Projectile(Level level, int x, int y, float angle, String spritePath, float speed) {
+	public Projectile(Level level, int x, int y, float angle, String spritePath, float speed, InfoContainer.BodyID bodyID) {
 		
 		//Apply bullet spray
 		angle += Zombies.random.nextFloat()*0.2f-0.1f;
@@ -47,7 +48,7 @@ public class Projectile extends Entity {
 				isSensor = true;
 			}
 		};
-		GenerateBodyFromSprite(level.getBox2dWorld(), sprite, InfoContainer.BodyID.PROJECTILE, fixtureDef);
+		GenerateBodyFromSprite(level.getBox2dWorld(), sprite, bodyID, fixtureDef);
 		body.setTransform(x / Zombies.PhysicsDensity, y / Zombies.PhysicsDensity, angle);
 		body.setBullet(true);
 		body.setFixedRotation(true);

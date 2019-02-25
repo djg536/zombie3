@@ -31,7 +31,6 @@ public class Level extends State {
 	private Player player;
 	private ArrayList<Enemy> enemiesList;
 	private ArrayList<Projectile> bulletsList;
-	private ArrayList<ZombieProjectile> bullets2List;
 	private ArrayList<PickUp> pickUpsList;
 	private World box2dWorld;
 	private TiledMap map;
@@ -45,7 +44,8 @@ public class Level extends State {
 	private String path;
 	private int spawnEntryID;
 	private Box2DDebugRenderer box2DDebugRenderer;
-	public static boolean isPaused;
+	private boolean gamePaused;
+	private PauseMenu pauseMenu;
 
 	/**
 	 * Constructor for the level
@@ -60,7 +60,6 @@ public class Level extends State {
 		this.spawnEntryID = spawnEntryID;
 		
 		bulletsList = new ArrayList<Projectile>();
-		bullets2List = new ArrayList<ZombieProjectile>();
 		enemiesList = new ArrayList<Enemy>();
 		pickUpsList = new ArrayList<PickUp>();
 		npcsList = new ArrayList<NPC>();
@@ -86,13 +85,17 @@ public class Level extends State {
 		camera = new OrthographicCamera();
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		box2dWorld.setContactListener(new CustomContactListener());
+
+		gamePaused = false;
+
+        pauseMenu = new PauseMenu(this);
 	}
 	
-	public String getPath() {
+	String getPath() {
 		return path;
 	}
 	
-	public int getSpawnEntryID() {
+	int getSpawnEntryID() {
 		return spawnEntryID;
 	}
 	
@@ -103,8 +106,6 @@ public class Level extends State {
 	public ArrayList<Projectile> getBulletsList() {
 		return bulletsList;
 	}
-
-	public ArrayList<ZombieProjectile> getBullets2List() { return bullets2List;}
 	
 	/**
 	 * Load the player in the position associated with spawnEntryID
@@ -205,12 +206,12 @@ public class Level extends State {
 				
 				case "lasergun":
 					pickUpsList.add(new PickUp(this, x, y, "pickups/pistol.png",
-							new RangedWeapon(this, 10, "laser.png", 50, Zombies.soundLaser), InfoContainer.BodyID.WEAPON));
+							new RangedWeapon(this, 10, "laser.png", 60, Zombies.soundLaser), InfoContainer.BodyID.WEAPON));
 				break;
 				
 				case "pistol":
 					pickUpsList.add(new PickUp(this, x, y, "pickups/pistol.png",
-							new RangedWeapon(this, 15, "bullet.png", 20, Zombies.soundShoot), InfoContainer.BodyID.WEAPON));
+							new RangedWeapon(this, 15, "bullet.png", 40, Zombies.soundShoot), InfoContainer.BodyID.WEAPON));
 				break;
 				
 				case "sword":
@@ -328,7 +329,7 @@ public class Level extends State {
 	/**
 	 * @return true if the player is within the radius of any of the lights
 	 */
-	public boolean inLights() {
+	private boolean inLights() {
 		//Iterate through lights
 		for (PointLight light : lightsList)
 			//Calculate distance between each light and player
@@ -344,15 +345,14 @@ public class Level extends State {
 	@Override
 	public void render() {
 		//*Code for Assessment 3*
-	    if(isPaused){
-	        PauseMenu paused = new PauseMenu();
-            paused.render();
-            paused.update();
-        } else {
+	    if(gamePaused){
+            pauseMenu.render();
+            return;
+        }
 
-            //Render map
-            renderer.setView(camera);
-            renderer.render();
+        //Render map
+        renderer.setView(camera);
+	    renderer.render();
 
 
 		//Render world
@@ -369,8 +369,6 @@ public class Level extends State {
 			pickUp.render();
 		for(NPC npc : npcsList)
 			npc.render();
-		for (ZombieProjectile bullet2 : bullets2List)
-			bullet2.render();
 		for (GatePointer gatePointer : gatePointerList)
 			gatePointer.render();
 		worldBatch.end();
@@ -383,9 +381,8 @@ public class Level extends State {
 		player.hudRender();
 		UIBatch.end();
 
-            //Enable this line to show Box2D physics debug info
-            //box2DDebugRenderer.render(box2dWorld, camera.combined.scl(Zombies.PhysicsDensity));
-        }
+		//Enable this line to show Box2D physics debug info
+        //box2DDebugRenderer.render(box2dWorld, camera.combined.scl(Zombies.PhysicsDensity));
 	}
 		
 	public World getBox2dWorld() {
@@ -396,13 +393,14 @@ public class Level extends State {
 	public void update() {
 		//Method to update everything in the state
 
-        if(isPaused){
-
-        } else {
+        if(gamePaused) {
+            pauseMenu.update();
+            return;
+        }
 
             //*Code for Assessment 3*
             if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-                isPaused = true;
+				gamePaused = true;
                 System.out.println("Game is paused");
             }
             //*Code for Assessment 3*
@@ -426,7 +424,6 @@ public class Level extends State {
             //Remove deletion flagged objects
             Entity.removeDeletionFlagged(enemiesList);
             Entity.removeDeletionFlagged(bulletsList);
-            Entity.removeDeletionFlagged(bullets2List);
             Entity.removeDeletionFlagged(pickUpsList);
             Entity.removeDeletionFlagged(npcsList);
             Entity.removeDeletionFlagged(gatesList);
@@ -438,11 +435,15 @@ public class Level extends State {
 
 
 		//Update player
-		player.update(camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0)));}
+		player.update(camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0)));
 	}
 	
 	public Player getPlayer() {
 		return player;
+	}
+
+	public void resumeGame() {
+		gamePaused = false;
 	}
 
 	@Override
