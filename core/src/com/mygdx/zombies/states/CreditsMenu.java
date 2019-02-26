@@ -57,6 +57,7 @@ public class CreditsMenu extends State {
 	
 	@Override
 	public void dispose() {
+		super.dispose();
 		background.dispose();
 		back.dispose();
 	}

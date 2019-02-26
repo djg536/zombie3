@@ -50,6 +50,7 @@ public class BriefingScreen extends State {
 	
 	@Override
 	public void dispose() {
+		super.dispose();
 		//Clean up memory
 		banner.getTexture().dispose();
 	}

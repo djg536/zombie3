@@ -86,6 +86,7 @@ public class MainMenu extends State {
 	@Override
 	public void dispose() {
 		//Clear the memory
+		super.dispose();
 		play.dispose();
 		exit.dispose();
 		options.dispose();

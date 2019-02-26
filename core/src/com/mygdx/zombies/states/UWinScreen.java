@@ -48,4 +48,11 @@ public class UWinScreen extends State {
         Zombies.mainFont.draw(UIBatch, "[click to continue]", Zombies.InitialWindowWidth/2.f-230, Zombies.InitialWindowHeight/2.f-100);
         UIBatch.end();
     }
+
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        Zombies.soundEndMusic.stop();
+    }
 }

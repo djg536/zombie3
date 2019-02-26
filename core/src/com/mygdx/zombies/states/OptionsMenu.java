@@ -73,6 +73,7 @@ public class OptionsMenu extends State {
 	@Override
 	public void dispose() {
 		//Clean up memory
+		super.dispose();
 		background.dispose();
 		back.dispose();
 		fullscreen.dispose();

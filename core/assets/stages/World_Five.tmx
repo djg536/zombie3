@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="37">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="89">
  <tileset firstgid="1" source="Assets/Tileset.tsx"/>
  <tileset firstgid="1041" source="Assets/Alt_Colour.tsx"/>
  <tileset firstgid="2081" source="Assets/Roads.tsx"/>
@@ -586,7 +586,7 @@
   <object id="33" name="zombie1" x="1373.55" y="1274.43">
    <point/>
   </object>
-  <object id="34" name="powerUpSpeed" x="484.282" y="784.48">
+  <object id="34" name="powerUpSpeed" x="536.282" y="787.48">
    <point/>
   </object>
   <object id="35" name="powerUpHealth" x="1277.26" y="529.595">
@@ -604,7 +604,137 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="20" name="Lights"/>
+ <objectgroup id="20" name="Lights">
+  <object id="37" name="security" x="182" y="785">
+   <point/>
+  </object>
+  <object id="38" name="security" x="282" y="786">
+   <point/>
+  </object>
+  <object id="39" name="security" x="381" y="784">
+   <point/>
+  </object>
+  <object id="40" name="security" x="469" y="785">
+   <point/>
+  </object>
+  <object id="41" name="security" x="1354" y="789">
+   <point/>
+  </object>
+  <object id="42" name="security" x="1282" y="788">
+   <point/>
+  </object>
+  <object id="43" name="security" x="1209" y="789">
+   <point/>
+  </object>
+  <object id="44" name="security" x="1130" y="790">
+   <point/>
+  </object>
+  <object id="46" name="security" x="1042" y="790">
+   <point/>
+  </object>
+  <object id="47" name="torch" x="316" y="552">
+   <point/>
+  </object>
+  <object id="48" name="torch" x="321" y="445">
+   <point/>
+  </object>
+  <object id="49" name="torch" x="321" y="325">
+   <point/>
+  </object>
+  <object id="50" name="torch" x="447" y="295">
+   <point/>
+  </object>
+  <object id="51" name="torch" x="576" y="299">
+   <point/>
+  </object>
+  <object id="52" name="torch" x="705" y="294">
+   <point/>
+  </object>
+  <object id="53" name="torch" x="833" y="293">
+   <point/>
+  </object>
+  <object id="54" name="torch" x="961" y="295">
+   <point/>
+  </object>
+  <object id="55" name="torch" x="1088" y="297">
+   <point/>
+  </object>
+  <object id="56" name="torch" x="1217" y="298">
+   <point/>
+  </object>
+  <object id="57" name="torch" x="1345" y="295">
+   <point/>
+  </object>
+  <object id="58" name="torch" x="1411" y="447">
+   <point/>
+  </object>
+  <object id="59" name="torch" x="1410" y="555">
+   <point/>
+  </object>
+  <object id="60" name="torch" x="320" y="1300">
+   <point/>
+  </object>
+  <object id="61" name="torch" x="321" y="1156">
+   <point/>
+  </object>
+  <object id="62" name="torch" x="323" y="1006">
+   <point/>
+  </object>
+  <object id="63" name="torch" x="450" y="1308">
+   <point/>
+  </object>
+  <object id="64" name="torch" x="578" y="1306">
+   <point/>
+  </object>
+  <object id="65" name="torch" x="704" y="1306">
+   <point/>
+  </object>
+  <object id="66" name="torch" x="833" y="1304">
+   <point/>
+  </object>
+  <object id="67" name="torch" x="961" y="1303">
+   <point/>
+  </object>
+  <object id="68" name="torch" x="1090" y="1307">
+   <point/>
+  </object>
+  <object id="69" name="torch" x="1217" y="1305">
+   <point/>
+  </object>
+  <object id="70" name="torch" x="1345" y="1304">
+   <point/>
+  </object>
+  <object id="71" name="torch" x="1414" y="1186">
+   <point/>
+  </object>
+  <object id="72" name="torch" x="1413" y="1059">
+   <point/>
+  </object>
+  <object id="81" name="torch" x="771" y="425">
+   <point/>
+  </object>
+  <object id="82" name="torch" x="768" y="588">
+   <point/>
+  </object>
+  <object id="83" name="torch" x="1282" y="424">
+   <point/>
+  </object>
+  <object id="84" name="torch" x="1282" y="1097">
+   <point/>
+  </object>
+  <object id="85" name="torch" x="1283" y="1228">
+   <point/>
+  </object>
+  <object id="86" name="torch" x="768" y="1226">
+   <point/>
+  </object>
+  <object id="87" name="torch" x="769" y="1096">
+   <point/>
+  </object>
+  <object id="88" name="torch" x="767" y="965">
+   <point/>
+  </object>
+ </objectgroup>
  <objectgroup id="18" name="Entries">
   <object id="28" name="entry" x="62.3053" y="790.144">
    <properties>

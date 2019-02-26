@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="75" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="57">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="75" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="75">
  <tileset firstgid="1" source="Assets/Tileset.tsx"/>
  <tileset firstgid="1041" source="Assets/Roads.tsx"/>
  <layer id="1" name="Grass" width="75" height="50">
@@ -663,6 +663,60 @@
    <point/>
   </object>
   <object id="39" name="street" x="1042.42" y="1412.12">
+   <point/>
+  </object>
+  <object id="57" name="street" x="698" y="1588">
+   <point/>
+  </object>
+  <object id="58" name="street" x="46" y="1587">
+   <point/>
+  </object>
+  <object id="59" name="street" x="1408" y="1590">
+   <point/>
+  </object>
+  <object id="60" name="street" x="2120" y="1588">
+   <point/>
+  </object>
+  <object id="61" name="street" x="2369" y="1398">
+   <point/>
+  </object>
+  <object id="62" name="red" x="251" y="565">
+   <point/>
+  </object>
+  <object id="63" name="red" x="963" y="656">
+   <point/>
+  </object>
+  <object id="64" name="red" x="1181" y="787">
+   <point/>
+  </object>
+  <object id="65" name="red" x="673" y="975">
+   <point/>
+  </object>
+  <object id="66" name="red" x="800" y="1199">
+   <point/>
+  </object>
+  <object id="67" name="red" x="129" y="1263">
+   <point/>
+  </object>
+  <object id="68" name="red" x="1697" y="1067">
+   <point/>
+  </object>
+  <object id="69" name="red" x="1825" y="1063">
+   <point/>
+  </object>
+  <object id="70" name="red" x="1985" y="755">
+   <point/>
+  </object>
+  <object id="71" name="red" x="1536" y="753">
+   <point/>
+  </object>
+  <object id="72" name="red" x="2336" y="366">
+   <point/>
+  </object>
+  <object id="73" name="red" x="2149" y="355">
+   <point/>
+  </object>
+  <object id="74" name="red" x="2272" y="918">
    <point/>
   </object>
  </objectgroup>

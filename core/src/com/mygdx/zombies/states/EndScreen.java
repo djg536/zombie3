@@ -48,6 +48,7 @@ public class EndScreen extends State {
 	
 	@Override
 	public void dispose() {
+		super.dispose();
 		//Stop playing the music when screen exited
 		Zombies.soundEndMusic.stop();
 		banner.dispose();

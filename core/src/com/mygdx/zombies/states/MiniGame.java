@@ -259,4 +259,12 @@ public class MiniGame extends State {
         }
     }
 
+    @Override
+    public void dispose() {
+        super.dispose();
+        background.dispose();
+        for (Goose goose : geese) {
+            goose.dispose();
+        }
+    }
 }
