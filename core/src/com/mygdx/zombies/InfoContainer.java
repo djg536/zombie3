@@ -7,7 +7,7 @@ public class InfoContainer {
 	
 	// Body IDs for collision identification
 	public enum BodyID {
-		ZOMBIE, PLAYER, PROJECTILE, PICKUP, WEAPON, NPC, WALL, GATE, ZOMBIEPROJECTILE
+		ZOMBIE, PLAYER, PROJECTILE, PICKUP, WEAPON, NPC, WALL, GATE
 	}
 	
 	private BodyID type;
@@ -35,7 +35,7 @@ public class InfoContainer {
 	/**
 	 * Flag object so that it can be deleted imminently
 	 */
-	public void flagForDeletion() {
+	void flagForDeletion() {
 		deletionFlagged = true;
 	}
 

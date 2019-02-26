@@ -57,6 +57,8 @@ public class Enemy extends Entity {
 				density = 40;
 				friction = 0.5f;
 				restitution = 1f;
+				filter.categoryBits = Zombies.zombieFilter;
+				filter.maskBits = (short) (Zombies.playerFilter | Zombies.projectileFilter | Zombies.wallFilter);
 			}
 		};
 		GenerateBodyFromSprite(level.getBox2dWorld(), sprite, InfoContainer.BodyID.ZOMBIE, fixtureDef);
@@ -81,7 +83,6 @@ public class Enemy extends Entity {
 		justHit = true;
 		timeRemaining = (long) 0.005;
 		//Code for Assessment 3
-
 	}
 
 	/**

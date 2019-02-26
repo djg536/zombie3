@@ -42,7 +42,7 @@ public class Boss2 extends Enemy {
 
             for (int i = 0; i < numberToSpawn; i++) {
                 float shootAngle = (float) (angleToPlayerRadians + (Math.PI + i*bulletSpray - (bulletSpray*numberToSpawn)/2));
-                level.getBulletsList().add(new Projectile(level, getPositionX(), getPositionY(), shootAngle, "zombie_projectile.png", 100, InfoContainer.BodyID.ZOMBIEPROJECTILE));
+                level.getBulletsList().add(new Projectile(level, getPositionX(), getPositionY(), shootAngle, Projectile.ProjectileType.ZOMBIEPOTION));
             }
         }
     }

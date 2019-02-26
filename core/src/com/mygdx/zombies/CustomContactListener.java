@@ -46,14 +46,6 @@ public class CustomContactListener implements ContactListener {
 		//Switch statement to allow different collision events for different object collisions.
 		//Remember that a has been sorted to be before b alphabetically, so objects will only occur in a specific order
 		switch(aType) {
-		
-			case WALL:
-                if (bType == InfoContainer.BodyID.ZOMBIEPROJECTILE) {
-                    System.out.println("Zombie bullet has hit wall");
-                    Projectile zombieProjectile = (Projectile) b.getObj();
-                    zombieProjectile.getInfo().flagForDeletion();
-                }
-				break;
 
 			//changed for assessment 3 to only work when open
 			// apart from the mini game gate that is always open
@@ -75,12 +67,15 @@ public class CustomContactListener implements ContactListener {
 				if (bType == InfoContainer.BodyID.ZOMBIE) {
 					Enemy zombie = (Enemy)b.getObj();
 					zombie.setHealth(zombie.getHealth()-1);
+					Projectile projectile = (Projectile)a.getObj();
+					projectile.getInfo().flagForDeletion();
 					System.out.println("Zombie has been damaged");
 				}
-				else if (bType == InfoContainer.BodyID.WALL)
+				else if (bType == InfoContainer.BodyID.WALL) {
+					Projectile projectile = (Projectile) a.getObj();
+					projectile.getInfo().flagForDeletion();
 					System.out.println("Bullet has hit wall");
-				Projectile projectile = (Projectile)a.getObj();
-				projectile.getInfo().flagForDeletion();
+				}
 				break;
 
 			case PLAYER:
@@ -111,13 +106,13 @@ public class CustomContactListener implements ContactListener {
 					weaponPickUp.getInfo().flagForDeletion();
 					System.out.println("Player has picked up weapon");
 				}
-                else if (bType == InfoContainer.BodyID.ZOMBIEPROJECTILE) {
-                    Player player = (Player)a.getObj();
-                    player.setHealth(player.getHealth()-1);
-                    Projectile zombieProjectile = (Projectile)b.getObj();
-                    zombieProjectile.getInfo().flagForDeletion();
-                    System.out.println("Player has been shot");
-                }
+				else if (bType == InfoContainer.BodyID.PROJECTILE) {
+					Player player = (Player)a.getObj();
+					player.setHealth(player.getHealth()-1);
+					Projectile projectile = (Projectile)b.getObj();
+					projectile.getInfo().flagForDeletion();
+					System.out.println("Zombie has been damaged");
+				}
 				break;
 				
 			case PICKUP:

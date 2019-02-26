@@ -34,6 +34,7 @@ public class Zombies extends Game {
 	static Sound soundSwing;
 	static Sound soundAmmo;
 	static Sound soundPowerUp;
+	public static Sound soundThrow;
 	public static Sound soundAmbientWind;
 	public static Sound soundEndMusic;
 	static Sound[] soundArrayZombie;
@@ -43,8 +44,13 @@ public class Zombies extends Game {
 	// Collision masks. Can OR these together to combine.
 	// Use categoryBits (1 default) and mask bits (-1 default)
 	// (maskBitsA & categoryBitsB) && (categoryBitsA & maskBitsB);
-	public static short playerFilter = 2;
-	static short projectileFilter = 1;
+	public static short playerFilter = 1;
+	public static short projectileFilter = 2;
+	public static short zombieFilter = 4;
+	public static short zombieProjectileFilter = 8;
+	public static short wallFilter = 16;
+	public static short pickupFilter = 32;
+	public static short gateFilter = 64;
 	
 
 	/** Generate a BitmapFont using the given parameters
@@ -107,6 +113,7 @@ public class Zombies extends Game {
 		soundLaser = Gdx.audio.newSound(Gdx.files.internal("sounds/laser.wav"));
 		soundAmmo = Gdx.audio.newSound(Gdx.files.internal("sounds/ammo.wav"));
 		soundPowerUp = Gdx.audio.newSound(Gdx.files.internal("sounds/powerup.wav"));
+		soundThrow = Gdx.audio.newSound(Gdx.files.internal("sounds/throw.wav"));
 		soundAmbientWind = Gdx.audio.newSound(Gdx.files.internal("sounds/wind.mp3"));
 		soundEndMusic = Gdx.audio.newSound(Gdx.files.internal("sounds/alligator_crawl.mp3"));
 		
@@ -145,6 +152,7 @@ public class Zombies extends Game {
 		soundLaser.dispose();
 		soundAmmo.dispose();
 		soundPowerUp.dispose();
+		soundThrow.dispose();
 		soundAmbientWind.dispose();
 		soundEndMusic.dispose();
 		for(Sound sound : soundArrayZombie)

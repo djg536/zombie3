@@ -1,6 +1,7 @@
 package com.mygdx.zombies.items;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,6 +18,7 @@ public class Projectile extends Entity {
 
 	private SpriteBatch spriteBatch;
 	private Sprite sprite;
+	public enum ProjectileType { LASER, BULLET, ZOMBIEPOTION}
 
 	/**
 	 * Constructor for the projectile
@@ -24,19 +26,50 @@ public class Projectile extends Entity {
 	 * @param x - the x spawn coordinate
 	 * @param y - the y spawn coordinate
 	 * @param angle - the angle to move
-	 * @param spritePath - the file name of the sprite to use
-	 * @param speed - the speed that the projectile moves
-	 * @param bodyID - the Box2D body ID to use
+	 * @param projectileType - the type of projectile, which determines attribute values
 	 */
-	public Projectile(Level level, int x, int y, float angle, String spritePath, float speed, InfoContainer.BodyID bodyID) {
-		
+	public Projectile(Level level, int x, int y, float angle, ProjectileType projectileType) {
+
+		this.spriteBatch = level.getWorldBatch();
+
 		//Apply bullet spray
 		angle += Zombies.random.nextFloat()*0.2f-0.1f;
+
+		String spritePath = "";
+		float speed = 0;
+		short collisionCategoryFilter = 0;
+		short collisionMaskFilter = 0;
+
+		switch(projectileType) {
+			case LASER:
+				spritePath = "laser.png";
+				speed = 60;
+				collisionCategoryFilter = Zombies.projectileFilter;
+				collisionMaskFilter = (short) (Zombies.zombieFilter | Zombies.wallFilter);
+				Zombies.soundLaser.play();
+				break;
+			case BULLET:
+				spritePath = "bullet.png";
+				speed = 40;
+				collisionCategoryFilter = Zombies.projectileFilter;
+				collisionMaskFilter = (short) (Zombies.zombieFilter | Zombies.wallFilter);
+				Zombies.soundShoot.play();
+				break;
+			case ZOMBIEPOTION:
+				spritePath = "zombie_projectile.png";
+				speed = 150;
+				collisionCategoryFilter = Zombies.zombieProjectileFilter;
+				collisionMaskFilter = (short) (Zombies.playerFilter | Zombies.wallFilter);
+				Zombies.soundThrow.play();
+				break;
+		}
 		
 		//Add sprite
-		this.spriteBatch = level.getWorldBatch();
 		sprite = new Sprite(new Texture(Gdx.files.internal(spritePath)));
 		sprite.setRotation((float)Math.toDegrees(angle));
+
+		final short finalCollisionCategoryFilter = collisionCategoryFilter;
+		final short finalCollisionMaskFilter = collisionMaskFilter;
 
 		//Build box2d body
 		FixtureDef fixtureDef = new FixtureDef() {
@@ -44,11 +77,12 @@ public class Projectile extends Entity {
 				density = 200;
 				friction = 1;
 				restitution = 1;
-				filter.categoryBits = Zombies.playerFilter;
 				isSensor = true;
+				filter.categoryBits = finalCollisionCategoryFilter;
+				filter.maskBits = finalCollisionMaskFilter;
 			}
 		};
-		GenerateBodyFromSprite(level.getBox2dWorld(), sprite, bodyID, fixtureDef);
+		GenerateBodyFromSprite(level.getBox2dWorld(), sprite, InfoContainer.BodyID.PROJECTILE, fixtureDef);
 		body.setTransform(x / Zombies.PhysicsDensity, y / Zombies.PhysicsDensity, angle);
 		body.setBullet(true);
 		body.setFixedRotation(true);

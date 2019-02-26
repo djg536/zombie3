@@ -35,6 +35,8 @@ public class PickUp extends Entity {
 		FixtureDef fixtureDef = new FixtureDef() {
 			{
 				isSensor = true;
+				filter.categoryBits = Zombies.pickupFilter;
+				filter.maskBits = Zombies.playerFilter;
 			}
 		};
 		//Generate Box2D detection area from sprite

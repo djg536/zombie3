@@ -27,6 +27,8 @@ public class Gate extends Entity {
 		FixtureDef fixtureDef = new FixtureDef() {
 			{
 				isSensor = true;
+				filter.categoryBits = Zombies.gateFilter;
+				filter.maskBits = Zombies.playerFilter;
 			}
 		};
 		//Generate the Box2D detection area

@@ -2,6 +2,7 @@ package com.mygdx.zombies.items;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.zombies.Zombies;
 import com.mygdx.zombies.states.Level;
 import static com.mygdx.zombies.InfoContainer.BodyID.PROJECTILE;
 
@@ -13,26 +14,20 @@ public class RangedWeapon implements Weapon {
 	private int shootDelay;
 	private int timerTicks;
 	private Level level;
-	private String projectileSpritePath;
-	private Sound shootSound;
-	private float bulletSpeed;
+	private Projectile.ProjectileType projectileType;
 	private static boolean firing;
 	
 	/**
 	 * Constructor for the ranged weapon
 	 * @param level - the level to create the weapon in
 	 * @param shootDelay - the reload delay between firing projectiles
-	 * @param projectileSpritePath - the file name of the fired projectile sprite
-	 * @param bulletSpeed - the speed of the fired projectile
-	 * @param shootSound - the shooting sound
+	 * @param projectileType - the type of projectile, which determines attribute values
 	 */
-	public RangedWeapon(Level level, int shootDelay, String projectileSpritePath, float bulletSpeed, Sound shootSound) {
+	public RangedWeapon(Level level, int shootDelay, Projectile.ProjectileType projectileType) {
 		
 		this.level = level;		
 		this.shootDelay = shootDelay;
-		this.projectileSpritePath = projectileSpritePath;
-		this.shootSound = shootSound;
-		this.bulletSpeed = bulletSpeed;
+		this.projectileType = projectileType;
 		
 		//Initialise shoot timing values
 		timerTicks = 0;
@@ -59,9 +54,8 @@ public class RangedWeapon implements Weapon {
 			timerTicks++;
 			Vector2 pos = level.getPlayer().getHandsPosition();
 			level.getBulletsList().add(new Projectile(level, (int)pos.x + level.getPlayer().getPositionX(), (int)pos.y + level.getPlayer().getPositionY(),
-					(float)(level.getPlayer().getAngleRadians() + Math.PI/2), projectileSpritePath, bulletSpeed, PROJECTILE));
+					(float)(level.getPlayer().getAngleRadians() + Math.PI/2), projectileType));
 			firing = true;
-			shootSound.play();
 		}
 	}
 	

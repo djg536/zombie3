@@ -206,12 +206,12 @@ public class Level extends State {
 				
 				case "lasergun":
 					pickUpsList.add(new PickUp(this, x, y, "pickups/pistol.png",
-							new RangedWeapon(this, 10, "laser.png", 60, Zombies.soundLaser), InfoContainer.BodyID.WEAPON));
+							new RangedWeapon(this, 10, Projectile.ProjectileType.LASER), InfoContainer.BodyID.WEAPON));
 				break;
 				
 				case "pistol":
 					pickUpsList.add(new PickUp(this, x, y, "pickups/pistol.png",
-							new RangedWeapon(this, 15, "bullet.png", 40, Zombies.soundShoot), InfoContainer.BodyID.WEAPON));
+							new RangedWeapon(this, 15, Projectile.ProjectileType.BULLET), InfoContainer.BodyID.WEAPON));
 				break;
 				
 				case "sword":

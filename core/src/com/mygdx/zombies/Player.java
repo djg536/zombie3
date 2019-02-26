@@ -106,8 +106,8 @@ public class Player extends Entity {
 				density = 40;
 				friction = 0.5f;
 				restitution = 0f;
-				filter.maskBits = Zombies.projectileFilter;
 				filter.categoryBits = Zombies.playerFilter;
+				filter.maskBits = (short) (Zombies.zombieFilter | Zombies.zombieProjectileFilter | Zombies.wallFilter | Zombies.pickupFilter | Zombies.gateFilter);
 			}
 		};		
 		GenerateBodyFromSprite(level.getBox2dWorld(), sprite, InfoContainer.BodyID.PLAYER, fixtureDef);
