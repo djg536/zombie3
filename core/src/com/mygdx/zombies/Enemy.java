@@ -14,24 +14,23 @@ import com.mygdx.zombies.states.Level;
  */
 public class Enemy extends Entity {
 	
-	protected float speed;
+	private float speed;
 	private int health;
 	protected Sprite sprite;
-	protected double angleRadians;
-	protected double angleDegrees;
-	protected double angleToPlayerRadians;
+	double angleRadians;
+	double angleDegrees;
 	private Player player;
 	private SpriteBatch spriteBatch;	
 	private boolean inLights;
 	private int noiseTimer;
-	protected int wanderTimer;
-	protected int alertTimer;
-	protected float alertSpeed;
+	private int wanderTimer;
+	private int alertTimer;
+	private float alertSpeed;
 	private Level level;
-	protected double distanceToPlayer;
-
+	private double distanceToPlayer;
+    double angleToPlayerRadians;
 	//Code for Assessment 3
-	public boolean hit;
+	boolean hit;
 	private boolean justHit;
 	private long originalTime;
 	private long timeRemaining;
@@ -89,7 +88,7 @@ public class Enemy extends Entity {
 	 * Updates position based on whether player has been detected
 	 */
 	public void move() {
-					
+
 		angleToPlayerRadians = Zombies.angleBetweenRads(new Vector2(getPositionX(), getPositionY()),
 			     new Vector2(player.getPositionX(), player.getPositionY()));
 		
@@ -112,7 +111,7 @@ public class Enemy extends Entity {
 			alertTimer --;
 		}
 		
-		int noise = (int)((double) level.getPlayer().getNoise()/(distanceToPlayer+1));
+		int noise = (int)(level.getPlayer().getNoise()/(distanceToPlayer+1));
 		if(noise>=3||isPlayerInSight()) {
 			//If player detected, increase movement speed and set time alerted for
 			alertTimer = noise*100;
@@ -162,7 +161,7 @@ public class Enemy extends Entity {
 	 * @return true if the player is within 40 degrees of the zombie's line of sight
 	 * and close enough, considering how well lit player is
 	 */
-	public boolean isPlayerInSight() {
+	private boolean isPlayerInSight() {
 		return (Math.abs(angleDegrees-Math.toDegrees(angleRadians))<40) &&
 				(distanceToPlayer < 200 || (inLights && distanceToPlayer < 1000));
 	}
@@ -190,11 +189,11 @@ public class Enemy extends Entity {
 		noiseStep();
 	}
 
-	public int getPositionX() {
+	int getPositionX() {
 		return (int) (body.getPosition().x * Zombies.PhysicsDensity);
 	}
 
-	public int getPositionY() {
+	int getPositionY() {
 		return (int) (body.getPosition().y * Zombies.PhysicsDensity);
 	}
 
@@ -202,7 +201,7 @@ public class Enemy extends Entity {
 		sprite.draw(spriteBatch);
 	}
 
-	public int getHealth() {
+	int getHealth() {
 		return health;
 	}
 

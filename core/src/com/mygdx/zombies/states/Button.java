@@ -27,7 +27,7 @@ public class Button {
 	 * @param y - the y position of the button
 	 * @param text - the button text
 	 */
-	public Button(SpriteBatch spriteBatch, int x, int y, String text) {
+	Button(SpriteBatch spriteBatch, int x, int y, String text) {
 		this.text = text;	
 		setup(spriteBatch, x, y);
 	}
@@ -39,7 +39,7 @@ public class Button {
 	 * @param y - the y position of the button
 	 * @param modeTextArray - the array of text strings to use
 	 */
-	public Button(SpriteBatch spriteBatch, int x, int y, String[] modeTextArray) {
+	Button(SpriteBatch spriteBatch, int x, int y, String[] modeTextArray) {
 		mode = 0;
 		text = modeTextArray[mode];
 		this.modeTextArray = modeTextArray;
@@ -68,7 +68,7 @@ public class Button {
 	/**
 	 * Go to the next mode and display the associated text string, only works if updating variant
 	 */
-	public void nextMode() {
+	void nextMode() {
 		mode++;
 		if(mode >= modeTextArray.length) {
 			mode = 0;
@@ -79,7 +79,7 @@ public class Button {
 	/**
 	 * @return get the current mode
 	 */
-	public int getMode() {
+	int getMode() {
 		return mode;
 	}
 	
@@ -87,7 +87,7 @@ public class Button {
 	/**
 	 * @param mode - set the current mode, updating the display text accordingly
 	 */
-	public void setMode(int mode) {
+	void setMode(int mode) {
 		this.mode = mode;
 		text = modeTextArray[mode];
 	}
@@ -95,7 +95,7 @@ public class Button {
 	/**
 	 * @return true if the mouse is hovering over the button
 	 */
-	public boolean isHover() {
+	boolean isHover() {
 		// Adjust mouse coordinates in case the window is resized
 		float adjustedMouseX = Gdx.input.getX() * Zombies.InitialWindowWidth / (float) Gdx.graphics.getWidth();
 		float adjustedMouseY = (Gdx.graphics.getHeight() - Gdx.input.getY()) * Zombies.InitialWindowHeight

@@ -17,7 +17,7 @@ public class BriefingScreen extends State {
 	/**
 	 * The constructor for the screen
 	 */
-	public BriefingScreen() {
+	BriefingScreen() {
 		super();
 		//Load and set up artwork
 		banner = new Sprite(new Texture("header.jpg"));

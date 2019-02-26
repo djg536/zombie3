@@ -35,11 +35,11 @@ public class Gate extends Entity {
 		body.setTransform(rect.x / Zombies.PhysicsDensity, rect.y / Zombies.PhysicsDensity, 0);
 	}
 	
-	public StateID getDestination() {
+	StateID getDestination() {
 		return destination;
 	}
 	
-	public int getEntryID() {
+	int getEntryID() {
 		return entryID;
 	}
 }

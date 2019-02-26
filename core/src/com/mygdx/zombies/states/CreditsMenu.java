@@ -17,7 +17,7 @@ public class CreditsMenu extends State {
 	/**
 	 * Constructor for the menu
 	 */
-	public CreditsMenu() {
+	CreditsMenu() {
 		super();
 		//Load menu background
 		background = new Texture("background.jpg");

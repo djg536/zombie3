@@ -20,7 +20,7 @@ public class MiniGame extends State {
     // New class for assessment 3
 
     private Texture background;
-    public int points;
+    private int points;
     private ArrayList<Goose> geese;
     public long timeRemaining;
     private long originalTime;
@@ -30,10 +30,10 @@ public class MiniGame extends State {
     private boolean gameOver;
     // State to return to once minigame is complete
     private String returnState;
-    int windowWidth;
-    int windowHeight;
+    private int windowWidth;
+    private int windowHeight;
 
-    public MiniGame(String returnState) {
+    MiniGame(String returnState) {
         this.returnState = returnState;
         background = new Texture("minigame/background.jpg");
         points = 0;
@@ -43,7 +43,7 @@ public class MiniGame extends State {
         // Time in milliseconds, 60 second game
         timeRemaining = 60000;
         originalTime = System.currentTimeMillis();
-        geese = new ArrayList<Goose>();
+        geese = new ArrayList<>();
 
         // Geese initially pop up for 3 seconds, pop up for less time as the game progresses
         goosePopUpTime = 3000;
@@ -73,7 +73,7 @@ public class MiniGame extends State {
         gameOver = false;
         timeRemaining = 60000;
         originalTime = System.currentTimeMillis();
-        geese = new ArrayList<Goose>();
+        geese = new ArrayList<>();
         goosePopUpTime = 3000;
         spawnInterval = 2000;
     }
@@ -113,17 +113,17 @@ public class MiniGame extends State {
         if (gameOver) {
             UIBatch.begin();
             UIBatch.draw(background, 0, 0);
-            Zombies.mainFont.draw(UIBatch, "Game Over", Zombies.InitialWindowWidth / 2, Zombies.InitialWindowHeight / 2 + 32);
-            Zombies.mainFont.draw(UIBatch, "Points: " + Integer.toString(points), Zombies.InitialWindowWidth / 2, Zombies.InitialWindowHeight / 2);
-            Zombies.mainFont.draw(UIBatch, "Press escape to exit.", Zombies.InitialWindowWidth / 2, Zombies.InitialWindowHeight / 2 - 64);
+            Zombies.mainFont.draw(UIBatch, "Game Over", Zombies.InitialWindowWidth / 2.f, Zombies.InitialWindowHeight / 2.f + 32);
+            Zombies.mainFont.draw(UIBatch, "Points: " + points, Zombies.InitialWindowWidth / 2.f, Zombies.InitialWindowHeight / 2.f);
+            Zombies.mainFont.draw(UIBatch, "Press escape to exit.", Zombies.InitialWindowWidth / 2.f, Zombies.InitialWindowHeight / 2.f - 64);
 
             UIBatch.end();
         } else {
             // Render all UI
             UIBatch.begin();
             UIBatch.draw(background, 0, 0);
-            Zombies.mainFont.draw(UIBatch, "Time remaining: " + Double.toString(this.timeRemaining / 1000), 16, Zombies.InitialWindowHeight - 16);
-            Zombies.mainFont.draw(UIBatch, "Score: " + Integer.toString(points), 16, Zombies.InitialWindowHeight - 64);
+            Zombies.mainFont.draw(UIBatch, "Time remaining: " + this.timeRemaining / 1000.f, 16, Zombies.InitialWindowHeight - 16);
+            Zombies.mainFont.draw(UIBatch, "Score: " + points, 16, Zombies.InitialWindowHeight - 64);
             UIBatch.end();
 
             // Render all geese
@@ -150,11 +150,7 @@ public class MiniGame extends State {
         boolean mouseXinRange = mouseX >= goose.getX() && mouseX <= (goose.getX() + goose.getWidth());
         boolean mouseYinRange = mouseY >= goose.getY() && mouseY <= (goose.getY() + goose.getHeight());
 
-        if (mouseXinRange && mouseYinRange) {
-            return true;
-        } else {
-            return false;
-        }
+        return mouseXinRange && mouseYinRange;
     }
 
     /**
@@ -165,7 +161,7 @@ public class MiniGame extends State {
      * @return  points as an int in range 100 to 200
      */
     public int calcPoints(Goose goose) {
-        int points = Math.round(((float) goose.timeRemaining / (float) goose.popUpTime) *10) * 10;
+        int points = Math.round(((float) goose.timeRemaining / (float) Goose.popUpTime) *10) * 10;
         points += 100;
         return points;
     }
@@ -225,28 +221,21 @@ public class MiniGame extends State {
                 goose.update();
             }
 
-            // Remove expired geese, i.e. not shot before their time limit is over
-            for (Goose goose : geese) {
-                if (goose.timeRemaining <= 0) {
-                    goose.despawnAnimation();
-                    goose.getInfo().flagForDeletion();
-                }
-            }
+                for (int i = 0; i < geese.size(); i++) {
+                    Goose goose = geese.get(i);
 
-            // Left click to shoot
-            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.justTouched()) {
-                for (Goose goose : geese) {
                     // Check if the mouse is over any of the geese
-                    if (mouseOverGoose(goose)) {
-                        goose.deathAnimation();
+                    if (goose.timeRemaining <= 0            // Left click to shoot
+                            || (mouseOverGoose(goose) && Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.justTouched())) {
+
                         // Delete any goose that are shot
-                        goose.getInfo().flagForDeletion();
+                        goose.dispose();
+                        geese.remove(i);
+                        i--;
+
                         // Adds the score for killing the goose
                         points += calcPoints(goose);
-
-                        System.out.println(geese);
                     }
-                }
             }
 
             // Reduce time remaining for mini game.
@@ -260,12 +249,9 @@ public class MiniGame extends State {
             }
 
             // Randomly spawn geese every spawnInterval as long as there are no more than 2 on screen at any time.
-            if (timeRemaining / 100 % Math.round(spawnInterval / 100) == 0 && geese.size() < 2 && new Random().nextBoolean()) {
+            if (timeRemaining / 100 % Math.round(spawnInterval / 100.f) == 0 && geese.size() < 2 && new Random().nextBoolean()) {
                 spawnGoose(generateSpawn(), goosePopUpTime);
             }
-
-            // Remove deletion flagged geese
-            Entity.removeDeletionFlagged(geese);
 
             // Increase difficulty with time
             updateGoosePopUpTime();

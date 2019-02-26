@@ -18,7 +18,7 @@ public class OptionsMenu extends State {
 	/**
 	 * Constructor for the options menu
 	 */
-	public OptionsMenu() {
+	OptionsMenu() {
 		super();
 		//Load textures
 		background = new Texture("background.jpg");

@@ -3,12 +3,9 @@ package com.mygdx.zombies;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.zombies.states.MiniGame;
 
-public class Goose extends Entity {
+public class Goose {
 
     // New class for assessment 3
 
@@ -25,21 +22,9 @@ public class Goose extends Entity {
         sprite.flip(false, true);
 
         // Time in milliseconds
-        this.popUpTime = popUpTime;
+        Goose.popUpTime = popUpTime;
         timeRemaining = popUpTime;
         originalTime = System.currentTimeMillis();
-        spawnAnimation();
-        // Requires a simple box2d body for Entity to manage deletions
-        GenerateBodyFromSprite(new World(new Vector2(0,0), false), sprite, null, new FixtureDef());
-    }
-
-    public void spawnAnimation() {
-    }
-
-    public void despawnAnimation() {
-    }
-
-    public void deathAnimation() {
     }
 
     /**
@@ -93,7 +78,6 @@ public class Goose extends Entity {
     }
 
     public void dispose() {
-        super.dispose();
         sprite.getTexture().dispose();
     }
 }

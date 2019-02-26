@@ -14,7 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public abstract class Entity {
 
-	protected World box2dWorld;
+	private World box2dWorld;
 	protected Body body;
 	
 	/** Generic method to generate a Box2D physics rectangle object based on given parameters
@@ -23,7 +23,7 @@ public abstract class Entity {
 	 * @param bodyID - defines the types of object, used in collision events
 	 * @param fixtureDef - the Box2D fixture definition to use
 	 */
-	public void GenerateBodyRectangle(Vector2 dimens, World box2dWorld, InfoContainer.BodyID bodyID, FixtureDef fixtureDef) {
+	void GenerateBodyRectangle(Vector2 dimens, World box2dWorld, InfoContainer.BodyID bodyID, FixtureDef fixtureDef) {
 		this.box2dWorld = box2dWorld;
 		body = box2dWorld.createBody(new BodyDef() {
 			{
@@ -56,7 +56,7 @@ public abstract class Entity {
 	 */
 	public void dispose() {
 		box2dWorld.destroyBody(body);
-	};
+	}
 	
 	/**
 	 * @return the associated custom user data for this entity
@@ -79,15 +79,5 @@ public abstract class Entity {
 				i--;
 			}
 		}
-	}
-	
-	/** Check and remove this object only if it is deletion flagged
-	 * @param entity - the entity to check
-	 */
-	public static <T extends Entity> void removeDeletionFlagged(T entity) {
-			if(entity.getInfo().isDeletionFlagged()) {
-				entity.dispose();
-				entity = null;
-			}	
 	}
 }

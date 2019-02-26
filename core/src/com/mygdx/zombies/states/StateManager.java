@@ -1,6 +1,7 @@
 package com.mygdx.zombies.states;
 
 import com.badlogic.gdx.Gdx;
+import com.mygdx.zombies.Player;
 import com.mygdx.zombies.Zombies;
 
 /**
@@ -11,7 +12,7 @@ public class StateManager {
 	private static State currentState;
 	
 	//Enum of state ids, used to identify different types of state
-	public static enum StateID {
+	public enum StateID {
 		MAINMENU, CREDITSMENU, OPTIONSMENU, ENDSCREEN, BRIEFINGSCREEN,
 		PLAYERSELECTMENU, STAGE1, STAGE2, STAGE3, TESTSTAGE1, TESTSTAGE2,
 		// Added new StateID's for assessment 3
@@ -22,7 +23,7 @@ public class StateManager {
 	}
 
 	//Enum of directions, used to point GatePointer torwards gate, added for assessment3
-	public static enum GateDirection {
+	public enum GateDirection {
 		UP,RIGHT,DOWN,LEFT
 	}
 
@@ -108,8 +109,7 @@ public class StateManager {
 				tempState = new UDiedScreen((Level)currentState);
 				break;
 			case UWIN:
-				int points = ((Level)currentState).getPlayer().points;
-				tempState = new UWinScreen(points);
+				tempState = new UWinScreen();
 				break;
 			case STAGE4:
 				tempState = new Level("World_Four", entryID);
@@ -132,10 +132,8 @@ public class StateManager {
 				System.err.println("Error: Unrecognised gate destination");
 				break;
 		}
-		
-		//Do not load if state has not been set
-		if(tempState != null)
-			loadState(tempState);
+
+		loadState(tempState);
 	}
 
 	/**

@@ -8,7 +8,7 @@ import com.mygdx.zombies.Zombies;
  */
 public class State {
 
-	protected SpriteBatch worldBatch;
+	SpriteBatch worldBatch;
 	protected SpriteBatch UIBatch;
 
 	/**

@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.zombies.states.Level;
-import com.mygdx.zombies.states.StateManager;
-import com.mygdx.zombies.states.StateManager.StateID;
 
 /**
  * Boss1 enemy class. This is a more powerful enemy which spawns 'minion' zombies
@@ -20,7 +18,6 @@ public class Boss1 extends Enemy {
 	private int attackStep;
 	private int minionSpawnStep;
 	private Level level;
-	private Player player;
 
 	/**Constructor for the first boss mob
 	 * @param level - the level instance to spawn the mob in
@@ -98,9 +95,8 @@ public class Boss1 extends Enemy {
 
 	@Override
     public void move(){
-        if(hit){
-            hit = !hit;
-        }
+        if(hit)
+            hit = false;
         super.move();
     }
 	

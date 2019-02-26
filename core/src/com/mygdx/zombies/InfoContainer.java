@@ -6,8 +6,8 @@ package com.mygdx.zombies;
 public class InfoContainer {
 	
 	// Body IDs for collision identification
-	public static enum BodyID {
-		ZOMBIE, PLAYER, LEVEL, PROJECTILE, PICKUP, WEAPON, NPC, WALL, GATE, ZOMBIEPROJECTILE
+	public enum BodyID {
+		ZOMBIE, PLAYER, PROJECTILE, PICKUP, WEAPON, NPC, WALL, GATE, ZOMBIEPROJECTILE
 	}
 	
 	private BodyID type;
@@ -24,11 +24,11 @@ public class InfoContainer {
 		deletionFlagged = false;
 	}
 
-	public BodyID getType() {
+	BodyID getType() {
 		return type;
 	}
 
-	public Object getObj() {
+	Object getObj() {
 		return obj;
 	}
 	
@@ -39,7 +39,7 @@ public class InfoContainer {
 		deletionFlagged = true;
 	}
 
-	public boolean isDeletionFlagged() {
+	boolean isDeletionFlagged() {
 		return deletionFlagged;
 	}
 }

@@ -8,12 +8,12 @@ public class UDiedScreen extends State {
 
     // New class for assesment 3
 
-    private static Level level;
+    private Level level;
 
     /**
      * The constructor for the screen
      */
-    public UDiedScreen(Level level){
+    UDiedScreen(Level level){
         super();
         this.level = level;
     }
@@ -29,8 +29,8 @@ public class UDiedScreen extends State {
     @Override
     public void render(){
         UIBatch.begin();
-        Zombies.mainFont.draw(UIBatch, "You died", Zombies.InitialWindowWidth/2-100, Zombies.InitialWindowHeight/2);
-        Zombies.mainFont.draw(UIBatch, "[click to continue]", Zombies.InitialWindowWidth/2-230, Zombies.InitialWindowHeight/2-100);
+        Zombies.mainFont.draw(UIBatch, "You died", Zombies.InitialWindowWidth/2.f-100, Zombies.InitialWindowHeight/2.f);
+        Zombies.mainFont.draw(UIBatch, "[click to continue]", Zombies.InitialWindowWidth/2.f-230, Zombies.InitialWindowHeight/2.f-100);
         UIBatch.end();
     }
 }

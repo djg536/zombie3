@@ -59,12 +59,12 @@ public class Level extends State {
 		this.path = path;
 		this.spawnEntryID = spawnEntryID;
 		
-		bulletsList = new ArrayList<Projectile>();
-		enemiesList = new ArrayList<Enemy>();
-		pickUpsList = new ArrayList<PickUp>();
-		npcsList = new ArrayList<NPC>();
-		gatesList = new ArrayList<Gate>();
-		gatePointerList = new ArrayList<GatePointer>();
+		bulletsList = new ArrayList<>();
+		enemiesList = new ArrayList<>();
+		pickUpsList = new ArrayList<>();
+		npcsList = new ArrayList<>();
+		gatesList = new ArrayList<>();
+		gatePointerList = new ArrayList<>();
 
 
 		String mapFile = String.format("stages/%s.tmx", path);
@@ -268,7 +268,7 @@ public class Level extends State {
 	 */
 	public boolean isGateOpen(){
 		//gate is open if there are no remaining enemies
-		return (enemiesList.size() == 0);
+		return enemiesList.size() == 0;
 	}
 
 	/**
@@ -280,7 +280,7 @@ public class Level extends State {
 		rayHandler = new RayHandler(box2dWorld);
 		rayHandler.setShadows(true);
 		rayHandler.setAmbientLight(.4f);
-		lightsList = new ArrayList<PointLight>();
+		lightsList = new ArrayList<>();
 		
 		//Parse tiled map light objects
 		MapObjects objects = map.getLayers().get("Lights").getObjects();
@@ -442,7 +442,7 @@ public class Level extends State {
 		return player;
 	}
 
-	public void resumeGame() {
+	void resumeGame() {
 		gamePaused = false;
 	}
 

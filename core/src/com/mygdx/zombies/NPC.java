@@ -49,13 +49,13 @@ public class NPC extends Entity {
 	/** Set the health to the given value, removing the NPC if health is depleted
 	 * @param health - the value to set the health to
 	 */
-	public void setHealth(int health) {
+	void setHealth(int health) {
 		this.health = health;
 		if(health <= 0)					
 			getInfo().flagForDeletion();
 	}
 	
-	public int getHealth() {
+	int getHealth() {
 		return health;
 	}
 	

@@ -13,16 +13,11 @@ import com.mygdx.zombies.states.StateManager.StateID;
 public class EndScreen extends State {
 
 	private Texture banner;
-	private Player player;
-	private float pointsfromtime;
-	private float totalpoints;
-
-
 	
 	/**
 	 * Constructor for the screen
 	 */
-	public EndScreen() {
+	EndScreen() {
 		super();
 		//Load artwork texture
 		banner = new Texture("win.png");
@@ -35,8 +30,8 @@ public class EndScreen extends State {
 	public void update() {
 		//Check for left mouse button and go to next screen if pressed
 		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.justTouched()) {
-		    player.counter = null;
-		    player.points = 0;
+		    Player.counter = null;
+			Player.points = 0;
 			StateManager.loadState(StateID.MAINMENU);
 		}
 	}
@@ -45,7 +40,7 @@ public class EndScreen extends State {
 	public void render() {
 		UIBatch.begin();
 		//Draw artwork
-		UIBatch.draw(banner, Zombies.InitialWindowWidth/2-banner.getWidth()/2, Zombies.InitialWindowHeight-banner.getHeight()-15);
+		UIBatch.draw(banner, Zombies.InitialWindowWidth/2.f-banner.getWidth()/2.f, Zombies.InitialWindowHeight-banner.getHeight()-15);
 		//Draw win text message
 		Zombies.mainFont.draw(UIBatch, "Click to continue", 424, 40);
 		UIBatch.end();

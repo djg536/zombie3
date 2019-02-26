@@ -26,17 +26,17 @@ public class Zombies extends Game {
 	public static float PhysicsDensity = 100;
 	public static BitmapFont mainFont;
 	public static BitmapFont titleFont;
-	public static BitmapFont pointsFont;
+	static BitmapFont pointsFont;
 	public static BitmapFont creditsFont;
 	public static Sound soundShoot;
 	public static Sound soundSelect;
 	public static Sound soundLaser;
-	public static Sound soundSwing;
-	public static Sound soundAmmo;
-	public static Sound soundPowerUp;
+	static Sound soundSwing;
+	static Sound soundAmmo;
+	static Sound soundPowerUp;
 	public static Sound soundAmbientWind;
 	public static Sound soundEndMusic;
-	public static Sound[] soundArrayZombie;
+	static Sound[] soundArrayZombie;
 	public static Random random;
 	private StateManager stateManager;
 
@@ -44,7 +44,7 @@ public class Zombies extends Game {
 	// Use categoryBits (1 default) and mask bits (-1 default)
 	// (maskBitsA & categoryBitsB) && (categoryBitsA & maskBitsB);
 	public static short playerFilter = 2;
-	public static short projectileFilter = 1;
+	static short projectileFilter = 1;
 	
 
 	/** Generate a BitmapFont using the given parameters
@@ -52,7 +52,7 @@ public class Zombies extends Game {
 	 * @param size - the font size
 	 * @return - the generated BitmapFont
 	 */
-	public static BitmapFont generateFont(String name, int size) {
+	private static BitmapFont generateFont(String name, int size) {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(name));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 		parameter.size = size;
@@ -66,7 +66,7 @@ public class Zombies extends Game {
 	 * @param p2 - the second point
 	 * @return - the angle in radians
 	 */
-	public static double angleBetweenRads(Vector2 p1, Vector2 p2) {
+	static double angleBetweenRads(Vector2 p1, Vector2 p2) {
 		double diffx = p1.x - p2.x;
 		double diffy = p1.y - p2.y;
 		return Math.atan2(diffy, diffx);

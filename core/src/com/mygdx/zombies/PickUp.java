@@ -47,7 +47,7 @@ public class PickUp extends Entity {
 	/**
 	 * @return the object contained within the pick up container
 	 */
-	public Object getContainedItem() {
+	Object getContainedItem() {
 		return containedItem;
 	}
 	

@@ -23,7 +23,7 @@ public class MainMenu extends State {
 	/**
 	 * Constructor for the main menu
 	 */
-	public MainMenu() {
+	MainMenu() {
 		super();
 		//Load textures
 		background = new Texture("background.jpg");

@@ -97,10 +97,10 @@ public class CustomContactListener implements ContactListener {
 					}
 					else {
 						player.setHealth(player.getHealth() - (player.getDamage()));
-						if (player.points < 10)
-						    player.points = 0;
+						if (Player.points < 10)
+                            Player.points = 0;
                         else
-                            player.points -= 10;
+                            Player.points -= 10;
 					}
 					System.out.println("Player has contacted zombie");
 				}

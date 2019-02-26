@@ -23,7 +23,7 @@ public class PlayerSelectMenu extends State {
 	/**
 	 * Constructor for the screen
 	 */
-	public PlayerSelectMenu()
+	PlayerSelectMenu()
 	{
 		super();
 		
@@ -65,19 +65,19 @@ public class PlayerSelectMenu extends State {
 		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.justTouched()) {
 				if (player1.isHover()) {
 					Zombies.soundSelect.play();
-					Player.setPlayerType(1);
+					Player.setType(Player.PlayerType.COMPSCI);
 					//Load next screen
 					StateManager.loadState(StateID.STAGE1, 0);
 				}
 				else if (player2.isHover()) {
 					Zombies.soundSelect.play();
-					Player.setPlayerType(2);
+					Player.setType(Player.PlayerType.CHEMISTRY);
 					//Load next screen
 					StateManager.loadState(StateID.STAGE1, 0);
 				}
 				else if (player3.isHover()) {
 					Zombies.soundSelect.play();
-					Player.setPlayerType(3);
+					Player.setType(Player.PlayerType.FOOTBALLER);
 					//Load next screen
 					StateManager.loadState(StateID.STAGE1, 0);
 				}
