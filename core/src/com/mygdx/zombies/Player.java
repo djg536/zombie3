@@ -348,7 +348,7 @@ public class Player extends Entity {
 	 */
 	public void hudRender() {
 		Zombies.pointsFont.draw(UIBatch, "Time spent: " + pointDisplay, 800, 700);
-		Zombies.pointsFont.draw(UIBatch, "Points: " + points, 1000, 650);
+		Zombies.pointsFont.draw(UIBatch, "Points: " + points, 888, 650);
 
 		for (int i = 0; i < health; i++) {
 			hud.setPosition(100 + i * 50, 620);
