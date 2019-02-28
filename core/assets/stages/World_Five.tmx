@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="89">
+<map version="1.2" tiledversion="2018.11.14" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="92">
  <tileset firstgid="1" source="Assets/Tileset.tsx"/>
  <tileset firstgid="1041" source="Assets/Alt_Colour.tsx"/>
  <tileset firstgid="2081" source="Assets/Roads.tsx"/>
@@ -593,6 +593,15 @@
    <point/>
   </object>
   <object id="36" name="lasergun" x="767.488" y="1047.86">
+   <point/>
+  </object>
+  <object id="89" name="potentialCureSpawnPoint" x="1404" y="324">
+   <point/>
+  </object>
+  <object id="90" name="potentialCureSpawnPoint" x="353" y="1283">
+   <point/>
+  </object>
+  <object id="91" name="potentialCureSpawnPoint" x="351" y="323">
    <point/>
   </object>
  </objectgroup>

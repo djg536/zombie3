@@ -13,6 +13,7 @@ import com.mygdx.zombies.states.StateManager.StateID;
 public class BriefingScreen extends State {
 
 	private Sprite banner;
+	private Texture cure;
 	
 	/**
 	 * The constructor for the screen
@@ -23,6 +24,8 @@ public class BriefingScreen extends State {
 		banner = new Sprite(new Texture("header.jpg"));
 		banner.setScale(4.3f);		
 		banner.setPosition(0, Zombies.InitialWindowHeight-banner.getHeight());
+
+		cure = new Texture("pickups/cure.png");
 	}
 
 	@Override
@@ -41,10 +44,13 @@ public class BriefingScreen extends State {
 		//Draw text which explains the premise
 		Zombies.mainFont.draw(UIBatch, "The apocalyse has arrived, and The University of\n"
 									 + "York is now swarming with zombies. There are few\n"
-									 + "survivors, but the fight is not over yet.\n"
-									 + "Find a way to end this disaster.\n"
+									 + "survivors, but the fight is not over yet.\n\n"
+									 + "Rumour has it that there is a    cure, somewhere.\n"
 									 + "Be careful!", 20, 340);
 		Zombies.mainFont.draw(UIBatch, "Click to continue", 424, 50);
+
+		UIBatch.draw(cure, 750, 132);
+
 		UIBatch.end();
 	}
 	
@@ -53,5 +59,6 @@ public class BriefingScreen extends State {
 		super.dispose();
 		//Clean up memory
 		banner.getTexture().dispose();
+		cure.dispose();
 	}
 }

@@ -1,5 +1,6 @@
 package com.mygdx.zombies.states;
 
+import java.awt.*;
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -15,6 +16,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.zombies.*;
 import com.mygdx.zombies.items.*;
@@ -46,6 +49,7 @@ public class Level extends State {
 	private Box2DDebugRenderer box2DDebugRenderer;
 	private boolean gamePaused;
 	private PauseMenu pauseMenu;
+	private ArrayList<Point> potentialCureSpawnPointList;
 
 	/**
 	 * Constructor for the level
@@ -65,6 +69,7 @@ public class Level extends State {
 		npcsList = new ArrayList<>();
 		gatesList = new ArrayList<>();
 		gatePointerList = new ArrayList<>();
+		potentialCureSpawnPointList = new ArrayList<>();
 
 
 		String mapFile = String.format("stages/%s.tmx", path);
@@ -79,8 +84,12 @@ public class Level extends State {
 					
 		loadGates();
 		loadPlayer(spawnEntryID);
-		loadObjects();		
-		initLights();			
+		loadObjects();
+		initLights();
+
+		//There is a 3/10 chance that the cure power up will be spawned (in stages with spawn points)
+		if(Math.random() < 0.3)
+			spawnCurePowerUp();
 								
 		camera = new OrthographicCamera();
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -195,12 +204,12 @@ public class Level extends State {
 				break;
 				
 				case "powerUpSpeed":
-					pickUpsList.add(new PickUp(this, x, y, "pickups/speed2.png",
+					pickUpsList.add(new PickUp(this, x, y, "pickups/speed.png",
 							new PowerUp(1, 0, 0), InfoContainer.BodyID.PICKUP));
 				break;
 				
 				case "powerUpStealth":
-					pickUpsList.add(new PickUp(this, x, y, "pickups/stealth2.png",
+					pickUpsList.add(new PickUp(this, x, y, "pickups/stealth.png",
 							new PowerUp(0, 0, 1), InfoContainer.BodyID.PICKUP));
 				break;
 				
@@ -249,11 +258,34 @@ public class Level extends State {
 					gatePointerList.add(new GatePointer(this,x,y,"gatePointer.png", GateDirection.valueOf(direction) ));
 				break;
 
+				case "potentialCureSpawnPoint":
+					potentialCureSpawnPointList.add(new Point(x, y));
+				break;
+
 				default:
 					System.err.println("Error importing stage: unrecognised object");
 				break;
 			}
 		}
+	}
+
+	/**
+	 * Spawn the cure power up randomly in one of the potential cure spawn points
+	 * Must be called after loadObjects() or potentialCureSpawnPointList will not be populated
+	 */
+	private void spawnCurePowerUp() {
+		//Randomly select a spawn point in the stage.
+		//Must be called after loadObjects() to ensure that any potential spawn points for the cure have been loaded
+
+		//If this stage has no potential cure spawn points, do not attempt to spawn cure
+		if(potentialCureSpawnPointList.isEmpty())
+			return;
+
+		//Select a random one of the loaded potential cure spawn points to spawn the cure in
+		int randomSpawnIndex = (int) ((potentialCureSpawnPointList.size()-1)*Math.random());
+		Point spawnPoint = potentialCureSpawnPointList.get(randomSpawnIndex);
+		pickUpsList.add(new PickUp(this, spawnPoint.x, spawnPoint.y, "pickups/cure.png",
+				new PowerUp(0, 0, 0), InfoContainer.BodyID.PICKUP));
 	}
 
 	@Override
