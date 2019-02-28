@@ -34,6 +34,7 @@ public class Enemy extends Entity {
 	private boolean justHit;
 	private long originalTime;
 	private long timeRemaining;
+	private boolean spawnNpcOnDeath;
 	//Code for Assessment 3
 
 	/**
@@ -70,6 +71,7 @@ public class Enemy extends Entity {
 		this.speed = speed;
 		this.health = health;	
 		this.player = level.getPlayer();
+        spawnNpcOnDeath = false;
 		
 		//Initialise timer values
 		noiseTimer = 300;
@@ -157,6 +159,10 @@ public class Enemy extends Entity {
 		sprite.setRotation((float) angleDegrees);		
 		sprite.setPosition(getPositionX() - sprite.getWidth() / 2, getPositionY() - sprite.getHeight() / 2);
 	}
+
+	public void enableSpawnNpcOnDeath() {
+		spawnNpcOnDeath = true;
+	}
 	
 	/**
 	 * @return true if the player is within 40 degrees of the zombie's line of sight
@@ -190,11 +196,11 @@ public class Enemy extends Entity {
 		noiseStep();
 	}
 
-	int getPositionX() {
+	public int getPositionX() {
 		return (int) (body.getPosition().x * Zombies.PhysicsDensity);
 	}
 
-	int getPositionY() {
+	public int getPositionY() {
 		return (int) (body.getPosition().y * Zombies.PhysicsDensity);
 	}
 
@@ -213,5 +219,12 @@ public class Enemy extends Entity {
             getInfo().flagForDeletion();
             Player.points += 100;
         }
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		if(spawnNpcOnDeath)
+			level.getNPCsList().add(new NPC(level, getPositionX(), getPositionY()));
 	}
 }

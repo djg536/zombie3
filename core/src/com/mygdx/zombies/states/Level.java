@@ -15,10 +15,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.RayCastCallback;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.zombies.*;
 import com.mygdx.zombies.items.*;
 import com.mygdx.zombies.states.StateManager.StateID;
@@ -46,7 +44,7 @@ public class Level extends State {
 	private ArrayList<GatePointer> gatePointerList;
 	private String path;
 	private int spawnEntryID;
-	private Box2DDebugRenderer box2DDebugRenderer;
+	//private Box2DDebugRenderer box2DDebugRenderer;
 	private boolean gamePaused;
 	private PauseMenu pauseMenu;
 	private ArrayList<Point> potentialCureSpawnPointList;
@@ -78,7 +76,7 @@ public class Level extends State {
 		renderer = new OrthogonalTiledMapRenderer(map, Zombies.WorldScale);
 
 		box2dWorld = new World(new Vector2(0, 0), true);
-		box2DDebugRenderer = new Box2DDebugRenderer();
+		//box2DDebugRenderer = new Box2DDebugRenderer();
 
 		MapBodyBuilder.buildShapes(map, Zombies.PhysicsDensity / Zombies.WorldScale, box2dWorld);
 					
@@ -93,7 +91,7 @@ public class Level extends State {
 								
 		camera = new OrthographicCamera();
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		box2dWorld.setContactListener(new CustomContactListener());
+		box2dWorld.setContactListener(new CustomContactListener(this));
 
 		gamePaused = false;
 
@@ -115,6 +113,8 @@ public class Level extends State {
 	public ArrayList<Projectile> getBulletsList() {
 		return bulletsList;
 	}
+
+	public ArrayList<NPC> getNPCsList() {return npcsList; }
 	
 	/**
 	 * Load the player in the position associated with spawnEntryID
@@ -200,17 +200,17 @@ public class Level extends State {
 			switch(object.getName()) {
 				case "powerUpHealth":
 					pickUpsList.add(new PickUp(this, x, y, "pickups/heart.png",
-							new PowerUp(0, 2, 0), InfoContainer.BodyID.PICKUP));
+							new PowerUp(0, 2, 0, false), InfoContainer.BodyID.PICKUP));
 				break;
 				
 				case "powerUpSpeed":
 					pickUpsList.add(new PickUp(this, x, y, "pickups/speed.png",
-							new PowerUp(1, 0, 0), InfoContainer.BodyID.PICKUP));
+							new PowerUp(1, 0, 0, false), InfoContainer.BodyID.PICKUP));
 				break;
 				
 				case "powerUpStealth":
 					pickUpsList.add(new PickUp(this, x, y, "pickups/stealth.png",
-							new PowerUp(0, 0, 1), InfoContainer.BodyID.PICKUP));
+							new PowerUp(0, 0, 1, false), InfoContainer.BodyID.PICKUP));
 				break;
 				
 				case "lasergun":
@@ -285,7 +285,7 @@ public class Level extends State {
 		int randomSpawnIndex = (int) ((potentialCureSpawnPointList.size()-1)*Math.random());
 		Point spawnPoint = potentialCureSpawnPointList.get(randomSpawnIndex);
 		pickUpsList.add(new PickUp(this, spawnPoint.x, spawnPoint.y, "pickups/cure.png",
-				new PowerUp(0, 0, 0), InfoContainer.BodyID.PICKUP));
+				new PowerUp(0, 0, 0, true), InfoContainer.BodyID.PICKUP));
 	}
 
 	@Override
@@ -485,6 +485,15 @@ public class Level extends State {
 		rayHandler.dispose();
 		renderer.dispose();
 		map.dispose();
+
+		//Force step here to prevent concurrency synchronisation issues with Box2D thread when disposing
+        box2dWorld.step(0, 1, 1);
+
+        Array<Body> bodies = new Array<>();
+        box2dWorld.getBodies(bodies);
+        for(Body body : bodies)
+            box2dWorld.destroyBody(body);
+
 		//box2DDebugRenderer.dispose();
 	}
 }

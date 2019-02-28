@@ -1,5 +1,12 @@
 package com.mygdx.zombies.items;
 
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.zombies.Enemy;
+import com.mygdx.zombies.Player;
+import com.mygdx.zombies.Zombies;
+import com.mygdx.zombies.states.Level;
+import java.util.ArrayList;
+
 /**
  * Power up class for storing power up attributes
  */
@@ -8,6 +15,7 @@ public class PowerUp {
 	private int speedBoost;
 	private int healthBoost;
 	private int stealthBoost;
+	private boolean cure;
 	
 	/**
 	 * The constructor for the power up
@@ -15,10 +23,24 @@ public class PowerUp {
 	 * @param healthBoost - the amount of health to give to the player
 	 * @param stealthBoost - the stealth boost to give to the player
 	 */
-	public PowerUp(int speedBoost, int healthBoost, int stealthBoost) {
+	public PowerUp(int speedBoost, int healthBoost, int stealthBoost, boolean cure) {
 		this.speedBoost = speedBoost+1;
 		this.healthBoost = healthBoost;
 		this.stealthBoost = stealthBoost;
+		this.cure = cure;
+	}
+
+	public void applyCure(Level level) {
+
+		//Turn nearby zombies into NPCs
+        ArrayList<Enemy> enemiesList = level.getEnemiesList();
+        Player player = level.getPlayer();
+
+        for(Enemy enemy : enemiesList)
+            if (Zombies.distanceBetween(new Vector2(enemy.getPositionX(), enemy.getPositionY()), new Vector2(player.getPositionX(), player.getPositionY())) < 500) {
+                enemy.enableSpawnNpcOnDeath();
+                enemy.getInfo().flagForDeletion();
+            }
 	}
 
 	public int getSpeedBoost() {
@@ -32,4 +54,6 @@ public class PowerUp {
 	public int getStealthBoost() {
 		return stealthBoost;
 	}
+
+	public boolean isCure() { return cure; }
 }

@@ -8,13 +8,20 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.zombies.items.PowerUp;
 import com.mygdx.zombies.items.Projectile;
 import com.mygdx.zombies.items.Weapon;
+import com.mygdx.zombies.states.Level;
 import com.mygdx.zombies.states.StateManager;
 
 /**
  * Class for handling Box2D collisions and collision events
  */
 public class CustomContactListener implements ContactListener {
-	
+
+    private Level level;
+
+    public CustomContactListener(Level level) {
+        this.level = level;
+    }
+
 	/*
 	 * Collision event method called when Box2D objects collide
 	 */
@@ -119,7 +126,12 @@ public class CustomContactListener implements ContactListener {
 				if (bType == InfoContainer.BodyID.PLAYER) {
 					PickUp powerUpPickUp = (PickUp)a.getObj();
 					Player player = (Player)b.getObj();
-					player.setPowerUp((PowerUp)powerUpPickUp.getContainedItem());
+
+					PowerUp powerUp = (PowerUp)powerUpPickUp.getContainedItem();
+					player.setPowerUp(powerUp);
+					if(powerUp.isCure())
+                        powerUp.applyCure(level);
+
 					powerUpPickUp.getInfo().flagForDeletion();
 					System.out.println("Player has picked up item");
 				}

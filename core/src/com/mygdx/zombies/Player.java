@@ -398,7 +398,9 @@ public class Player extends Entity {
 			//All weapons should be dropped before restarting
 			if(hasWeapon())
 				weapon = null;
-			StateManager.loadState(StateManager.StateID.UDIED);
+			//Sometimes collisions can occur after the end screen is shown if Box2D engine is taking a while to dispose of bodies
+			if(StateManager.getCurrentState() instanceof Level)
+			    StateManager.loadState(StateManager.StateID.UDIED);
 		}
 
 	}

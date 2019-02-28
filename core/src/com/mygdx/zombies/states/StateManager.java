@@ -27,6 +27,10 @@ public class StateManager {
 		UP,RIGHT,DOWN,LEFT
 	}
 
+	public static State getCurrentState() {
+		return currentState;
+	}
+
 	/**
 	 * Constructor for the state manager
 	 */

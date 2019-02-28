@@ -35,7 +35,7 @@ public class InfoContainer {
 	/**
 	 * Flag object so that it can be deleted imminently
 	 */
-	void flagForDeletion() {
+	public void flagForDeletion() {
 		deletionFlagged = true;
 	}
 

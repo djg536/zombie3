@@ -72,7 +72,8 @@ public abstract class Entity {
 		//Iterate through list
 		for(int i = 0; i< lst.size(); i++) {
 			T entity = lst.get(i);
-			if(entity.getInfo().isDeletionFlagged()) {
+			InfoContainer info = entity.getInfo();
+			if(info != null && info.isDeletionFlagged()) {
 				entity.dispose();
 				lst.remove(entity);
 				//Step index back by one to account for removal from list
