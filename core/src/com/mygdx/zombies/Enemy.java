@@ -98,7 +98,7 @@ public class Enemy extends Entity {
 		distanceToPlayer = Zombies.distanceBetween(new Vector2(getPositionX(), getPositionY()),
 				new Vector2(player.getPositionX(), player.getPositionY()));	
 		
-		if(alertTimer <= 0) {
+		if(alertTimer <= 0 || player.isZombie()) {
 			//Wandering state
 			wanderTimer--;
 			if (wanderTimer == 0) {
