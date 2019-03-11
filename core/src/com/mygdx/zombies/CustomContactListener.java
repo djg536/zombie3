@@ -114,10 +114,10 @@ public class CustomContactListener implements ContactListener {
 					System.out.println("Player has picked up weapon");
 				}
 				else if (bType == InfoContainer.BodyID.PROJECTILE) {
+                    Projectile projectile = (Projectile)b.getObj();
+                    projectile.getInfo().flagForDeletion();
 					Player player = (Player)a.getObj();
 					player.setHealth(player.getHealth()-1);
-					Projectile projectile = (Projectile)b.getObj();
-					projectile.getInfo().flagForDeletion();
 					System.out.println("Zombie has been damaged");
 				}
 				break;

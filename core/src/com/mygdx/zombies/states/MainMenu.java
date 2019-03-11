@@ -54,7 +54,7 @@ public class MainMenu extends State {
 	}
 
 	@Override
-	public void update() {
+	public void update(float delta) {
 		//Code to handle button click events
 		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.justTouched()) {
 			if (play.isHover()) {

@@ -356,14 +356,6 @@ public class Player extends Entity {
 		}
 	}
 
-	public int getPositionX() {
-		return (int) (body.getPosition().x * Zombies.PhysicsDensity);
-	}
-
-	public int getPositionY() {
-		return (int) (body.getPosition().y * Zombies.PhysicsDensity);
-	}
-
 	public Body getBody() {
 		return body;
 	}
@@ -404,11 +396,11 @@ public class Player extends Entity {
 		}
 
 	}
-	
+
 	float getDamage() {
 		return charDamage;
 	}
-	
+
 	/*
 	 * Dispose of the player instance, clearing the memory
 	 */

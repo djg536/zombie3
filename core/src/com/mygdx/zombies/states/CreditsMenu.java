@@ -44,7 +44,7 @@ public class CreditsMenu extends State {
 	}
 
 	@Override
-	public void update() {
+	public void update(float delta) {
 		//Check for clicking of buttons
 		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.justTouched()) {
 			if (back.isHover()) {

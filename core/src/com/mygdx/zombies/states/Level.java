@@ -44,7 +44,7 @@ public class Level extends State {
 	private ArrayList<GatePointer> gatePointerList;
 	private String path;
 	private int spawnEntryID;
-	//private Box2DDebugRenderer box2DDebugRenderer;
+	private Box2DDebugRenderer box2DDebugRenderer;
 	private boolean gamePaused;
 	private PauseMenu pauseMenu;
 	private ArrayList<Point> potentialCureSpawnPointList;
@@ -76,7 +76,7 @@ public class Level extends State {
 		renderer = new OrthogonalTiledMapRenderer(map, Zombies.WorldScale);
 
 		box2dWorld = new World(new Vector2(0, 0), true);
-		//box2DDebugRenderer = new Box2DDebugRenderer();
+		box2DDebugRenderer = new Box2DDebugRenderer();
 
 		MapBodyBuilder.buildShapes(map, Zombies.PhysicsDensity / Zombies.WorldScale, box2dWorld);
 					
@@ -414,7 +414,7 @@ public class Level extends State {
 		UIBatch.end();
 
 		//Enable this line to show Box2D physics debug info
-        //box2DDebugRenderer.render(box2dWorld, camera.combined.scl(Zombies.PhysicsDensity));
+        box2DDebugRenderer.render(box2dWorld, camera.combined.scl(Zombies.PhysicsDensity));
 	}
 		
 	public World getBox2dWorld() {
@@ -422,11 +422,11 @@ public class Level extends State {
 	}
 
 	@Override
-	public void update() {
+	public void update(float delta) {
 		//Method to update everything in the state
 
         if(gamePaused) {
-            pauseMenu.update();
+            pauseMenu.update(delta);
             return;
         }
 
@@ -441,7 +441,7 @@ public class Level extends State {
             for (int i = 0; i < enemiesList.size(); i++)
                 enemiesList.get(i).update(this.inLights());
             for (NPC npc : npcsList)
-                npc.update();
+                npc.update(delta);
             //Update GatePointer, added for assessment 3
             for (GatePointer pointer : gatePointerList)
                 pointer.update(player.getGate());

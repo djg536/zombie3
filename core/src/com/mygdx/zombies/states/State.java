@@ -46,7 +46,7 @@ public class State {
 	/**
 	 * Virtual update method
 	 */
-	public void update() {	
+	public void update(float delta) {
 	}
 	
 	/**

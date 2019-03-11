@@ -27,7 +27,7 @@ public class EndScreen extends State {
 	}
 	
 	@Override
-	public void update() {
+	public void update(float delta) {
 		//Check for left mouse button and go to next screen if pressed
 		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.justTouched()) {
 		    Player.counter = null;

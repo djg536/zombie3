@@ -128,7 +128,7 @@ public class Zombies extends Game {
 	@Override
 	public void render() {
 		//Update current state of StateManager
-		stateManager.gameLoop();
+		stateManager.gameLoop(Gdx.graphics.getDeltaTime());
 		//Set default background colour
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

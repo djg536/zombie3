@@ -143,8 +143,8 @@ public class StateManager {
 	/**
 	 * Update the current state
 	 */
-	public void gameLoop() {
-		currentState.update();
+	public void gameLoop(float delta) {
+		currentState.update(delta);
 	}
 
 	/**

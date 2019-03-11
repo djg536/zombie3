@@ -29,7 +29,7 @@ public class BriefingScreen extends State {
 	}
 
 	@Override
-	public void update() {
+	public void update(float delta) {
 		//If left mouse button pressed, go to the next screen
 		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.justTouched()) {
 			StateManager.loadState(StateID.PLAYERSELECTMENU);

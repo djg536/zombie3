@@ -204,13 +204,13 @@ public class MiniGame extends State {
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
         if (gameOver) {
             // Press escape to exit
             if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-                if (returnState == "menu") {
+                if (returnState.equals("menu")) {
                     StateManager.loadState(StateManager.StateID.MAINMENU);
-                } else if (returnState == "game") {
+                } else if (returnState.equals("game")) {
                     Player.points += points;
                     StateManager.loadState(StateManager.StateID.STAGE2, 0);
                 }

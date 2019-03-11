@@ -60,7 +60,7 @@ public class PlayerSelectMenu extends State {
 	}
 	
 	@Override
-	public void update() {
+	public void update(float delta) {
 		//Method to poll left mouse button and handle button click events
 		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.justTouched()) {
 				if (player1.isHover()) {

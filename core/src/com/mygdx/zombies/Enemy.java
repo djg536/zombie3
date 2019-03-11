@@ -1,6 +1,7 @@
 package com.mygdx.zombies;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.steer.limiters.LinearAccelerationLimiter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -124,12 +125,13 @@ public class Enemy extends Entity {
 		//Move Box2D body in angleRadians, accounting for speed attributes
 
 		//Code for Assessment 3
-		if (!hit)
-		//Code for Assessment 3
-
-			body.applyLinearImpulse(new Vector2((float) Math.cos(angleRadians) * -speed * alertSpeed,
-				(float) Math.sin(angleRadians) * -speed * alertSpeed), body.getPosition(), true);
-
+		if (!hit) {
+			//Code for Assessment 3
+//			body.applyLinearImpulse(new Vector2((float) Math.cos(angleRadians) * -speed * alertSpeed,
+//				(float) Math.sin(angleRadians) * -speed * alertSpeed), body.getPosition(), true);
+			this.steeringBehavior = SteeringPresets.getSeek(this, player);
+			this.currentMode = SteeringState.SEEK;
+		}
 		//Code for Assessment 3
 		else{
 			if (justHit) {
@@ -156,8 +158,8 @@ public class Enemy extends Entity {
 			
 		//Update sprite transformation
 		angleDegrees = Math.toDegrees(angleRadians);
-		sprite.setRotation((float) angleDegrees);		
 		sprite.setPosition(getPositionX() - sprite.getWidth() / 2, getPositionY() - sprite.getHeight() / 2);
+		sprite.setRotation((float) angleDegrees);
 	}
 
 	public void enableSpawnNpcOnDeath() {
@@ -191,24 +193,18 @@ public class Enemy extends Entity {
 	 * @param inLights - whether the player is lit by light sources
 	 */
 	public void update(boolean inLights) {
+		super.update(Gdx.graphics.getDeltaTime());
 		this.inLights = inLights;
 		move();
 		noiseStep();
 	}
 
-	public int getPositionX() {
-		return (int) (body.getPosition().x * Zombies.PhysicsDensity);
-	}
-
-	public int getPositionY() {
-		return (int) (body.getPosition().y * Zombies.PhysicsDensity);
-	}
 
 	public void render() {
 		sprite.draw(spriteBatch);
 	}
 
-	int getHealth() {
+	public int getHealth() {
 		return health;
 	}
 
@@ -219,6 +215,10 @@ public class Enemy extends Entity {
             getInfo().flagForDeletion();
             Player.points += 100;
         }
+	}
+
+	public double getDistanceToPlayer() {
+		return distanceToPlayer;
 	}
 
 	@Override

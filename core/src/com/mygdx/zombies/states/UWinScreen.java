@@ -34,7 +34,7 @@ public class UWinScreen extends State {
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
         // If mouse button is pressed, return to main menu
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.justTouched()) {
             StateManager.loadState(new MainMenu());
