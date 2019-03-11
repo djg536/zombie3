@@ -44,9 +44,13 @@ public class Player extends Entity {
 	private float charDamage;
 	private static Texture equippedTexture;
 	private static Texture unequippedTexture;
+	private static Texture zombieTexture;
 	private static Level level;
 	//added for assessment 3
 	private boolean gateOpen;
+
+	private float deathMarker = 0;
+	private boolean isZombie = false;
 
 	/** Constructor for the player class
 	 * @param level - the level instance to spawn the player in
@@ -127,6 +131,7 @@ public class Player extends Entity {
 		int typeNumber = type.ordinal()+1;
 		equippedTexture = new Texture(Gdx.files.internal("player/player" + typeNumber + "_equipped.png"));
 		unequippedTexture = new Texture(Gdx.files.internal("player/player" + typeNumber + "_unequipped.png"));
+		zombieTexture = new Texture(Gdx.files.internal("zombie/zombie1.png"));
 	}
 	
 	/** Set the player type and update textures accordingly
@@ -308,6 +313,21 @@ public class Player extends Entity {
 				weapon.use();
 		}			
 		
+		if (counter>deathMarker+5 && deathMarker > 0) {
+
+
+
+			if(counter>deathMarker+5) {
+				deathMarker = 0;
+				isZombie = false;
+
+				//Sometimes collisions can occur after the end screen is shown if Box2D engine is taking a while to dispose of bodies
+				if(StateManager.getCurrentState() instanceof Level)
+				    StateManager.loadState(StateManager.StateID.UDIED);
+			}
+		}
+
+
 		move();
 		look(mouseCoords);
 		updateCounter();
@@ -386,15 +406,21 @@ public class Player extends Entity {
 
 		if(health <= 0){
 			points -= 150;
+
+			sprite.setTexture(zombieTexture);
+			deathMarker = counter;
+			isZombie = true;
+
 			//Added for assesment 3
 			//All weapons should be dropped before restarting
 			if(hasWeapon())
 				weapon = null;
-			//Sometimes collisions can occur after the end screen is shown if Box2D engine is taking a while to dispose of bodies
-			if(StateManager.getCurrentState() instanceof Level)
-			    StateManager.loadState(StateManager.StateID.UDIED);
 		}
 
+	}
+
+	boolean isZombie() {
+		return isZombie;
 	}
 
 	float getDamage() {
