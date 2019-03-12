@@ -46,6 +46,7 @@ public class UWinScreen extends State {
     @Override
     public void render(){
         UIBatch.begin();
+        //#changed4 UI element positioning now utilises constants rather than e.g. Gdx.graphics.getWidth(), which has now fixed scaling
         UIBatch.draw(banner, Zombies.InitialWindowWidth/2.f-banner.getWidth()/2.f, Zombies.InitialWindowHeight-banner.getHeight()-15); // Code for Assessment 4
         Zombies.mainFont.draw(UIBatch, "Bonus Points: " + (int) pointsFromTime,Zombies.InitialWindowWidth/2.f-200, Zombies.InitialWindowHeight/2.f-75);
         Zombies.mainFont.draw(UIBatch, "Total Score: " + (int) totalPoints, Zombies.InitialWindowWidth/2.f-200, Zombies.InitialWindowHeight/2.f-125);
@@ -56,7 +57,10 @@ public class UWinScreen extends State {
 
     @Override
     public void dispose() {
+
+        //#changed4 Added the following line to prevent memory leakage
         super.dispose();
+
         Zombies.soundEndMusic.stop();
         banner.dispose();
     }

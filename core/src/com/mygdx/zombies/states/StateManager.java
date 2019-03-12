@@ -12,6 +12,7 @@ public class StateManager {
 	private static State currentState;
 	
 	//Enum of state ids, used to identify different types of state
+	//#changed4 Removed the PAUSEMENU entry from the enum
 	public enum StateID {
 		MAINMENU, CREDITSMENU, OPTIONSMENU, ENDSCREEN, BRIEFINGSCREEN,
 		PLAYERSELECTMENU, STAGE1, STAGE2, STAGE3, TESTSTAGE1, TESTSTAGE2,
@@ -69,6 +70,7 @@ public class StateManager {
 	 * Load the state associated with the given state id and pass the entry id
 	 * @param stateID - the state id to identify the state to load
 	 * @param entryID - the entry id to pass
+     * #changed4 removed the PAUSEMENU case from the switch statement
 	 */
 	public static void loadState(StateID stateID, int entryID) {
 		

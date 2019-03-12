@@ -52,6 +52,8 @@ public class MiniGame extends State {
         spawnInterval = 2000;
 
         // Camera used to translate mouse screen coordinates into world coordinates
+
+        //#changed4 removed redundant resolution parameters passed to camera constructor as these are already passed with setToOrtho
         camera = new OrthographicCamera();
         camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
@@ -110,6 +112,7 @@ public class MiniGame extends State {
 
     @Override
     public void render() {
+        //#changed4 Text positioning now utilises constants rather than e.g. Gdx.graphics.getWidth(), which has now fixed scaling
         if (gameOver) {
             UIBatch.begin();
             UIBatch.draw(background, 0, 0);
@@ -259,6 +262,10 @@ public class MiniGame extends State {
         }
     }
 
+    /**
+     * Dispose method to clear the memory when instance no longer needed
+     * #changed4 Added this method to reduce memory leakage
+     */
     @Override
     public void dispose() {
         super.dispose();

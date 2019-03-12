@@ -18,6 +18,11 @@ public class PauseMenu extends State {
     private Level level;
 
 
+    /**
+     * Constructor for the pause menu
+     * @param level - a Level instance
+     * #changed4 added the level parameter
+     */
     PauseMenu(Level level){
         super();
 
@@ -67,9 +72,12 @@ public class PauseMenu extends State {
 
     @Override
     public void dispose(){
+
+        //#changed4 added the following three lines
         super.dispose();
         background.dispose();
         logo.dispose();
+
         resume.dispose();
         exit.dispose();
     }

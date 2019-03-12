@@ -29,6 +29,7 @@ public class UDiedScreen extends State {
     @Override
     public void render(){
         UIBatch.begin();
+        //#changed4 Text positioning now utilises constants rather than e.g. Gdx.graphics.getWidth(), which has now fixed scaling
         Zombies.mainFont.draw(UIBatch, "You died", Zombies.InitialWindowWidth/2.f-100, Zombies.InitialWindowHeight/2.f);
         Zombies.mainFont.draw(UIBatch, "[click to continue]", Zombies.InitialWindowWidth/2.f-230, Zombies.InitialWindowHeight/2.f-100);
         UIBatch.end();

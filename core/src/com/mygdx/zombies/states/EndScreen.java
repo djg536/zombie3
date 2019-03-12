@@ -48,7 +48,9 @@ public class EndScreen extends State {
 	
 	@Override
 	public void dispose() {
+		//#changed4 Added the following line to prevent memory leakage
 		super.dispose();
+
 		//Stop playing the music when screen exited
 		Zombies.soundEndMusic.stop();
 		banner.dispose();

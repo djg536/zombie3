@@ -17,13 +17,13 @@ import com.mygdx.zombies.states.StateManager;
  */
 public class Zombies extends Game {
 
-	public static int InitialWindowWidth = 1280;
-	public static int InitialWindowHeight = 720;
-	public static int InitialViewportWidth = 1280;
-	public static int InitialViewportHeight = 720;
-	public static String windowTitle = "Silence of the Lamberts";
-	public static float WorldScale = 1.5f;
-	public static float PhysicsDensity = 100;
+	public static final int InitialWindowWidth = 1280;
+	public static final int InitialWindowHeight = 720;
+	public static final int InitialViewportWidth = 1280;
+	public static final int InitialViewportHeight = 720;
+	public static final String windowTitle = "Silence of the Lamberts";
+	public static final float WorldScale = 1.5f;
+	public static final float PhysicsDensity = 100;
 	public static BitmapFont mainFont;
 	public static BitmapFont titleFont;
 	static BitmapFont pointsFont;

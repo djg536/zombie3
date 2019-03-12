@@ -87,7 +87,10 @@ public class PlayerSelectMenu extends State {
 	@Override
 	public void dispose() {
 		//Clean up memory
+
+		//#changed4 Added the following line to prevent memory leakage
 		super.dispose();
+
 		player1.dispose();
 		player2.dispose();
 		player3.dispose();

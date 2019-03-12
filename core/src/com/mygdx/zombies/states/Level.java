@@ -31,6 +31,7 @@ public class Level extends State {
 
 	private Player player;
 	private ArrayList<Enemy> enemiesList;
+	//#changed4 removed the second projectile list for zombie projectiles as now they are combined
 	private ArrayList<Projectile> bulletsList;
 	private ArrayList<PickUp> pickUpsList;
 	private World box2dWorld;
@@ -46,7 +47,9 @@ public class Level extends State {
 	private int spawnEntryID;
 	private Box2DDebugRenderer box2DDebugRenderer;
 	private boolean gamePaused;
+    //#changed4 added pausemenu attribute
 	private PauseMenu pauseMenu;
+    //#changed4 made the following line private
 	private ArrayList<Point> potentialCureSpawnPointList;
 
 	/**
@@ -474,6 +477,9 @@ public class Level extends State {
 		return player;
 	}
 
+	/**
+	 * #changed4 Added this method to allow the game to be resumed whilst restricting mutation of gamePaused
+	 */
 	void resumeGame() {
 		gamePaused = false;
 	}

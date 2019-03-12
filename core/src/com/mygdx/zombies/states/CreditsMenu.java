@@ -57,7 +57,9 @@ public class CreditsMenu extends State {
 	
 	@Override
 	public void dispose() {
+		//#changed4 Added the following line to prevent memory leakage
 		super.dispose();
+
 		background.dispose();
 		back.dispose();
 	}

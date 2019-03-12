@@ -86,7 +86,10 @@ public class MainMenu extends State {
 	@Override
 	public void dispose() {
 		//Clear the memory
+
+		//#changed4 Added the following line to prevent memory leakage
 		super.dispose();
+
 		play.dispose();
 		exit.dispose();
 		options.dispose();
