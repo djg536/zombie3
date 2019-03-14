@@ -134,6 +134,9 @@ public class Enemy extends Entity {
 		}
 		//Code for Assessment 3
 		else{
+			
+			//#changed4 - fixed the timer implemented by the previous group, and made the knockback look realistic.
+			//Did this by altering the number that the linear impulse is multiplied by, and changed the checking statement.
 			if (justHit) {
 				originalTime = System.nanoTime();
 				//System.out.println("Time hit: " + originalTime);
