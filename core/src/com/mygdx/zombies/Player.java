@@ -314,11 +314,14 @@ public class Player extends Entity {
 				weapon.use();
 		}			
 		
-		if (counter>deathMarker+5 && deathMarker > 0) {
+		if (deathMarker > 0) {
 
+			if(health > 0) {
+				sprite.setTexture(unequippedTexture);
+				deathMarker = 0;
+			}
 
-
-			if(counter>deathMarker+5) {
+			else if(counter>deathMarker+5) {
 				deathMarker = 0;
 				isZombie = false;
 
@@ -401,7 +404,7 @@ public class Player extends Entity {
 	/** Sets the health to the given value, restarting the current level if depleted
 	 * @param health - the value to set the health to
 	 */
-	void setHealth(float health) {
+	public void setHealth(float health) {
 		Player.health = health;
 		//Restart current level from last entry point if health depleted
 
@@ -436,7 +439,7 @@ public class Player extends Entity {
 		Player.counter = counter;
 	}
 
-	boolean isZombie() {
+	public boolean isZombie() {
 		return isZombie;
 	}
 

@@ -84,10 +84,10 @@ public class CustomContactListener implements ContactListener {
 					    colliding = true;
 					    objectA = a.getObj();
 					    objectB = b.getObj();
-						System.out.println("Player has contacted open gate");
+						Level.getLogger().fine("Player has contacted open gate");
 					}
 					else
-						System.out.println("Player has contacted closed gate");
+                        Level.getLogger().fine( "Player has contacted closed gate");
 				}
 				break;
 				
@@ -97,12 +97,12 @@ public class CustomContactListener implements ContactListener {
 					zombie.setHealth(zombie.getHealth()-1);
 					Projectile projectile = (Projectile)a.getObj();
 					projectile.getInfo().flagForDeletion();
-					System.out.println("Zombie has been damaged");
+                    Level.getLogger().fine( "Zombie has been damaged");
 				}
 				else if (bType == InfoContainer.BodyID.WALL) {
 					Projectile projectile = (Projectile) a.getObj();
 					projectile.getInfo().flagForDeletion();
-					System.out.println("Bullet has hit wall");
+                    Level.getLogger().fine( "Bullet has hit wall");
 				}
 				break;
 
@@ -125,21 +125,21 @@ public class CustomContactListener implements ContactListener {
                         else
                             Player.setPoints(Player.getPoints() - 10);
 					}
-					System.out.println("Player has contacted zombie");
+                    Level.getLogger().fine( "Player has contacted zombie");
 				}
 				else if (bType == InfoContainer.BodyID.WEAPON) {
 					Player player = (Player)a.getObj();
 					PickUp weaponPickUp = (PickUp)b.getObj();
 					player.setWeapon((Weapon)weaponPickUp.getContainedItem());
 					weaponPickUp.getInfo().flagForDeletion();
-					System.out.println("Player has picked up weapon");
+                    Level.getLogger().fine( "Player has picked up weapon");
 				}
 				else if (bType == InfoContainer.BodyID.PROJECTILE) {
                     Projectile projectile = (Projectile)b.getObj();
                     projectile.getInfo().flagForDeletion();
 					Player player = (Player)a.getObj();
 					player.setHealth(player.getHealth()-1);
-					System.out.println("Zombie has been damaged");
+                    Level.getLogger().fine( "Zombie has been damaged");
 				}
 				break;
 				
@@ -153,8 +153,11 @@ public class CustomContactListener implements ContactListener {
 					if(powerUp.isCure())
                         powerUp.applyCure(level);
 
+					if(powerUp.isAntidote())
+						powerUp.applyAntidote(level);
+
 					powerUpPickUp.getInfo().flagForDeletion();
-					System.out.println("Player has picked up item");
+                    Level.getLogger().fine( "Player has picked up item");
 				}
 				break;
 				
@@ -162,7 +165,7 @@ public class CustomContactListener implements ContactListener {
 				if (bType == InfoContainer.BodyID.ZOMBIE) {
 					NPC npc = (NPC)a.getObj();
 					npc.setHealth(npc.getHealth()-1);
-					System.out.println("NPC has contacted zombie");
+                    Level.getLogger().fine( "NPC has contacted zombie");
 				}
                 else if (bType == InfoContainer.BodyID.PROJECTILE) {
                     NPC npc = (NPC) a.getObj();
@@ -172,7 +175,11 @@ public class CustomContactListener implements ContactListener {
                     System.out.println("NPC has been damaged");
                 }
 				break;
-		}		
+
+			default:
+                Level.getLogger().fine( "No handler for collision between " + aType.name() + " and " + bType.name());
+                break;
+		}
 	}
 
 	@Override
@@ -211,7 +218,7 @@ public class CustomContactListener implements ContactListener {
                     Gate gate = (Gate) a.getObj();
                     if ((player.getGate() || gate.getDestination() == StateManager.StateID.MINIGAMEIG)) {
                         colliding = false;
-                        System.out.println("Player has stopped contact with open gate");
+                        Level.getLogger().fine("Player has stopped contact with open gate");
                     }
                 break;
                 }

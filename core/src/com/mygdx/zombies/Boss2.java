@@ -1,5 +1,6 @@
 package com.mygdx.zombies;
 
+//#changed4 Removed unused imports
 import com.mygdx.zombies.items.Projectile;
 import com.mygdx.zombies.states.Level;
 
@@ -8,6 +9,8 @@ public class Boss2 extends Enemy {
     // Added for assessment 3
 
     private Level level;
+
+    //#changed4 put projectileSpawnStep in Camel Case
     private int projectileSpawnStep;
     private int numberToSpawn;
 
@@ -19,9 +22,15 @@ public class Boss2 extends Enemy {
         numberToSpawn = 1;
     }
 
+    /**
+     * Set the Boss health
+     * @param health - the value to set the health to
+     * #changed4 Added this method so numberToSpawn is only updated when health changed, moved here from update method
+     */
     @Override
     public void setHealth(int health) {
         super.setHealth(health);
+
 
         int newHealthValue = getHealth();
         if(newHealthValue < 20)
@@ -33,6 +42,9 @@ public class Boss2 extends Enemy {
     @Override
     public void update(boolean inLights) {
         super.update(inLights);
+
+        //#changed4 Rewrote the code in this method to be more efficient and easier to read - replaced multiple IF statements with a single FOR loop
+        //          Moved code to update numberToSpawn to setHealth as it is only updated when health is set
 
         final float bulletSpray = 0.1f;
 

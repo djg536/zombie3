@@ -1,7 +1,13 @@
 package com.mygdx.zombies.states;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -48,11 +54,14 @@ public class Level extends State {
 	private int spawnEntryID;
 	private Box2DDebugRenderer box2DDebugRenderer;
 	private boolean gamePaused;
-    //#changed4 added pausemenu attribute
+    //#changed4 added pauseMenu attribute
 	private PauseMenu pauseMenu;
     //#changed4 made the following line private
 	private ArrayList<Point> potentialCureSpawnPointList;
 	private CustomContactListener listener;
+    private static Logger logger;
+    private static Handler handler;
+    private boolean antidoteSpawn;
 
 	/**
 	 * Constructor for the level
@@ -74,6 +83,7 @@ public class Level extends State {
 		gatePointerList = new ArrayList<>();
 		potentialCureSpawnPointList = new ArrayList<>();
 
+        initLogging();
 
 		String mapFile = String.format("stages/%s.tmx", path);
 
@@ -92,7 +102,9 @@ public class Level extends State {
 
 		//There is a 3/10 chance that the cure power up will be spawned (in stages with spawn points)
 		if(Math.random() < 0.3)
-			spawnCurePowerUp();
+            spawnCurePowerUp();
+        else
+            logger.fine("Will not attempt to spawn cure item due to random probability");
 								
 		camera = new OrthographicCamera();
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -102,8 +114,26 @@ public class Level extends State {
 		gamePaused = false;
 
         pauseMenu = new PauseMenu(this);
+
+        antidoteSpawn = true;
 	}
-	
+
+	public static Logger getLogger() {
+	    return logger;
+    }
+
+	private void initLogging() {
+        try {
+            handler = new FileHandler("zombies.log");
+            handler.setFormatter(new SimpleFormatter());
+            logger = Logger.getLogger("com.mygdx.zombies");
+            logger.setLevel(java.util.logging.Level.ALL);
+            logger.addHandler(handler);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 	String getPath() {
 		return path;
 	}
@@ -148,7 +178,8 @@ public class Level extends State {
 		
 		x*= Zombies.WorldScale;
 		y*= Zombies.WorldScale;
-		
+
+        logger.fine("Attempting to insert player at position (" + x + ", " + y + ")");
 		player = new Player(this, x, y);
 	}
 	
@@ -203,20 +234,23 @@ public class Level extends State {
 			y*= Zombies.WorldScale;
 
 			//Added the object, using the name as an identifier
-			switch(object.getName()) {
+            String name = object.getName();
+            logger.fine("Found object " + name + " at position (" + x + ", " + y + ")");
+
+			switch(name) {
 				case "powerUpHealth":
 					pickUpsList.add(new PickUp(this, x, y, "pickups/heart.png",
-							new PowerUp(0, 2, 0, false), InfoContainer.BodyID.PICKUP));
+							new PowerUp(0, 2, 0, false, false), InfoContainer.BodyID.PICKUP));
 				break;
 				
 				case "powerUpSpeed":
 					pickUpsList.add(new PickUp(this, x, y, "pickups/speed.png",
-							new PowerUp(1, 0, 0, false), InfoContainer.BodyID.PICKUP));
+							new PowerUp(1, 0, 0, false, false), InfoContainer.BodyID.PICKUP));
 				break;
 				
 				case "powerUpStealth":
 					pickUpsList.add(new PickUp(this, x, y, "pickups/stealth.png",
-							new PowerUp(0, 0, 1, false), InfoContainer.BodyID.PICKUP));
+							new PowerUp(0, 0, 1, false, false), InfoContainer.BodyID.PICKUP));
 				break;
 				
 				case "lasergun":
@@ -275,10 +309,19 @@ public class Level extends State {
 				break;
 
 				default:
-					System.err.println("Error importing stage: unrecognised object");
-				break;
+					logger.severe("Error importing stage: unrecognised object '" + name + "'");
+					throw new IllegalArgumentException();
 			}
 		}
+	}
+
+	public void loadAntidote(){
+
+		int x = player.getPositionX();
+		int y = player.getPositionX();
+
+		pickUpsList.add(new PickUp(this, x+10, y+10, "pickups/cure.png",
+				new PowerUp(0, 0, 0, false, true), InfoContainer.BodyID.PICKUP));
 	}
 
 	/**
@@ -290,14 +333,17 @@ public class Level extends State {
 		//Must be called after loadObjects() to ensure that any potential spawn points for the cure have been loaded
 
 		//If this stage has no potential cure spawn points, do not attempt to spawn cure
-		if(potentialCureSpawnPointList.isEmpty())
-			return;
+		if(potentialCureSpawnPointList.isEmpty()) {
+		    logger.fine("Not spawning the cure as the level has no cure spawn points loaded");
+            return;
+        }
 
 		//Select a random one of the loaded potential cure spawn points to spawn the cure in
 		int randomSpawnIndex = (int) ((potentialCureSpawnPointList.size()-1)*Math.random());
 		Point spawnPoint = potentialCureSpawnPointList.get(randomSpawnIndex);
 		pickUpsList.add(new PickUp(this, spawnPoint.x, spawnPoint.y, "pickups/cure.png",
-				new PowerUp(0, 0, 0, true), InfoContainer.BodyID.PICKUP));
+				new PowerUp(0, 0, 0, true, false), InfoContainer.BodyID.PICKUP));
+		logger.fine("Successfully spawned the cure item at " + spawnPoint.toString());
 	}
 
 	@Override
@@ -344,7 +390,10 @@ public class Level extends State {
 					int distance;
 					
 					//Set attributes based on light type
-					switch(object.getName()) {
+                    String name = object.getName();
+                    logger.fine("Attempting to insert light " + name + " at position (" + x + ", " + y + ")");
+
+					switch(name) {
 						case "street":
 							color = Color.ORANGE;
 							distance = 250;
@@ -362,6 +411,7 @@ public class Level extends State {
 							distance = 80;
 							break;
 						default:
+                            logger.severe("Error importing stage: unrecognised light '" + name + "'");
 							throw new IllegalArgumentException();
 					}		
 					
@@ -390,6 +440,7 @@ public class Level extends State {
 	public void render() {
 		//*Code for Assessment 3*
 	    if(gamePaused){
+	        //#changed4 Removed code from here which instantiated pauseMenu with every call to render(), moved to constructor
             pauseMenu.render();
             return;
         }
@@ -419,6 +470,10 @@ public class Level extends State {
 		    miniGamePointer.render();
 		worldBatch.end();
 		
+		//if(antidote != null) {
+		//	antidote.render();
+		//}
+
 		//Render lighting
 		rayHandler.render();
 		
@@ -489,6 +544,11 @@ public class Level extends State {
 			StateManager.loadState(gate.getDestination(), gate.getEntryID());
 			player.closeGate();
 		}
+
+        if(player.isZombie() && antidoteSpawn) {
+        	loadAntidote();
+        	antidoteSpawn = false;
+        }
 	}
 	
 	public Player getPlayer() {
@@ -517,6 +577,11 @@ public class Level extends State {
         box2dWorld.getBodies(bodies);
         for(Body body : bodies)
             box2dWorld.destroyBody(body);
+
+        if(handler != null) {
+            logger.fine("Disposed of level successfully");
+            handler.close();
+        }
 
 		//box2DDebugRenderer.dispose();
 	}
