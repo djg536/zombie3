@@ -2,6 +2,7 @@ package com.mygdx.zombies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.zombies.states.Level;
@@ -16,7 +17,8 @@ public class GatePointer extends Entity{
     private SpriteBatch spriteBatch;
     private Sprite sprite;
     private boolean visible;
-
+    private int x, y;
+    private String text;
 
 
     /**
@@ -26,14 +28,17 @@ public class GatePointer extends Entity{
      * @param y the y spawn coordinate
      * @param SpritePath the file path of the sprite file to use
      */
-    public GatePointer(Level level, int x, int y, String SpritePath,GateDirection direction){
+    public GatePointer(Level level, int x, int y, String SpritePath, String text, GateDirection direction){
         spriteBatch = level.getWorldBatch();
+        this.text = text;
+        this.x = x;
+        this.y = y;
         sprite = new Sprite(new Texture(Gdx.files.internal(SpritePath)));
         sprite.setPosition(x, y);
         switch(direction){
             case UP:
                 //no rotation needed
-            break;
+                break;
             case RIGHT:
                 sprite.rotate(270f);
                break;
@@ -53,6 +58,8 @@ public class GatePointer extends Entity{
     public void render() {
         if (visible){
             sprite.draw(spriteBatch);
+            Zombies.gateFont.draw(spriteBatch, text, x-70, y-50);
         }
+
     }
 }

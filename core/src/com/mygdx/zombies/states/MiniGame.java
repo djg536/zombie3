@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
-import com.mygdx.zombies.Entity;
 import com.mygdx.zombies.Goose;
 import com.mygdx.zombies.Player;
 import com.mygdx.zombies.Zombies;
@@ -214,7 +213,7 @@ public class MiniGame extends State {
                 if (returnState.equals("menu")) {
                     StateManager.loadState(StateManager.StateID.MAINMENU);
                 } else if (returnState.equals("game")) {
-                    Player.points += points;
+                    Player.setPoints(Player.getPoints() + points);
                     StateManager.loadState(StateManager.StateID.STAGE2, 0);
                 }
             }

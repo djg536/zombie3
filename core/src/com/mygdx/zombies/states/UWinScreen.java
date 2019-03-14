@@ -23,13 +23,13 @@ public class UWinScreen extends State {
 
         //*Code for Assessment 3
         //Calculates Player points
-        if (Player.counter >= 600){
+        if (Player.getCounter() >= 600){
             pointsFromTime = 0;
         } else  {
-            pointsFromTime = 600 - Player.counter;
+            pointsFromTime = 600 - Player.getCounter();
         }
 
-        totalPoints = Player.points + pointsFromTime;
+        totalPoints = Player.getPoints() + pointsFromTime;
         //*Code for Assessment 3
     }
 
@@ -38,8 +38,8 @@ public class UWinScreen extends State {
         // If mouse button is pressed, return to main menu
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.justTouched()) {
             StateManager.loadState(new MainMenu());
-            Player.points = 0;
-            Player.counter = null;
+            Player.setPoints(0);
+            Player.setCounter(null);
         }
     }
 

@@ -120,6 +120,7 @@ public class Entity implements Steerable<Vector2> {
 	}
 
 	/**
+	 * #changed4 added gdx-AI movement
 	 * Apply assigned steering functionality to the character
 	 * @param steering steering behaviour to apply
 	 * @param delta time update

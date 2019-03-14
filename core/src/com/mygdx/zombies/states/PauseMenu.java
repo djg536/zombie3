@@ -63,7 +63,7 @@ public class PauseMenu extends State {
 
                 Player.health = null;
                 Player.weapon = null;
-                Player.counter = null;
+                Player.setCounter(null);
 
                 StateManager.loadState(StateManager.StateID.MAINMENU);
             }

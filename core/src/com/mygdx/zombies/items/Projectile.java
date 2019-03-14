@@ -45,14 +45,14 @@ public class Projectile extends Entity {
 				spritePath = "laser.png";
 				speed = 60;
 				collisionCategoryFilter = Zombies.projectileFilter;
-				collisionMaskFilter = (short) (Zombies.zombieFilter | Zombies.wallFilter);
+				collisionMaskFilter = (short) (Zombies.zombieFilter | Zombies.wallFilter | Zombies.npcFilter);
 				Zombies.soundLaser.play();
 				break;
 			case BULLET:
 				spritePath = "bullet.png";
 				speed = 40;
 				collisionCategoryFilter = Zombies.projectileFilter;
-				collisionMaskFilter = (short) (Zombies.zombieFilter | Zombies.wallFilter);
+				collisionMaskFilter = (short) (Zombies.zombieFilter | Zombies.wallFilter | Zombies.npcFilter);
 				Zombies.soundShoot.play();
 				break;
 			case ZOMBIEPOTION:

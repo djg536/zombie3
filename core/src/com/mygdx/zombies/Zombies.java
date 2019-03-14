@@ -26,8 +26,9 @@ public class Zombies extends Game {
 	public static final float PhysicsDensity = 100;
 	public static BitmapFont mainFont;
 	public static BitmapFont titleFont;
-	static BitmapFont pointsFont;
+	public static BitmapFont pointsFont;
 	public static BitmapFont creditsFont;
+	public static BitmapFont gateFont;
 	public static Sound soundShoot;
 	public static Sound soundSelect;
 	public static Sound soundLaser;
@@ -51,6 +52,7 @@ public class Zombies extends Game {
 	public static short wallFilter = 16;
 	public static short pickupFilter = 32;
 	public static short gateFilter = 64;
+	public static short npcFilter = 128;
 	
 
 	/** Generate a BitmapFont using the given parameters
@@ -105,6 +107,7 @@ public class Zombies extends Game {
 		titleFont = Zombies.generateFont("Amatic-Bold.ttf", 150);
 		pointsFont = Zombies.generateFont("KaushanScript-Regular.otf", 50);
 		creditsFont = Zombies.generateFont("SourceSansPro-Regular.otf", 50);
+		gateFont = Zombies.generateFont("NESCyrillic.ttf", 30);
 		
 		//Load sounds into memory
 		soundShoot = Gdx.audio.newSound(Gdx.files.internal("sounds/gun.wav"));

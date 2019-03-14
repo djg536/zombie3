@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="75" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="86">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="75" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="88">
  <tileset firstgid="1" source="Assets/Tileset.tsx"/>
  <tileset firstgid="1041" source="Assets/Roads.tsx"/>
  <tileset firstgid="14523" source="Assets/Lamp.tsx"/>
@@ -698,6 +698,7 @@
   <object id="55" name="church3" x="1632.21" y="546.459">
    <polygon points="0,0 65.4932,-66.5166 65.4932,-129.963 127.916,-194.433 192.386,-129.963 191.363,-68.5632 255.833,-2.04666"/>
   </object>
+  <object id="87" x="1753.88" y="320" width="12" height="32"/>
  </objectgroup>
  <objectgroup id="14" name="Lights">
   <object id="34" name="street" x="1678" y="1336">

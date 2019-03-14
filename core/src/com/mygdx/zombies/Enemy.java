@@ -1,7 +1,6 @@
 package com.mygdx.zombies;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ai.steer.limiters.LinearAccelerationLimiter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -60,7 +59,8 @@ public class Enemy extends Entity {
 				friction = 0.5f;
 				restitution = 1f;
 				filter.categoryBits = Zombies.zombieFilter;
-				filter.maskBits = (short) (Zombies.playerFilter | Zombies.projectileFilter | Zombies.wallFilter);
+				filter.maskBits = (short) (Zombies.playerFilter | Zombies.projectileFilter | Zombies.wallFilter
+						| Zombies.zombieFilter | Zombies.npcFilter);
 			}
 		};
 		GenerateBodyFromSprite(level.getBox2dWorld(), sprite, InfoContainer.BodyID.ZOMBIE, fixtureDef);
@@ -213,7 +213,7 @@ public class Enemy extends Entity {
 		//Remove enemy if health below zero
 		if(health <= 0) {
             getInfo().flagForDeletion();
-            Player.points += 100;
+            Player.setPoints(Player.getPoints() + 100);
         }
 	}
 

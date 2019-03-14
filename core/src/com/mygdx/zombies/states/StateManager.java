@@ -15,7 +15,7 @@ public class StateManager {
 	//#changed4 Removed the PAUSEMENU entry from the enum
 	public enum StateID {
 		MAINMENU, CREDITSMENU, OPTIONSMENU, ENDSCREEN, BRIEFINGSCREEN,
-		PLAYERSELECTMENU, STAGE1, STAGE2, STAGE3, TESTSTAGE1, TESTSTAGE2,
+		PLAYERSELECTMENU, STAGE1, STAGE2, STAGE3,
 		// Added new StateID's for assessment 3
 		STAGE4, STAGE5, STAGE6, UDIED, UWIN,
 		// Running the minigame from the main menu (MINIGAMEMM) or from ingame (MINIGAMEIG)
@@ -94,12 +94,6 @@ public class StateManager {
 				break;
 			case BRIEFINGSCREEN:
 				tempState = new BriefingScreen();
-				break;
-			case TESTSTAGE1:
-				tempState = new Level("teststage", entryID);
-				break;
-			case TESTSTAGE2:
-				tempState = new Level("teststage2", entryID);
 				break;
 			case STAGE1:
 				tempState = new Level("World_One", entryID);

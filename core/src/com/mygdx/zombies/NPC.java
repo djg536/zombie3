@@ -42,6 +42,9 @@ public class NPC extends Entity {
 				density = 40;
 				friction = 0.5f;
 				restitution = 0f;
+				//#changed4 added collision with walls, players, zombies and bullets (NPCs can now be shot by players)
+				filter.categoryBits = Zombies.npcFilter;
+				filter.maskBits = (short) (Zombies.playerFilter | Zombies.wallFilter | Zombies.zombieFilter | Zombies.projectileFilter);
 			}
 		};
 		GenerateBodyFromSprite(level.getBox2dWorld(), sprite, InfoContainer.BodyID.NPC, fixtureDef);
@@ -79,10 +82,8 @@ public class NPC extends Entity {
 		double angleRads = Zombies.angleBetweenRads(new Vector2(player.getPositionX(), player.getPositionY()), bodyPosition);
 		float angleDegrees = (float) Math.toDegrees(angleRads);
 		
-		//Move towards the player until closeby
+		//Move towards the player until closeby, #changed4 then wander around nearby to player
 		if(distance > 150) {
-//			body.applyLinearImpulse((float) Math.cos(angleDegrees)*0.8f, (float) Math.sin(angleDegrees)*0.8f,
-//					bodyPosition.x, bodyPosition.y, true);
 			this.steeringBehavior = SteeringPresets.getArrive(this, player);
 			this.currentMode = SteeringState.ARRIVE;
 		} else {

@@ -24,8 +24,8 @@ public class Player extends Entity {
 
 	public enum PlayerType { COMPSCI, CHEMISTRY, FOOTBALLER }
 	public static Float health;
-	public static int points;
-	public static Float counter;
+	private static int points;
+	private static Float counter;
 	private static String pointDisplay;
 	private Sprite sprite;
 	private double angleRads;
@@ -80,7 +80,7 @@ public class Player extends Entity {
 		
 		//Initialise player health if not yet set in previous stage
 		if(Player.health == null || Player.health <= 0) {
-			Player.health = 10.f;
+			Player.health = 10f;
 		}
 		
 		//Initialise time if not yet set in previous stage
@@ -111,7 +111,8 @@ public class Player extends Entity {
 				friction = 0.5f;
 				restitution = 0f;
 				filter.categoryBits = Zombies.playerFilter;
-				filter.maskBits = (short) (Zombies.zombieFilter | Zombies.zombieProjectileFilter | Zombies.wallFilter | Zombies.pickupFilter | Zombies.gateFilter);
+				filter.maskBits = (short) (Zombies.zombieFilter | Zombies.zombieProjectileFilter | Zombies.wallFilter
+						| Zombies.pickupFilter | Zombies.gateFilter | Zombies.npcFilter);
 			}
 		};		
 		GenerateBodyFromSprite(level.getBox2dWorld(), sprite, InfoContainer.BodyID.PLAYER, fixtureDef);
@@ -229,7 +230,7 @@ public class Player extends Entity {
 	}
 
 	//code for assessment 3
-	void closeGate(){ gateOpen = false;}
+    public void closeGate(){ gateOpen = false;}
 
 	/**
 	 * added for assessment 3
@@ -368,7 +369,7 @@ public class Player extends Entity {
 	 */
 	public void hudRender() {
 		Zombies.pointsFont.draw(UIBatch, "Time spent: " + pointDisplay, 800, 700);
-		Zombies.pointsFont.draw(UIBatch, "Points: " + points, 888, 650);
+		Zombies.pointsFont.draw(UIBatch, "Points: " + getPoints(), 888, 650);
 
 		for (int i = 0; i < health; i++) {
 			hud.setPosition(100 + i * 50, 620);
@@ -393,7 +394,7 @@ public class Player extends Entity {
 		health += powerUp.getHealthBoost();
 	}
 
-	float getHealth() {
+	Float getHealth() {
 		return health;
 	}
 
@@ -411,12 +412,28 @@ public class Player extends Entity {
 			deathMarker = counter;
 			isZombie = true;
 
-			//Added for assesment 3
+			//Added for assessment 3
 			//All weapons should be dropped before restarting
 			if(hasWeapon())
 				weapon = null;
 		}
 
+	}
+
+	public static int getPoints() {
+		return points;
+	}
+
+	public static void setPoints(int points) {
+		Player.points = points;
+	}
+
+	public static Float getCounter() {
+		return counter;
+	}
+
+	public static void setCounter(Float counter) {
+		Player.counter = counter;
 	}
 
 	boolean isZombie() {

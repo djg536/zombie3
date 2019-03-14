@@ -43,6 +43,7 @@ public class Level extends State {
 	private ArrayList<NPC> npcsList;
 	private ArrayList<Gate> gatesList;
 	private ArrayList<GatePointer> gatePointerList;
+	private GatePointer miniGamePointer;
 	private String path;
 	private int spawnEntryID;
 	private Box2DDebugRenderer box2DDebugRenderer;
@@ -51,6 +52,7 @@ public class Level extends State {
 	private PauseMenu pauseMenu;
     //#changed4 made the following line private
 	private ArrayList<Point> potentialCureSpawnPointList;
+	private CustomContactListener listener;
 
 	/**
 	 * Constructor for the level
@@ -94,7 +96,8 @@ public class Level extends State {
 								
 		camera = new OrthographicCamera();
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		box2dWorld.setContactListener(new CustomContactListener(this));
+		listener = new CustomContactListener(this);
+		box2dWorld.setContactListener(listener);
 
 		gamePaused = false;
 
@@ -258,9 +261,15 @@ public class Level extends State {
 				// code for assessment 3
 				case "gatePointer":
 					String direction = (String) p.get("Direction");
-					gatePointerList.add(new GatePointer(this,x,y,"gatePointer.png", GateDirection.valueOf(direction) ));
+					//#changed4 Added text prompt to enter new level
+					gatePointerList.add(new GatePointer(this,x,y,"gatePointer.png",
+							"Press E to enter", GateDirection.valueOf(direction)));
 				break;
-
+				//#changed4 added miniGamePointer
+                case "miniGamePointer":
+                    miniGamePointer = new GatePointer(this, x, y, "gatePointer.png",
+                            "Press E to Play MiniGame!", GateDirection.UP);
+				//#changed4
 				case "potentialCureSpawnPoint":
 					potentialCureSpawnPointList.add(new Point(x, y));
 				break;
@@ -406,6 +415,8 @@ public class Level extends State {
 			npc.render();
 		for (GatePointer gatePointer : gatePointerList)
 			gatePointer.render();
+		if (miniGamePointer != null)
+		    miniGamePointer.render();
 		worldBatch.end();
 		
 		//Render lighting
@@ -448,6 +459,8 @@ public class Level extends State {
             //Update GatePointer, added for assessment 3
             for (GatePointer pointer : gatePointerList)
                 pointer.update(player.getGate());
+            if (miniGamePointer != null)
+                miniGamePointer.update(true);
 
             //Remove deletion flagged objects
             Entity.removeDeletionFlagged(enemiesList);
@@ -470,7 +483,12 @@ public class Level extends State {
             gamePaused = true;
             System.out.println("Game is paused");
         }
-        //*Code for Assessment 3*
+        //#changed4 If 'E' is pressed while over gate, go to next level
+		if (Gdx.input.isKeyPressed(Input.Keys.E)  && listener.isColliding()) {
+			Gate gate = (Gate) listener.getObjectA();
+			StateManager.loadState(gate.getDestination(), gate.getEntryID());
+			player.closeGate();
+		}
 	}
 	
 	public Player getPlayer() {

@@ -1,10 +1,8 @@
 package com.mygdx.zombies;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.zombies.items.PowerUp;
 import com.mygdx.zombies.items.Projectile;
 import com.mygdx.zombies.items.Weapon;
@@ -17,39 +15,61 @@ import com.mygdx.zombies.states.StateManager;
 public class CustomContactListener implements ContactListener {
 
     private Level level;
+    private boolean colliding;
+    private Object objectA;
+    private Object objectB;
 
     public CustomContactListener(Level level) {
         this.level = level;
     }
 
+    /**
+     * #changed4
+     * @return true if player is colliding with a gate, false otherwise
+     */
+    public boolean isColliding() {
+        return colliding;
+    }
+
+    public void setColliding(boolean colliding) {
+        this.colliding = colliding;
+    }
+
+    public Object getObjectA() {
+        return objectA;
+    }
+
+    public Object getObjectB() {
+        return objectB;
+    }
 	/*
 	 * Collision event method called when Box2D objects collide
 	 */
 	@Override
 	public void beginContact(Contact contact) {
-		
+
 		//Get the Box2D bodies that collided
 		Body bodyA = contact.getFixtureA().getBody();
 		Body bodyB = contact.getFixtureB().getBody();
 		//Extract extra data from the bodies
 		InfoContainer a = (InfoContainer)bodyA.getUserData();
 		InfoContainer b = (InfoContainer)bodyB.getUserData();
-			
+
 		//There should never be a situation where a and b are null,
 		//Only walls are null and they do not collide with each other.
 		InfoContainer.BodyID aType = a == null ? InfoContainer.BodyID.WALL : a.getType();
 		InfoContainer.BodyID bType = b == null ? InfoContainer.BodyID.WALL : b.getType();
-		
+
 		//Sorted alphabetically so aType before bType
 		if (aType.name().compareTo(bType.name()) >= 0) {
 			InfoContainer.BodyID tempType = aType;
 			aType = bType;
-			bType = tempType;		
+			bType = tempType;
 			InfoContainer tempInfoContainer = a;
 			a = b;
 			b = tempInfoContainer;
 		}
-		
+
 		//Switch statement to allow different collision events for different object collisions.
 		//Remember that a has been sorted to be before b alphabetically, so objects will only occur in a specific order
 		switch(aType) {
@@ -61,8 +81,9 @@ public class CustomContactListener implements ContactListener {
 					Player player = (Player)b.getObj();
 					Gate gate = (Gate) a.getObj();
 					if (player.getGate() || gate.getDestination() == StateManager.StateID.MINIGAMEIG) {
-						StateManager.loadState(gate.getDestination(), gate.getEntryID());
-						player.closeGate();
+					    colliding = true;
+					    objectA = a.getObj();
+					    objectB = b.getObj();
 						System.out.println("Player has contacted open gate");
 					}
 					else
@@ -99,10 +120,10 @@ public class CustomContactListener implements ContactListener {
 					}
 					else {
 						player.setHealth(player.getHealth() - (player.getDamage()));
-						if (Player.points < 10)
-                            Player.points = 0;
+						if (Player.getPoints() < 10)
+                            Player.setPoints(0);
                         else
-                            Player.points -= 10;
+                            Player.setPoints(Player.getPoints() - 10);
 					}
 					System.out.println("Player has contacted zombie");
 				}
@@ -143,12 +164,58 @@ public class CustomContactListener implements ContactListener {
 					npc.setHealth(npc.getHealth()-1);
 					System.out.println("NPC has contacted zombie");
 				}
+                else if (bType == InfoContainer.BodyID.PROJECTILE) {
+                    NPC npc = (NPC) a.getObj();
+                    npc.setHealth(npc.getHealth() - 1);
+                    Projectile projectile = (Projectile) b.getObj();
+                    projectile.getInfo().flagForDeletion();
+                    System.out.println("NPC has been damaged");
+                }
 				break;
 		}		
 	}
 
 	@Override
 	public void endContact(Contact contact) {
+        //Get the Box2D bodies that collided
+        Body bodyA = contact.getFixtureA().getBody();
+        Body bodyB = contact.getFixtureB().getBody();
+        //Extract extra data from the bodies
+        InfoContainer a = (InfoContainer)bodyA.getUserData();
+        InfoContainer b = (InfoContainer)bodyB.getUserData();
+
+        //There should never be a situation where a and b are null,
+        //Only walls are null and they do not collide with each other.
+        InfoContainer.BodyID aType = a == null ? InfoContainer.BodyID.WALL : a.getType();
+        InfoContainer.BodyID bType = b == null ? InfoContainer.BodyID.WALL : b.getType();
+
+        //Sorted alphabetically so aType before bType
+        if (aType.name().compareTo(bType.name()) >= 0) {
+            InfoContainer.BodyID tempType = aType;
+            aType = bType;
+            bType = tempType;
+            InfoContainer tempInfoContainer = a;
+            a = b;
+            b = tempInfoContainer;
+        }
+
+        //Switch statement to allow different collision events for different object collisions.
+        //Remember that a has been sorted to be before b alphabetically, so objects will only occur in a specific order
+        switch(aType) {
+
+            //changed for assessment 3 to only work when open
+            // apart from the mini game gate that is always open
+            case GATE:
+                if (bType == InfoContainer.BodyID.PLAYER) {
+                    Player player = (Player) b.getObj();
+                    Gate gate = (Gate) a.getObj();
+                    if ((player.getGate() || gate.getDestination() == StateManager.StateID.MINIGAMEIG)) {
+                        colliding = false;
+                        System.out.println("Player has stopped contact with open gate");
+                    }
+                break;
+                }
+        }
 	}
 
 	@Override
