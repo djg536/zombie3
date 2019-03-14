@@ -44,7 +44,7 @@ public class NPC extends Entity {
 				restitution = 0f;
 				//#changed4 added collision with walls, players, zombies and bullets (NPCs can now be shot by players)
 				filter.categoryBits = Zombies.npcFilter;
-				filter.maskBits = (short) (Zombies.playerFilter | Zombies.wallFilter | Zombies.zombieFilter | Zombies.projectileFilter);
+				filter.maskBits = (short) (Zombies.playerFilter | Zombies.wallFilter | Zombies.zombieFilter);
 			}
 		};
 		GenerateBodyFromSprite(level.getBox2dWorld(), sprite, InfoContainer.BodyID.NPC, fixtureDef);
