@@ -16,6 +16,7 @@ public class PowerUp {
 	private int healthBoost;
 	private int stealthBoost;
 	private boolean cure;
+	private boolean antidote;
 	
 	/**
 	 * The constructor for the power up
@@ -23,11 +24,12 @@ public class PowerUp {
 	 * @param healthBoost - the amount of health to give to the player
 	 * @param stealthBoost - the stealth boost to give to the player
 	 */
-	public PowerUp(int speedBoost, int healthBoost, int stealthBoost, boolean cure) {
+	public PowerUp(int speedBoost, int healthBoost, int stealthBoost, boolean cure, boolean antidote) {
 		this.speedBoost = speedBoost+1;
 		this.healthBoost = healthBoost;
 		this.stealthBoost = stealthBoost;
 		this.cure = cure;
+		this.antidote = antidote;
 	}
 
 	public void applyCure(Level level) {
@@ -41,6 +43,11 @@ public class PowerUp {
                 enemy.enableSpawnNpcOnDeath();
                 enemy.getInfo().flagForDeletion();
             }
+	}
+	
+	public void applyAntidote(Level level) {
+		Player player = level.getPlayer();
+		player.setHealth(10);
 	}
 
 	public int getSpeedBoost() {

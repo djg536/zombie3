@@ -51,6 +51,8 @@ public class Level extends State {
 	private PauseMenu pauseMenu;
     //#changed4 made the following line private
 	private ArrayList<Point> potentialCureSpawnPointList;
+	
+	private boolean antidoteSpawn;
 
 	/**
 	 * Constructor for the level
@@ -71,8 +73,7 @@ public class Level extends State {
 		gatesList = new ArrayList<>();
 		gatePointerList = new ArrayList<>();
 		potentialCureSpawnPointList = new ArrayList<>();
-
-
+		
 		String mapFile = String.format("stages/%s.tmx", path);
 
 		map = new TmxMapLoader().load(mapFile);
@@ -99,6 +100,8 @@ public class Level extends State {
 		gamePaused = false;
 
         pauseMenu = new PauseMenu(this);
+        
+        antidoteSpawn = true;
 	}
 	
 	String getPath() {
@@ -203,17 +206,17 @@ public class Level extends State {
 			switch(object.getName()) {
 				case "powerUpHealth":
 					pickUpsList.add(new PickUp(this, x, y, "pickups/heart.png",
-							new PowerUp(0, 2, 0, false), InfoContainer.BodyID.PICKUP));
+							new PowerUp(0, 2, 0, false, false), InfoContainer.BodyID.PICKUP));
 				break;
 				
 				case "powerUpSpeed":
 					pickUpsList.add(new PickUp(this, x, y, "pickups/speed.png",
-							new PowerUp(1, 0, 0, false), InfoContainer.BodyID.PICKUP));
+							new PowerUp(1, 0, 0, false, false), InfoContainer.BodyID.PICKUP));
 				break;
 				
 				case "powerUpStealth":
 					pickUpsList.add(new PickUp(this, x, y, "pickups/stealth.png",
-							new PowerUp(0, 0, 1, false), InfoContainer.BodyID.PICKUP));
+							new PowerUp(0, 0, 1, false, false), InfoContainer.BodyID.PICKUP));
 				break;
 				
 				case "lasergun":
@@ -271,6 +274,15 @@ public class Level extends State {
 			}
 		}
 	}
+	
+	public void loadAntidote(){
+		
+		int x = player.getPositionX();
+		int y = player.getPositionX();
+		
+		pickUpsList.add(new PickUp(this, x+10, y+10, "pickups/cure.png",
+				new PowerUp(0, 0, 0, false, true), InfoContainer.BodyID.PICKUP));
+	}
 
 	/**
 	 * Spawn the cure power up randomly in one of the potential cure spawn points
@@ -288,9 +300,9 @@ public class Level extends State {
 		int randomSpawnIndex = (int) ((potentialCureSpawnPointList.size()-1)*Math.random());
 		Point spawnPoint = potentialCureSpawnPointList.get(randomSpawnIndex);
 		pickUpsList.add(new PickUp(this, spawnPoint.x, spawnPoint.y, "pickups/cure.png",
-				new PowerUp(0, 0, 0, true), InfoContainer.BodyID.PICKUP));
+				new PowerUp(0, 0, 0, true, false), InfoContainer.BodyID.PICKUP));
 	}
-
+	
 	@Override
 	public void resize(int width, int height) {
 		camera.viewportWidth = width * Zombies.InitialViewportWidth / (float) Zombies.InitialViewportWidth;
@@ -408,6 +420,10 @@ public class Level extends State {
 			gatePointer.render();
 		worldBatch.end();
 		
+		//if(antidote != null) {
+		//	antidote.render();
+		//}
+		
 		//Render lighting
 		rayHandler.render();
 		
@@ -471,6 +487,11 @@ public class Level extends State {
             System.out.println("Game is paused");
         }
         //*Code for Assessment 3*
+        
+        if(player.isZombie() && antidoteSpawn) {
+        	loadAntidote();
+        	antidoteSpawn = false;
+        }
 	}
 	
 	public Player getPlayer() {
