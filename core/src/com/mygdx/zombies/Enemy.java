@@ -135,19 +135,22 @@ public class Enemy extends Entity {
 		//Code for Assessment 3
 		else{
 			if (justHit) {
-				originalTime = System.nanoTime()/1000000000;
+				originalTime = System.nanoTime();
+				//System.out.println("Time hit: " + originalTime);
 				justHit = false;
 			}
-			long newTime = System.nanoTime()/1000000000;
-			timeRemaining = newTime - originalTime;
+			long newTime = System.nanoTime();
+			//System.out.println("Time stuff is happening: " + newTime);
 
-			body.applyLinearImpulse(new Vector2((float) Math.cos(angleRadians) * 5,
-					(float) Math.sin(angleRadians) * 5), body.getPosition(), true);
+			timeRemaining = newTime - originalTime;
+			//System.out.println("Time difference: " + timeRemaining);
+
+			body.applyLinearImpulse(new Vector2((float) Math.cos(angleRadians) * 500,
+					(float) Math.sin(angleRadians) * 500), body.getPosition(), true);
 			System.out.println("Zombie knock back");
 
 			originalTime = newTime;
-
-			if (timeRemaining > 0.00001) {
+			if (timeRemaining > 3000000) {
 				hit = false;
 				justHit = true;
 				timeRemaining = 0;
