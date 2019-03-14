@@ -150,6 +150,8 @@ public class CustomContactListener implements ContactListener {
 
 					PowerUp powerUp = (PowerUp)powerUpPickUp.getContainedItem();
 					player.setPowerUp(powerUp);
+
+					//#changed4 added code to apply cure / antidote
 					if(powerUp.isCure())
                         powerUp.applyCure(level);
 

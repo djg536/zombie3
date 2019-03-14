@@ -56,10 +56,10 @@ public class Level extends State {
 	private boolean gamePaused;
     //#changed4 added pauseMenu attribute
 	private PauseMenu pauseMenu;
-    //#changed4 made the following line private
+    //#changed4 added the following line
 	private ArrayList<Point> potentialCureSpawnPointList;
 	private CustomContactListener listener;
-	//#changed4 added logger and handler
+	//#changed4 added logger, handler and antidoteSpawn
     private static Logger logger;
     private static Handler handler;
     private boolean antidoteSpawn;
@@ -101,6 +101,7 @@ public class Level extends State {
 		loadObjects();
 		initLights();
 
+		//#changed4 added the following lines to spawn the cure power up
 		//There is a 3/10 chance that the cure power up will be spawned (in stages with spawn points)
 		if(Math.random() < 0.3)
             spawnCurePowerUp();
@@ -332,6 +333,7 @@ public class Level extends State {
 	/**
 	 * Spawn the cure power up randomly in one of the potential cure spawn points
 	 * Must be called after loadObjects() or potentialCureSpawnPointList will not be populated
+	 * #changed4 Added this method
 	 */
 	private void spawnCurePowerUp() {
 		//Randomly select a spawn point in the stage.
@@ -575,6 +577,7 @@ public class Level extends State {
 		renderer.dispose();
 		map.dispose();
 
+		//#changed4 added the following lines to clear the box2d world from memory safely
 		//Force step here to prevent concurrency synchronisation issues with Box2D thread when disposing
         box2dWorld.step(0, 1, 1);
 

@@ -34,8 +34,11 @@ public class Enemy extends Entity {
 	private boolean justHit;
 	private long originalTime;
 	private long timeRemaining;
-	private boolean spawnNpcOnDeath;
 	//Code for Assessment 3
+
+	//#changed4 added the following attribute
+	private boolean spawnNpcOnDeath;
+
 
 	/**
 	 * Constructor for generic enemy class
@@ -228,6 +231,10 @@ public class Enemy extends Entity {
 		return distanceToPlayer;
 	}
 
+	/**
+	 * Dispose of the enemy, clearing it from memory
+	 * #changed4 added this method to spawn an NPC if cure has been used
+	 */
 	@Override
 	public void dispose() {
 		super.dispose();

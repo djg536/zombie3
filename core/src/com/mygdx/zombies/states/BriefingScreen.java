@@ -13,6 +13,8 @@ import com.mygdx.zombies.states.StateManager.StateID;
 public class BriefingScreen extends State {
 
 	private Sprite banner;
+
+	//#changed4 added cure texture to the screen
 	private Texture cure;
 	
 	/**
@@ -25,6 +27,7 @@ public class BriefingScreen extends State {
 		banner.setScale(4.3f);		
 		banner.setPosition(0, Zombies.InitialWindowHeight-banner.getHeight());
 
+		//#changed4 added loading of the cure texture
 		cure = new Texture("pickups/cure.png");
 	}
 
@@ -49,6 +52,7 @@ public class BriefingScreen extends State {
 									 + "Be careful!", 20, 340);
 		Zombies.mainFont.draw(UIBatch, "Click to continue", 424, 50);
 
+		//#changed4 added drawing of the cure texture
 		UIBatch.draw(cure, 750, 132);
 
 		UIBatch.end();
