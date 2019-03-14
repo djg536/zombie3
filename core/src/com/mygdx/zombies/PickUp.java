@@ -36,6 +36,7 @@ public class PickUp extends Entity {
 		FixtureDef fixtureDef = new FixtureDef() {
 			{
 				isSensor = true;
+				//#changed4 added the following two lines to define collision behavior
 				filter.categoryBits = Zombies.pickupFilter;
 				filter.maskBits = Zombies.playerFilter;
 			}

@@ -59,6 +59,7 @@ public class Level extends State {
     //#changed4 made the following line private
 	private ArrayList<Point> potentialCureSpawnPointList;
 	private CustomContactListener listener;
+	//#changed4 added logger and handler
     private static Logger logger;
     private static Handler handler;
     private boolean antidoteSpawn;
@@ -122,6 +123,10 @@ public class Level extends State {
 	    return logger;
     }
 
+	/**
+	 * Initiate the logging process which generates a log of run time events
+	 * #changed4 added this method
+	 */
 	private void initLogging() {
         try {
             handler = new FileHandler("zombies.log");

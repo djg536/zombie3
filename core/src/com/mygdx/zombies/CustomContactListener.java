@@ -176,9 +176,9 @@ public class CustomContactListener implements ContactListener {
                 }
 				break;
 
-			default:
-                Level.getLogger().fine( "No handler for collision between " + aType.name() + " and " + bType.name());
-                break;
+			//default:
+            //    Level.getLogger().fine( "No handler for collision between " + aType.name() + " and " + bType.name());
+            //    break;
 		}
 	}
 

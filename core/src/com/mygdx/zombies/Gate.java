@@ -27,6 +27,7 @@ public class Gate extends Entity {
 		FixtureDef fixtureDef = new FixtureDef() {
 			{
 				isSensor = true;
+				//#changed4 added the following two lines to specify collision behavior
 				filter.categoryBits = Zombies.gateFilter;
 				filter.maskBits = Zombies.playerFilter;
 			}

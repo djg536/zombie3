@@ -147,7 +147,7 @@ public class MiniGameTest {
         int initialGeeseSize = miniGame.getGeese().size();
 
         Thread.sleep(2000);
-        miniGame.update();
+        miniGame.update(1);
         int newGeeseSize = miniGame.getGeese().size();
 
         assertNotEquals("Goose should be removed from geese when expired.", initialGeeseSize, newGeeseSize);

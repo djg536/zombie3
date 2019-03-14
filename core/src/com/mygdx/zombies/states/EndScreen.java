@@ -13,6 +13,7 @@ import com.mygdx.zombies.states.StateManager.StateID;
 public class EndScreen extends State {
 
 	private Texture banner;
+	//#changed4 removed unused attributes
 	
 	/**
 	 * Constructor for the screen

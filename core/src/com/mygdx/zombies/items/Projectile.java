@@ -18,6 +18,7 @@ public class Projectile extends Entity {
 
 	private SpriteBatch spriteBatch;
 	private Sprite sprite;
+	//#changed4 added projectile type system
 	public enum ProjectileType { LASER, BULLET, ZOMBIEPOTION}
 
 	/**
@@ -27,6 +28,7 @@ public class Projectile extends Entity {
 	 * @param y - the y spawn coordinate
 	 * @param angle - the angle to move
 	 * @param projectileType - the type of projectile, which determines attribute values
+	 * #changed4 removed attribute parameters as now replaced by projectileType
 	 */
 	public Projectile(Level level, int x, int y, float angle, ProjectileType projectileType) {
 
@@ -40,6 +42,7 @@ public class Projectile extends Entity {
 		short collisionCategoryFilter = 0;
 		short collisionMaskFilter = 0;
 
+		//#changed4 added this switch statement to assign values based on the type of projectile
 		switch(projectileType) {
 			case LASER:
 				spritePath = "laser.png";
@@ -78,6 +81,7 @@ public class Projectile extends Entity {
 				friction = 1;
 				restitution = 1;
 				isSensor = true;
+				//#changed4 added the following two lines to allow control over the collision behavior of projectiles
 				filter.categoryBits = finalCollisionCategoryFilter;
 				filter.maskBits = finalCollisionMaskFilter;
 			}

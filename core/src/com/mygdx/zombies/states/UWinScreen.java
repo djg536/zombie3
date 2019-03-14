@@ -10,6 +10,7 @@ public class UWinScreen extends State {
 
     // New class for assessment 3
 
+    //#changed4 updated attribute names to utilise Camel Casing
     private float pointsFromTime;
     private float totalPoints;
 
@@ -58,9 +59,8 @@ public class UWinScreen extends State {
     @Override
     public void dispose() {
 
-        //#changed4 Added the following line to prevent memory leakage
+        //#changed4 Added this method to prevent memory leakage and to stop the music playing when disposed
         super.dispose();
-
         Zombies.soundEndMusic.stop();
         banner.dispose();
     }

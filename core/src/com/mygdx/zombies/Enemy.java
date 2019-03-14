@@ -58,6 +58,7 @@ public class Enemy extends Entity {
 				density = 40;
 				friction = 0.5f;
 				restitution = 1f;
+				//#changed4 added the following two lines to calculate the collision mask
 				filter.categoryBits = Zombies.zombieFilter;
 				filter.maskBits = (short) (Zombies.playerFilter | Zombies.projectileFilter | Zombies.wallFilter
 						| Zombies.zombieFilter | Zombies.npcFilter);

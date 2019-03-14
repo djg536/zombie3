@@ -14,6 +14,7 @@ public class RangedWeapon implements Weapon {
 	private int shootDelay;
 	private int timerTicks;
 	private Level level;
+	//#changed4 replaced projectile attributes with a single projectileType attribute
 	private Projectile.ProjectileType projectileType;
 	private static boolean firing;
 	

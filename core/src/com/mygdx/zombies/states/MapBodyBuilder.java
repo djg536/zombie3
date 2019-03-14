@@ -52,6 +52,7 @@ public class MapBodyBuilder {
 			bd.type = BodyType.StaticBody;
 			Body body = world.createBody(bd);
 			body.createFixture(shape, 1);
+			////#changed4 added the following line to provide walls with a custom collision mask
 			body.getFixtureList().first().setFilterData(new Filter() {{ categoryBits = Zombies.wallFilter; }});
 
 			bodies.add(body);

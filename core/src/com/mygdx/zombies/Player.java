@@ -22,6 +22,7 @@ import com.mygdx.zombies.states.StateManager;
  */
 public class Player extends Entity {
 
+	//#changed4 added a player type enum rather than using an integer to identify player types
 	public enum PlayerType { COMPSCI, CHEMISTRY, FOOTBALLER }
 	public static Float health;
 	private static int points;
@@ -111,6 +112,7 @@ public class Player extends Entity {
 				friction = 0.5f;
 				restitution = 0f;
 				filter.categoryBits = Zombies.playerFilter;
+				//#changed4 now using bitwise OR statements to calculate the collision mask, rather than having a manual calculation
 				filter.maskBits = (short) (Zombies.zombieFilter | Zombies.zombieProjectileFilter | Zombies.wallFilter
 						| Zombies.pickupFilter | Zombies.gateFilter | Zombies.npcFilter);
 			}
@@ -129,6 +131,7 @@ public class Player extends Entity {
 	 * Loads player textures based on type
 	 */
 	private static void loadTextures() {
+		//#changed4 updated to work with the new player type enum rather than a player type integer
 		int typeNumber = type.ordinal()+1;
 		equippedTexture = new Texture(Gdx.files.internal("player/player" + typeNumber + "_equipped.png"));
 		unequippedTexture = new Texture(Gdx.files.internal("player/player" + typeNumber + "_unequipped.png"));

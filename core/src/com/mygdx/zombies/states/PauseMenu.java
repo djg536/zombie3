@@ -50,6 +50,7 @@ public class PauseMenu extends State {
     @Override
     public void update(float delta) {
         //Code to handle button click events
+        //#changed4 removed super.dispose() calls to fix crashing
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.justTouched()) {
             if (resume.isHover()) {
                 soundSelect.play();

@@ -35,6 +35,7 @@ public class Zombies extends Game {
 	static Sound soundSwing;
 	static Sound soundAmmo;
 	static Sound soundPowerUp;
+	//#changed4 added throwing sound
 	public static Sound soundThrow;
 	public static Sound soundAmbientWind;
 	public static Sound soundEndMusic;
@@ -47,6 +48,7 @@ public class Zombies extends Game {
 	// (maskBitsA & categoryBitsB) && (categoryBitsA & maskBitsB);
 	public static short playerFilter = 1;
 	public static short projectileFilter = 2;
+	//#changed4 added all of the below collision masks
 	public static short zombieFilter = 4;
 	public static short zombieProjectileFilter = 8;
 	public static short wallFilter = 16;
@@ -116,6 +118,7 @@ public class Zombies extends Game {
 		soundLaser = Gdx.audio.newSound(Gdx.files.internal("sounds/laser.wav"));
 		soundAmmo = Gdx.audio.newSound(Gdx.files.internal("sounds/ammo.wav"));
 		soundPowerUp = Gdx.audio.newSound(Gdx.files.internal("sounds/powerup.wav"));
+		//#changed4 added throwing sound
 		soundThrow = Gdx.audio.newSound(Gdx.files.internal("sounds/throw.wav"));
 		soundAmbientWind = Gdx.audio.newSound(Gdx.files.internal("sounds/wind.mp3"));
 		soundEndMusic = Gdx.audio.newSound(Gdx.files.internal("sounds/alligator_crawl.mp3"));
@@ -155,6 +158,7 @@ public class Zombies extends Game {
 		soundLaser.dispose();
 		soundAmmo.dispose();
 		soundPowerUp.dispose();
+		//#changed4 disposed of throwing sound
 		soundThrow.dispose();
 		soundAmbientWind.dispose();
 		soundEndMusic.dispose();
