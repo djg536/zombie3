@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="148">
+<map version="1.2" tiledversion="2018.12.22" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="148">
  <tileset firstgid="1" source="Assets/Roads.tsx"/>
  <tileset firstgid="13483" source="Assets/Tileset.tsx"/>
  <tileset firstgid="14523" source="Assets/Lamp.tsx"/>
@@ -220,107 +220,6 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="9" name="Lights">
-  <object id="97" name="street" x="173" y="333">
-   <point/>
-  </object>
-  <object id="103" name="street" x="1329" y="339">
-   <point/>
-  </object>
-  <object id="104" name="street" x="1488" y="501">
-   <point/>
-  </object>
-  <object id="106" name="street" x="1484" y="985">
-   <point/>
-  </object>
-  <object id="107" name="street" x="1332" y="1157">
-   <point/>
-  </object>
-  <object id="108" name="street" x="1481" y="1345">
-   <point/>
-  </object>
-  <object id="115" name="street" x="173" y="1267">
-   <point/>
-  </object>
-  <object id="117" name="street" x="176" y="982">
-   <point/>
-  </object>
-  <object id="120" name="torch" x="224" y="160">
-   <point/>
-  </object>
-  <object id="121" name="torch" x="469" y="983">
-   <point/>
-  </object>
-  <object id="122" name="torch" x="697" y="982">
-   <point/>
-  </object>
-  <object id="123" name="torch" x="907" y="979">
-   <point/>
-  </object>
-  <object id="124" name="torch" x="1114" y="973">
-   <point/>
-  </object>
-  <object id="125" name="torch" x="1346" y="169">
-   <point/>
-  </object>
-  <object id="126" name="torch" x="477" y="661">
-   <point/>
-  </object>
-  <object id="127" name="torch" x="705" y="664">
-   <point/>
-  </object>
-  <object id="128" name="torch" x="920" y="664">
-   <point/>
-  </object>
-  <object id="129" name="torch" x="1127" y="666">
-   <point/>
-  </object>
-  <object id="133" name="street" x="624" y="278.667">
-   <point/>
-  </object>
-  <object id="134" name="street" x="850.667" y="121.333">
-   <point/>
-  </object>
-  <object id="135" name="street" x="1073.33" y="281.333">
-   <point/>
-  </object>
-  <object id="136" name="street" x="1457.33" y="152">
-   <point/>
-  </object>
-  <object id="137" name="street" x="1329.33" y="598.667">
-   <point/>
-  </object>
-  <object id="138" name="street" x="1296" y="1334.67">
-   <point/>
-  </object>
-  <object id="139" name="street" x="1073.33" y="1334.67">
-   <point/>
-  </object>
-  <object id="140" name="street" x="882.667" y="1336">
-   <point/>
-  </object>
-  <object id="141" name="street" x="658.667" y="1337.33">
-   <point/>
-  </object>
-  <object id="142" name="street" x="465.333" y="1332">
-   <point/>
-  </object>
-  <object id="143" name="street" x="305.333" y="1336">
-   <point/>
-  </object>
-  <object id="144" name="street" x="178.667" y="596">
-   <point/>
-  </object>
-  <object id="145" name="street" x="398.667" y="278.667">
-   <point/>
-  </object>
-  <object id="146" name="street" x="398.667" y="125.333">
-   <point/>
-  </object>
-  <object id="147" name="street" x="18.6667" y="1109.33">
-   <point/>
-  </object>
- </objectgroup>
  <objectgroup id="5" name="Obstacles">
   <object id="1" name="Building 2" x="1024" y="2" width="378" height="188"/>
   <object id="2" name="Building 2" x="34" y="4" width="254" height="188"/>
@@ -431,6 +330,107 @@
    <properties>
     <property name="EntryID" type="int" value="0"/>
    </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="9" name="Lights" visible="0">
+  <object id="97" name="street" x="173" y="333">
+   <point/>
+  </object>
+  <object id="103" name="street" x="1329" y="339">
+   <point/>
+  </object>
+  <object id="104" name="street" x="1488" y="501">
+   <point/>
+  </object>
+  <object id="106" name="street" x="1484" y="985">
+   <point/>
+  </object>
+  <object id="107" name="street" x="1332" y="1157">
+   <point/>
+  </object>
+  <object id="108" name="street" x="1481" y="1345">
+   <point/>
+  </object>
+  <object id="115" name="street" x="173" y="1267">
+   <point/>
+  </object>
+  <object id="117" name="street" x="176" y="982">
+   <point/>
+  </object>
+  <object id="120" name="torch" x="224" y="160">
+   <point/>
+  </object>
+  <object id="121" name="torch" x="469" y="983">
+   <point/>
+  </object>
+  <object id="122" name="torch" x="697" y="982">
+   <point/>
+  </object>
+  <object id="123" name="torch" x="907" y="979">
+   <point/>
+  </object>
+  <object id="124" name="torch" x="1114" y="973">
+   <point/>
+  </object>
+  <object id="125" name="torch" x="1346" y="169">
+   <point/>
+  </object>
+  <object id="126" name="torch" x="477" y="661">
+   <point/>
+  </object>
+  <object id="127" name="torch" x="705" y="664">
+   <point/>
+  </object>
+  <object id="128" name="torch" x="920" y="664">
+   <point/>
+  </object>
+  <object id="129" name="torch" x="1127" y="666">
+   <point/>
+  </object>
+  <object id="133" name="street" x="624" y="278.667">
+   <point/>
+  </object>
+  <object id="134" name="street" x="850.667" y="121.333">
+   <point/>
+  </object>
+  <object id="135" name="street" x="1073.33" y="281.333">
+   <point/>
+  </object>
+  <object id="136" name="street" x="1457.33" y="152">
+   <point/>
+  </object>
+  <object id="137" name="street" x="1329.33" y="598.667">
+   <point/>
+  </object>
+  <object id="138" name="street" x="1296" y="1334.67">
+   <point/>
+  </object>
+  <object id="139" name="street" x="1073.33" y="1334.67">
+   <point/>
+  </object>
+  <object id="140" name="street" x="882.667" y="1336">
+   <point/>
+  </object>
+  <object id="141" name="street" x="658.667" y="1337.33">
+   <point/>
+  </object>
+  <object id="142" name="street" x="465.333" y="1332">
+   <point/>
+  </object>
+  <object id="143" name="street" x="305.333" y="1336">
+   <point/>
+  </object>
+  <object id="144" name="street" x="178.667" y="596">
+   <point/>
+  </object>
+  <object id="145" name="street" x="398.667" y="278.667">
+   <point/>
+  </object>
+  <object id="146" name="street" x="398.667" y="125.333">
+   <point/>
+  </object>
+  <object id="147" name="street" x="18.6667" y="1109.33">
    <point/>
   </object>
  </objectgroup>
