@@ -316,19 +316,18 @@ public class Player extends Entity {
 		if (deathMarker > 0) {
 			
 			if(health > 0) {
-				sprite.setTexture(unequippedTexture);
-				isZombie = false;
+				sprite.setTexture(unequippedTexture);				
 				deathMarker = 0;
 			}
 			
-			if(counter>deathMarker+5) {
+			else if(counter>deathMarker+5) {
 				deathMarker = 0;
 				isZombie = false;
 
 				//Sometimes collisions can occur after the end screen is shown if Box2D engine is taking a while to dispose of bodies
 				if(StateManager.getCurrentState() instanceof Level)
 				    StateManager.loadState(StateManager.StateID.UDIED);
-			}
+			}		
 		}
 
 

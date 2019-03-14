@@ -63,4 +63,6 @@ public class PowerUp {
 	}
 
 	public boolean isCure() { return cure; }
+	
+	public boolean isAntidote() { return antidote; }
 }

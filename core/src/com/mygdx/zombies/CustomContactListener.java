@@ -131,6 +131,9 @@ public class CustomContactListener implements ContactListener {
 					player.setPowerUp(powerUp);
 					if(powerUp.isCure())
                         powerUp.applyCure(level);
+					
+					if(powerUp.isAntidote())
+						powerUp.applyAntidote(level);
 
 					powerUpPickUp.getInfo().flagForDeletion();
 					System.out.println("Player has picked up item");
