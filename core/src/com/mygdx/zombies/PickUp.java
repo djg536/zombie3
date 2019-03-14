@@ -29,7 +29,8 @@ public class PickUp extends Entity {
 		spriteBatch = level.getWorldBatch();
 		sprite = new Sprite(new Texture(Gdx.files.internal(pickUpSpritePath)));
 		sprite.setPosition(x, y);
-	
+		
+
 		this.containedItem = containedItem;
 		
 		FixtureDef fixtureDef = new FixtureDef() {
@@ -39,12 +40,15 @@ public class PickUp extends Entity {
 				filter.maskBits = Zombies.playerFilter;
 			}
 		};
+		
+
 		//Generate Box2D detection area from sprite
 		GenerateBodyFromSprite(level.getBox2dWorld(), sprite, type, fixtureDef);
 		
 		body.setTransform((x+sprite.getWidth()/2) / Zombies.PhysicsDensity,
 				(y+sprite.getHeight()/2) / Zombies.PhysicsDensity, 0);
 	}	
+	
 	
 	/**
 	 * @return the object contained within the pick up container
