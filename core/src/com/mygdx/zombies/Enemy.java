@@ -1,6 +1,8 @@
 package com.mygdx.zombies;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.steer.limiters.LinearAccelerationLimiter;
+import com.badlogic.gdx.ai.steer.limiters.LinearSpeedLimiter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -133,8 +135,8 @@ public class Enemy extends Entity {
 			//Code for Assessment 3
 //			body.applyLinearImpulse(new Vector2((float) Math.cos(angleRadians) * -speed * alertSpeed,
 //				(float) Math.sin(angleRadians) * -speed * alertSpeed), body.getPosition(), true);
-			this.steeringBehavior = SteeringPresets.getSeek(this, player);
-			this.currentMode = SteeringState.SEEK;
+			this.steeringBehavior = SteeringPresets.getArrive(this, player).setTimeToTarget(1/(speed*alertSpeed));
+			this.currentMode = SteeringState.ARRIVE;
 		}
 		//Code for Assessment 3
 		else{
@@ -214,7 +216,7 @@ public class Enemy extends Entity {
 		sprite.draw(spriteBatch);
 	}
 
-	public int getHealth() {
+	int getHealth() {
 		return health;
 	}
 
@@ -227,7 +229,7 @@ public class Enemy extends Entity {
         }
 	}
 
-	public double getDistanceToPlayer() {
+	double getDistanceToPlayer() {
 		return distanceToPlayer;
 	}
 

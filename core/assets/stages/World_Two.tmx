@@ -868,11 +868,11 @@
   <object id="82" name="potentialCureSpawnPoint" x="54" y="55">
    <point/>
   </object>
-  <object id="95" name="miniGamePointer" x="840.667" y="284">
+  <object id="95" name="miniGamePointer" x="769.667" y="299">
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="21" name="Lights" visible="0">
+ <objectgroup id="21" name="Lights">
   <object id="40" name="red" x="114" y="979">
    <point/>
   </object>
