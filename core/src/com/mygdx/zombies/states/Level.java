@@ -321,10 +321,10 @@ public class Level extends State {
 		}
 	}
 
-	public void loadAntidote(){
+	private void loadAntidote(){
 
 		int x = player.getPositionX();
-		int y = player.getPositionX();
+		int y = player.getPositionY();
 
 		pickUpsList.add(new PickUp(this, x+10, y+10, "pickups/cure.png",
 				new PowerUp(0, 0, 0, false, true), InfoContainer.BodyID.PICKUP));

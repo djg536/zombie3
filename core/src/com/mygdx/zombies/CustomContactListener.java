@@ -1,7 +1,5 @@
 package com.mygdx.zombies;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.zombies.items.PowerUp;
 import com.mygdx.zombies.items.Projectile;
@@ -174,7 +172,7 @@ public class CustomContactListener implements ContactListener {
                     npc.setHealth(npc.getHealth() - 1);
                     Projectile projectile = (Projectile) b.getObj();
                     projectile.getInfo().flagForDeletion();
-                    System.out.println("NPC has been damaged");
+                    Level.getLogger().fine("NPC has been damaged");
                 }
 				break;
 

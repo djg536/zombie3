@@ -122,5 +122,7 @@ public class NPC extends Entity {
 	public void dispose() {
 		super.dispose();
 		sprite.getTexture().dispose();
+		//#changed4 NPCs turn into zombies when they die
+		level.getEnemiesList().add(new Enemy(level, getPositionX(), getPositionY(), "zombie/zombie1.png", 6, 5));
 	}
 }
