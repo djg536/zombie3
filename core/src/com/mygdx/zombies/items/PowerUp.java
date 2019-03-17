@@ -54,7 +54,7 @@ public class PowerUp {
 	
 	public void applyAntidote(Level level) {
 		Player player = level.getPlayer();
-		player.setHealth(10);
+		player.setZombie(false);
 	}
 
 	public int getSpeedBoost() {
