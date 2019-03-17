@@ -321,13 +321,13 @@ public class Level extends State {
 		}
 	}
 
-	private void loadAntidote(){
-
-		int x = player.getPositionX();
-		int y = player.getPositionY();
-
-		pickUpsList.add(new PickUp(this, x+10, y+10, "pickups/cure.png",
-				new PowerUp(0, 0, 0, false, true), InfoContainer.BodyID.PICKUP));
+	public void loadAntidote(){
+		
+		int randIndex = (int) ((potentialCureSpawnPointList.size()-1)*Math.random());
+		Enemy randZombie = enemiesList.get(randIndex);
+		
+		pickUpsList.add(new PickUp(this, randZombie.getPositionX(), randZombie.getPositionY(), 
+				"pickups/cure.png", new PowerUp(0, 0, 0, false, true), InfoContainer.BodyID.PICKUP));
 	}
 
 	/**
@@ -552,7 +552,7 @@ public class Level extends State {
 			player.closeGate();
 		}
 
-        if(player.isZombie() && antidoteSpawn) {
+        if(player.isZombie() && antidoteSpawn && player.dropAnti()) {
         	loadAntidote();
         	antidoteSpawn = false;
         }

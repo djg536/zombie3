@@ -46,12 +46,14 @@ public class Player extends Entity {
 	private static Texture equippedTexture;
 	private static Texture unequippedTexture;
 	private static Texture zombieTexture;
+	private static Texture antidoteTexture = new Texture("pickups/cure.png");
 	private static Level level;
 	//added for assessment 3
 	private boolean gateOpen;
 
 	private float deathMarker = 0;
 	private boolean isZombie = false;
+	private int zombieCountdown = 20;
 
 	/** Constructor for the player class
 	 * @param level - the level instance to spawn the player in
@@ -315,26 +317,8 @@ public class Player extends Entity {
 					(int)(pos.y), angleDegrees+getHandsRotation());
 			if (Gdx.input.isButtonPressed(Buttons.LEFT))
 				weapon.use();
-		}			
+		}	
 		
-		if (deathMarker > 0) {
-
-			if(health > 0) {
-				sprite.setTexture(unequippedTexture);
-				deathMarker = 0;
-			}
-
-			else if(counter>deathMarker+5) {
-				deathMarker = 0;
-				isZombie = false;
-
-				//Sometimes collisions can occur after the end screen is shown if Box2D engine is taking a while to dispose of bodies
-				if(StateManager.getCurrentState() instanceof Level)
-				    StateManager.loadState(StateManager.StateID.UDIED);
-			}
-		}
-
-
 		move();
 		look(mouseCoords);
 		updateCounter();
@@ -342,6 +326,21 @@ public class Player extends Entity {
 		
 		sprite.setPosition(getPositionX() - sprite.getWidth() / 2, getPositionY() - sprite.getHeight() / 2);
 		updateCounter();
+		
+		if (deathMarker > 0) {	
+			sprite.rotate(-90);
+			if(health > 0) {
+				setZombie(false);
+			}
+			else if(counter>deathMarker+zombieCountdown) {
+				deathMarker = 0;
+				isZombie = false;
+
+				//Sometimes collisions can occur after the end screen is shown if Box2D engine is taking a while to dispose of bodies
+				if(StateManager.getCurrentState() instanceof Level)
+				    StateManager.loadState(StateManager.StateID.UDIED);
+			}
+		}	
 	}
 
 	/**
@@ -376,6 +375,13 @@ public class Player extends Entity {
 	public void hudRender() {
 		Zombies.pointsFont.draw(UIBatch, "Time spent: " + pointDisplay, 800, 700);
 		Zombies.pointsFont.draw(UIBatch, "Points: " + getPoints(), 888, 650);
+		
+		if(isZombie) {
+			Zombies.pointsFont.draw(UIBatch, "You have " + (zombieCountdown-(counter-deathMarker)) + " seconds"
+										   + "\nto find the antidote ", 450, 500);
+			
+			UIBatch.draw(antidoteTexture, 830, 380);
+		}
 
 		for (int i = 0; i < health; i++) {
 			hud.setPosition(100 + i * 50, 620);
@@ -413,17 +419,30 @@ public class Player extends Entity {
 
 		if(health <= 0){
 			points -= 150;
-
+			setZombie(true);
+		}
+	}
+	
+	public void setZombie(boolean isZombie) {
+		this.isZombie = isZombie;
+		
+		if(isZombie) {
 			sprite.setTexture(zombieTexture);
 			deathMarker = counter;
-			isZombie = true;
-
+			charSpeed = -charSpeed;
 			//Added for assessment 3
 			//All weapons should be dropped before restarting
-			if(hasWeapon())
+			if(hasWeapon()) {
 				weapon = null;
+			}
+		}	
+		else {
+			sprite.setTexture(unequippedTexture);
+			deathMarker = 0;
+			zombieCountdown = -1;
+			setHealth(10);
+			charSpeed = -charSpeed;
 		}
-
 	}
 
 	public static int getPoints() {
@@ -444,6 +463,15 @@ public class Player extends Entity {
 
 	public boolean isZombie() {
 		return isZombie;
+	}
+	
+	// If player has been zombie for x seconds,
+	// random zombie can drop antidote
+	public boolean dropAnti() {
+		if(counter>deathMarker+5) {
+			return true;
+		}
+		else {return false;}
 	}
 
 	float getDamage() {

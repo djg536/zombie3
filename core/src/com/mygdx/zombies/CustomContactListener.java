@@ -106,39 +106,44 @@ public class CustomContactListener implements ContactListener {
 				
 
 			case PLAYER:
-				if (bType == InfoContainer.BodyID.ZOMBIE) {
-					Player player = (Player)a.getObj();
-					if (player.isSwinging()) {
-						//player.setHealth(player.getHealth()-player.getDamage());
-						Enemy zombie = (Enemy)b.getObj();
-						zombie.setHealth(zombie.getHealth()-3);
 
-						//Code for Assessment 3
-						zombie.hit = true;
-						//Code for Assessment 3
+				// If Player is not zombie (for assessment 4)
+				if(!((Player)a.getObj()).isZombie()) {
+					if (bType == InfoContainer.BodyID.ZOMBIE) {
+						Player player = (Player)a.getObj();
+						if (player.isSwinging()) {
+							player.setHealth(player.getHealth()-player.getDamage());
+							Enemy zombie = (Enemy)b.getObj();
+							zombie.setHealth(zombie.getHealth()-3);
+	
+							//Code for Assessment 3
+							zombie.hit = true;
+							//Code for Assessment 3
+						}
+						else {
+							player.setHealth(player.getHealth() - (player.getDamage()));
+							if (Player.getPoints() < 10)
+	                            Player.setPoints(0);
+	                        else
+	                            Player.setPoints(Player.getPoints() - 10);
+						}
+	                    Level.getLogger().fine( "Player has contacted zombie");
+
 					}
-					else {
-						player.setHealth(player.getHealth() - (player.getDamage()));
-						if (Player.getPoints() < 10)
-                            Player.setPoints(0);
-                        else
-                            Player.setPoints(Player.getPoints() - 10);
+					else if (bType == InfoContainer.BodyID.WEAPON) {
+						Player player = (Player)a.getObj();
+						PickUp weaponPickUp = (PickUp)b.getObj();
+						player.setWeapon((Weapon)weaponPickUp.getContainedItem());
+						weaponPickUp.getInfo().flagForDeletion();
+	                    Level.getLogger().fine( "Player has picked up weapon");
 					}
-                    Level.getLogger().fine( "Player has contacted zombie");
-				}
-				else if (bType == InfoContainer.BodyID.WEAPON) {
-					Player player = (Player)a.getObj();
-					PickUp weaponPickUp = (PickUp)b.getObj();
-					player.setWeapon((Weapon)weaponPickUp.getContainedItem());
-					weaponPickUp.getInfo().flagForDeletion();
-                    Level.getLogger().fine( "Player has picked up weapon");
-				}
-				else if (bType == InfoContainer.BodyID.PROJECTILE) {
-                    Projectile projectile = (Projectile)b.getObj();
-                    projectile.getInfo().flagForDeletion();
-					Player player = (Player)a.getObj();
-					player.setHealth(player.getHealth()-1);
-                    Level.getLogger().fine( "Zombie has been damaged");
+					else if (bType == InfoContainer.BodyID.PROJECTILE) {
+	                    Projectile projectile = (Projectile)b.getObj();
+	                    projectile.getInfo().flagForDeletion();
+						Player player = (Player)a.getObj();
+						player.setHealth(player.getHealth()-1);
+	                    Level.getLogger().fine( "Zombie has been damaged");
+					}
 				}
 				break;
 			
@@ -147,19 +152,27 @@ public class CustomContactListener implements ContactListener {
 				if (bType == InfoContainer.BodyID.PLAYER) {
 					PickUp powerUpPickUp = (PickUp)a.getObj();
 					Player player = (Player)b.getObj();
-
+					
 					PowerUp powerUp = (PowerUp)powerUpPickUp.getContainedItem();
-					player.setPowerUp(powerUp);
-
-					//#changed4 added code to apply cure / antidote
-					if(powerUp.isCure())
-                        powerUp.applyCure(level);
-
-					if(powerUp.isAntidote())
+					
+					if(!player.isZombie()) {
+						player.setPowerUp(powerUp);
+							
+						//#changed4 added code to apply cure / antidote
+						if(powerUp.isCure()) {
+	                        powerUp.applyCure(level);
+						}
+						
+						powerUpPickUp.getInfo().flagForDeletion();
+	                    Level.getLogger().fine( "Player has picked up item");
+					}
+					
+					if(powerUp.isAntidote()) {
 						powerUp.applyAntidote(level);
-
-					powerUpPickUp.getInfo().flagForDeletion();
-                    Level.getLogger().fine( "Player has picked up item");
+						powerUpPickUp.getInfo().flagForDeletion();
+	                    Level.getLogger().fine( "Player has picked up item");
+					}
+						
 				}
 				break;
 				
