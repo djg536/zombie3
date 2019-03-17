@@ -1,4 +1,4 @@
-package src.com.mygdx.zombies;
+package com.mygdx.zombies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
