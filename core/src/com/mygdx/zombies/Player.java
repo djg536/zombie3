@@ -193,8 +193,8 @@ public class Player extends Entity {
 	 */
 	public Vector2 getHandsPosition() {				
 		double rot = angleRads + swingStep/3.f;
-		float x = (float)Math.toDegrees(Math.cos(rot))*0.5f;
-		float y = (float)Math.toDegrees(Math.sin(rot))*0.5f;
+		float x = (float)Math.cos(rot)*65f;
+		float y = (float)Math.sin(rot)*65f;
 		
 		return new Vector2(x, y);
 	}
@@ -306,7 +306,7 @@ public class Player extends Entity {
 		
 		if (weapon != null) {
 			Vector2 h = getHandsPosition();
-			Vector2 pos = new Vector2(getPositionX() + h.x, getPositionY() + h.y);
+			Vector2 pos = new Vector2(getPositionX() + h.x - 30, getPositionY() + h.y - 30);
 			if(weapon instanceof MeleeWeapon)
 				swingUpdate();
 			else

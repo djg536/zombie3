@@ -103,12 +103,13 @@ public class CustomContactListener implements ContactListener {
                     Level.getLogger().fine( "Bullet has hit wall");
 				}
 				break;
+				
 
 			case PLAYER:
 				if (bType == InfoContainer.BodyID.ZOMBIE) {
 					Player player = (Player)a.getObj();
 					if (player.isSwinging()) {
-						player.setHealth(player.getHealth()-player.getDamage());
+						//player.setHealth(player.getHealth()-player.getDamage());
 						Enemy zombie = (Enemy)b.getObj();
 						zombie.setHealth(zombie.getHealth()-3);
 
@@ -140,6 +141,7 @@ public class CustomContactListener implements ContactListener {
                     Level.getLogger().fine( "Zombie has been damaged");
 				}
 				break;
+			
 				
 			case PICKUP:
 				if (bType == InfoContainer.BodyID.PLAYER) {
