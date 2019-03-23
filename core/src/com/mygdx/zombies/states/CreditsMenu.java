@@ -50,7 +50,7 @@ public class CreditsMenu extends State {
 			if (back.isHover()) {
 				//Play sound and go to next screen
 				Zombies.soundSelect.play();
-				StateManager.loadState(StateID.MAINMENU);
+				StateManager.loadState(StateID.MAINMENU, aliveNPC);
 			}
 		}
 	}

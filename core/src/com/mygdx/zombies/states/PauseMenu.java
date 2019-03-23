@@ -66,7 +66,7 @@ public class PauseMenu extends State {
                 Player.weapon = null;
                 Player.setCounter(null);
 
-                StateManager.loadState(StateManager.StateID.MAINMENU);
+                StateManager.loadState(StateManager.StateID.MAINMENU, aliveNPC);
             }
         }
     }

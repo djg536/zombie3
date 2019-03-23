@@ -82,8 +82,8 @@ public class Player extends Entity {
 		}
 		
 		//Initialise player health if not yet set in previous stage
-		if(Player.health == null || Player.health <= 0) {
-			Player.health = 10f;
+		if(health == null || health <= 0) {
+			health = 10f;
 		}
 		
 		//Initialise time if not yet set in previous stage
@@ -338,7 +338,7 @@ public class Player extends Entity {
 
 				//Sometimes collisions can occur after the end screen is shown if Box2D engine is taking a while to dispose of bodies
 				if(StateManager.getCurrentState() instanceof Level)
-				    StateManager.loadState(StateManager.StateID.UDIED);
+				    StateManager.loadState(StateManager.StateID.UDIED, level.isAliveNPC());
 			}
 		}	
 	}
@@ -413,7 +413,7 @@ public class Player extends Entity {
 	/** Sets the health to the given value, restarting the current level if depleted
 	 * @param health - the value to set the health to
 	 */
-	public void setHealth(float health) {
+	void setHealth(float health) {
 		Player.health = health;
 		//Restart current level from last entry point if health depleted
 
@@ -468,10 +468,7 @@ public class Player extends Entity {
 	// If player has been zombie for x seconds,
 	// random zombie can drop antidote
 	public boolean dropAnti() {
-		if(counter>deathMarker+5) {
-			return true;
-		}
-		else {return false;}
+		return counter > deathMarker + 5;
 	}
 
 	float getDamage() {

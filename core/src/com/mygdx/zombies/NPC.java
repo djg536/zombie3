@@ -1,14 +1,12 @@
 package com.mygdx.zombies;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ai.steer.limiters.LinearAccelerationLimiter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.mygdx.zombies.items.Projectile;
-import com.mygdx.zombies.items.Weapon;
 import com.mygdx.zombies.states.Level;
 
 /**
@@ -19,11 +17,12 @@ public class NPC extends Entity {
 	private SpriteBatch spriteBatch;
 	private Sprite sprite;
 	private Player player;
-	private int health;
+	private Integer health;
 
 	private int projectileSpawnStep;
 	private Level level;
 	private double angleToZombieRadians;
+
 
 	/** Constructor for the NPC class
 	 * @param level - the level to spawn the NPC in
@@ -44,7 +43,8 @@ public class NPC extends Entity {
 				restitution = 0f;
 				//#changed4 added collision with walls, players, zombies and bullets (NPCs can now be shot by players)
 				filter.categoryBits = Zombies.npcFilter;
-				filter.maskBits = (short) (Zombies.playerFilter | Zombies.wallFilter | Zombies.zombieFilter);
+				filter.maskBits = (short) (Zombies.playerFilter | Zombies.wallFilter |
+						Zombies.zombieFilter | Zombies.zombieProjectileFilter | Zombies.npcFilter);
 			}
 		};
 		GenerateBodyFromSprite(level.getBox2dWorld(), sprite, InfoContainer.BodyID.NPC, fixtureDef);
@@ -53,21 +53,27 @@ public class NPC extends Entity {
 		body.setFixedRotation(true);
 				
 		this.player = level.getPlayer();
-		health = 10;
+		//#changed4 set aliveNPC to true when NPC is instantiated
+		level.setAliveNPC(true);
+		if (health == null)
+			health = 10;
 
 		projectileSpawnStep = 0;
 	}
 	
 	/** Set the health to the given value, removing the NPC if health is depleted
+	 * #changed4 set flag aliveNPC to false if health <= 0
 	 * @param health - the value to set the health to
 	 */
 	void setHealth(int health) {
 		this.health = health;
-		if(health <= 0)					
+		if(health <= 0) {
 			getInfo().flagForDeletion();
+			level.setAliveNPC(false);
+		}
 	}
 	
-	int getHealth() {
+	Integer getHealth() {
 		return health;
 	}
 	
@@ -92,7 +98,7 @@ public class NPC extends Entity {
 		}
 		sprite.setPosition(bodyPosition.x - sprite.getWidth()/2, bodyPosition.y - sprite.getHeight()/2);
 		sprite.setRotation(angleDegrees);
-
+		//#changed4 added NPC shooting ability - shoots at closest zombie to player every few seconds as extra 'protection'
 		final float bulletSpray = 0.1f;
 
 		projectileSpawnStep++;
@@ -124,5 +130,6 @@ public class NPC extends Entity {
 		sprite.getTexture().dispose();
 		//#changed4 NPCs turn into zombies when they die
 		level.getEnemiesList().add(new Enemy(level, getPositionX(), getPositionY(), "zombie/zombie1.png", 6, 5));
+		level.setAliveNPC(false	);
 	}
 }

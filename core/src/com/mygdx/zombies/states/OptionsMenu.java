@@ -65,7 +65,7 @@ public class OptionsMenu extends State {
 			else if (back.isHover()) {
 				Zombies.soundSelect.play();
 				//Load main menu state
-				StateManager.loadState(StateID.MAINMENU);
+				StateManager.loadState(StateID.MAINMENU, aliveNPC);
 			}
 		}
 	}

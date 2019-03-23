@@ -10,6 +10,7 @@ public class State {
 
 	SpriteBatch worldBatch;
 	protected SpriteBatch UIBatch;
+	protected boolean aliveNPC;
 
 	/**
 	 * Constructor for the state class

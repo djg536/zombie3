@@ -7,6 +7,8 @@ import com.mygdx.zombies.Player;
 import com.mygdx.zombies.Zombies;
 import com.mygdx.zombies.states.StateManager.StateID;
 
+import static com.mygdx.zombies.states.StateManager.StateID.*;
+
 /**
  * End screen which is played when the game has been won
  */
@@ -33,7 +35,7 @@ public class EndScreen extends State {
 		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.justTouched()) {
 		    Player.setCounter(null);
 			Player.setPoints(0);
-			StateManager.loadState(StateID.MAINMENU);
+			StateManager.loadState(MAINMENU, aliveNPC);
 		}
 	}
 	

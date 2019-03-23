@@ -10,7 +10,7 @@ import com.mygdx.zombies.Zombies;
 public class StateManager {
 
 	private static State currentState;
-	
+
 	//Enum of state ids, used to identify different types of state
 	//#changed4 Removed the PAUSEMENU entry from the enum
 	public enum StateID {
@@ -52,27 +52,31 @@ public class StateManager {
 	/**
 	 * Load a new state, clearing the memory of the old state
 	 * @param newState - the new state to load
+	 * @param aliveNPC - pass through how many NPCs are to go to the next state
 	 */
-	public static void loadState(State newState) {
+	public static void loadState(State newState, boolean aliveNPC) {
 		currentState.dispose();
 		currentState = newState;
 	}
-	
+
 	/**
 	 * Load the state associated with the given state id
 	 * @param stateID - the state id to identify the state to load
+	 * @param aliveNPC - pass through how many NPCs are to go to the next state
 	 */
-	public static void loadState(StateID stateID) {
-		loadState(stateID, -1);
+	public static void loadState(StateID stateID, boolean aliveNPC) {
+		loadState(stateID, -1, aliveNPC);
 	}
 	
 	/**
 	 * Load the state associated with the given state id and pass the entry id
+	 * #changed4 removed the PAUSEMENU case from the switch statement
+	 * #changed4 added aliveNPC parameter
 	 * @param stateID - the state id to identify the state to load
 	 * @param entryID - the entry id to pass
-     * #changed4 removed the PAUSEMENU case from the switch statement
+	 * @param aliveNPC - pass through how many NPCs are to go to the next state
 	 */
-	public static void loadState(StateID stateID, int entryID) {
+	public static void loadState(StateID stateID, int entryID, boolean aliveNPC) {
 		
 		State tempState = null;
 		//Switch statement to run unique load code for each state
@@ -96,13 +100,13 @@ public class StateManager {
 				tempState = new BriefingScreen();
 				break;
 			case STAGE1:
-				tempState = new Level("World_One", entryID);
+				tempState = new Level("World_One", entryID, aliveNPC);
 				break;
 			case STAGE2:
-				tempState = new Level("World_Two", entryID);
+				tempState = new Level("World_Two", entryID, aliveNPC);
 				break;
 			case STAGE3:
-				tempState = new Level("World_Three", entryID);
+				tempState = new Level("World_Three", entryID, aliveNPC);
 				break;
 			// Added more case statements for new StateID's on assessment 3
 			case UDIED:
@@ -112,13 +116,13 @@ public class StateManager {
 				tempState = new UWinScreen();
 				break;
 			case STAGE4:
-				tempState = new Level("World_Four", entryID);
+				tempState = new Level("World_Four", entryID, aliveNPC);
 				break;
 			case STAGE5:
-				tempState = new Level("World_Five", entryID);
+				tempState = new Level("World_Five", entryID, aliveNPC);
 				break;
 			case STAGE6:
-				tempState = new Level("World_Six", entryID);
+				tempState = new Level("World_Six", entryID, aliveNPC);
 				break;
             case MINIGAMEMM:
             	// Return to main game when done
@@ -133,7 +137,7 @@ public class StateManager {
 				break;
 		}
 
-		loadState(tempState);
+		loadState(tempState, aliveNPC);
 	}
 
 	/**

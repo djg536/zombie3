@@ -62,7 +62,7 @@ public class Projectile extends Entity {
 				spritePath = "zombie_projectile.png";
 				speed = 150;
 				collisionCategoryFilter = Zombies.zombieProjectileFilter;
-				collisionMaskFilter = (short) (Zombies.playerFilter | Zombies.wallFilter);
+				collisionMaskFilter = (short) (Zombies.playerFilter | Zombies.wallFilter | Zombies.npcFilter);
 				Zombies.soundThrow.play();
 				break;
 		}

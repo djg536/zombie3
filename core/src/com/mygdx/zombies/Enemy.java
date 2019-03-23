@@ -65,8 +65,8 @@ public class Enemy extends Entity {
 				restitution = 1f;
 				//#changed4 added the following two lines to calculate the collision mask
 				filter.categoryBits = Zombies.zombieFilter;
-				filter.maskBits = (short) (Zombies.playerFilter | Zombies.projectileFilter | Zombies.wallFilter
-						| Zombies.zombieFilter | Zombies.npcFilter);
+				filter.maskBits = (short) (Zombies.playerFilter | Zombies.projectileFilter | Zombies.zombieProjectileFilter |
+						Zombies.wallFilter | Zombies.zombieFilter | Zombies.npcFilter);
 			}
 		};
 		GenerateBodyFromSprite(level.getBox2dWorld(), sprite, InfoContainer.BodyID.ZOMBIE, fixtureDef);

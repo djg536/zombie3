@@ -47,6 +47,13 @@ public class Level extends State {
 	private RayHandler rayHandler;
 	private ArrayList<PointLight> lightsList;
 	private ArrayList<NPC> npcsList;
+	private boolean aliveNPC;
+
+	static int getDeliveredNPCs() {
+		return deliveredNPCs;
+	}
+
+	private static int deliveredNPCs;
 	private ArrayList<Gate> gatesList;
 	private ArrayList<GatePointer> gatePointerList;
 	private GatePointer miniGamePointer;
@@ -70,11 +77,12 @@ public class Level extends State {
 	 * @param path - filename of .tmx file for tiled grid
 	 * @param spawnEntryID - the id of an entry to spawn the player at
 	 */
-	public Level(String path, int spawnEntryID) {
+	public Level(String path, int spawnEntryID, boolean aliveNPC) {
 		super();	
 		
 		this.path = path;
 		this.spawnEntryID = spawnEntryID;
+		this.aliveNPC = aliveNPC;
 		
 		bulletsList = new ArrayList<>();
 		enemiesList = new ArrayList<>();
@@ -289,6 +297,12 @@ public class Level extends State {
 				case "NPC":
 					npcsList.add(new NPC(this, x, y));
 				break;
+				//#changed4
+				case "NPCCarry":
+					//if npc is still alive, carry through to next level
+					if (aliveNPC)
+						npcsList.add(new NPC(this, x, y));
+				break;
 				
 				case "boss1":
 					enemiesList.add(new Boss1(this, x, y));
@@ -308,7 +322,7 @@ public class Level extends State {
 				//#changed4 added miniGamePointer
                 case "miniGamePointer":
                     miniGamePointer = new GatePointer(this, x, y, "gatePointer.png",
-                            "Press E to Play MiniGame!", GateDirection.UP);
+                            "Press E to Play MiniGame!", GateDirection.RIGHT);
 				//#changed4
 				case "potentialCureSpawnPoint":
 					potentialCureSpawnPointList.add(new Point(x, y));
@@ -321,7 +335,7 @@ public class Level extends State {
 		}
 	}
 
-	public void loadAntidote(){
+	private void loadAntidote(){
 		
 		int randIndex = (int) ((potentialCureSpawnPointList.size()-1)*Math.random());
 		Enemy randZombie = enemiesList.get(randIndex);
@@ -463,8 +477,8 @@ public class Level extends State {
 		//Draw player
 		player.render();
 		//Draw mobs and game objects
-		for (int i = 0; i < enemiesList.size(); i++)
-			enemiesList.get(i).render();
+		for (Enemy enemy : enemiesList)
+			enemy.render();
 		for (Projectile bullet : bulletsList)
 			bullet.render();
 		for(PickUp pickUp : pickUpsList)
@@ -497,6 +511,14 @@ public class Level extends State {
 		return box2dWorld;
 	}
 
+	public boolean isAliveNPC() {
+		return aliveNPC;
+	}
+
+	public void setAliveNPC(boolean aliveNPC) {
+		this.aliveNPC = aliveNPC;
+	}
+
 	@Override
 	public void update(float delta) {
 		//Method to update everything in the state
@@ -506,36 +528,34 @@ public class Level extends State {
             return;
         }
 
-            //Update the camera position
-            camera.position.set(player.getPositionX(), player.getPositionY(), 0);
-            camera.update();
+        //Update the camera position
+		camera.position.set(player.getPositionX(), player.getPositionY(), 0);
+        camera.update();
 
-            //Update Box2D physics
-            box2dWorld.step(1 / 60f, 6, 2);
+        //Update Box2D physics
+		box2dWorld.step(1 / 60f, 6, 2);
 
-            //Update mobs
-            for (int i = 0; i < enemiesList.size(); i++)
-                enemiesList.get(i).update(this.inLights());
-            for (NPC npc : npcsList)
-                npc.update(delta);
-            //Update GatePointer, added for assessment 3
-            for (GatePointer pointer : gatePointerList)
-                pointer.update(player.getGate());
-            if (miniGamePointer != null)
-                miniGamePointer.update(true);
+		//Update mobs
+		for (int i = 0; i < enemiesList.size(); i++)
+			enemiesList.get(i).update(this.inLights());
+		for (NPC npc : npcsList)
+			npc.update(delta);
+		//Update GatePointer, added for assessment 3
+		for (GatePointer pointer : gatePointerList)
+			pointer.update(player.getGate());
+		if (miniGamePointer != null)
+			miniGamePointer.update(true);
 
-            //Remove deletion flagged objects
-            Entity.removeDeletionFlagged(enemiesList);
-            Entity.removeDeletionFlagged(bulletsList);
-            Entity.removeDeletionFlagged(pickUpsList);
-            Entity.removeDeletionFlagged(npcsList);
-            Entity.removeDeletionFlagged(gatesList);
+		//Remove deletion flagged objects
+		Entity.removeDeletionFlagged(enemiesList);
+		Entity.removeDeletionFlagged(bulletsList);
+        Entity.removeDeletionFlagged(pickUpsList);
+        Entity.removeDeletionFlagged(npcsList);
+        Entity.removeDeletionFlagged(gatesList);
 
-            //Update Box2D lighting
-            rayHandler.setCombinedMatrix(camera);
-            rayHandler.update();
-
-
+        //Update Box2D lighting
+		rayHandler.setCombinedMatrix(camera);
+		rayHandler.update();
 
 		//Update player
 		player.update(camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0)));
@@ -546,9 +566,12 @@ public class Level extends State {
             System.out.println("Game is paused");
         }
         //#changed4 If 'E' is pressed while over gate, go to next level
+		//NPCs are 'delivered' at end of stage 3 and 6, with bonus 1000 points given for each 'delivered' NPC.
 		if (Gdx.input.isKeyPressed(Input.Keys.E)  && listener.isColliding()) {
 			Gate gate = (Gate) listener.getObjectA();
-			StateManager.loadState(gate.getDestination(), gate.getEntryID());
+			if ((gate.getDestination() == StateID.STAGE4 || gate.getDestination() == StateID.UWIN) && aliveNPC)
+				deliveredNPCs += 1;
+			StateManager.loadState(gate.getDestination(), gate.getEntryID(), aliveNPC);
 			player.closeGate();
 		}
 
@@ -583,7 +606,7 @@ public class Level extends State {
 
         Array<Body> bodies = new Array<>();
         box2dWorld.getBodies(bodies);
-        for(Body body : bodies)
+        for(Body body : new Array.ArrayIterator<>(bodies))
             box2dWorld.destroyBody(body);
 
         if(handler != null) {

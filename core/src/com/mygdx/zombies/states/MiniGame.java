@@ -138,7 +138,7 @@ public class MiniGame extends State {
     }
 
     /**
-     * @param goose
+     * @param goose - goose object to be checked
      * @return boolean true if the mouse is over the goose, false otherwise
      */
     private boolean mouseOverGoose(Goose goose) {
@@ -211,10 +211,10 @@ public class MiniGame extends State {
             // Press escape to exit
             if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
                 if (returnState.equals("menu")) {
-                    StateManager.loadState(StateManager.StateID.MAINMENU);
+                    StateManager.loadState(StateManager.StateID.MAINMENU, aliveNPC);
                 } else if (returnState.equals("game")) {
                     Player.setPoints(Player.getPoints() + points);
-                    StateManager.loadState(StateManager.StateID.STAGE2, 0);
+                    StateManager.loadState(StateManager.StateID.STAGE2, 0, aliveNPC);
                 }
             }
         } else {

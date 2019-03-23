@@ -61,15 +61,15 @@ public class MainMenu extends State {
 				Zombies.soundSelect.play();
 				//Start playing ambient sound
 				Zombies.soundAmbientWind.loop();
-				StateManager.loadState(StateID.BRIEFINGSCREEN);
+				StateManager.loadState(StateID.BRIEFINGSCREEN, aliveNPC);
 			}
 			else if (credits.isHover()) {
 				Zombies.soundSelect.play();
-				StateManager.loadState(StateID.CREDITSMENU);
+				StateManager.loadState(StateID.CREDITSMENU, aliveNPC);
 			}
 			else if (options.isHover()) {
 				Zombies.soundSelect.play();
-				StateManager.loadState(StateID.OPTIONSMENU);
+				StateManager.loadState(StateID.OPTIONSMENU, aliveNPC);
 			}
 			else if (exit.isHover()) {
 				//Quit the game
@@ -78,7 +78,7 @@ public class MainMenu extends State {
 			// Added minigame button for assessment 3
 			else if (minigame.isHover()) {
 				Zombies.soundSelect.play();
-				StateManager.loadState(StateID.MINIGAMEMM);
+				StateManager.loadState(StateID.MINIGAMEMM, aliveNPC);
 			}
 		}
 	}
