@@ -6,7 +6,7 @@ import com.mygdx.zombies.Zombies;
 
 public class UDiedScreen extends State {
 
-    // New class for assesment 3
+    // New class for assessment 3
 
     private Level level;
 

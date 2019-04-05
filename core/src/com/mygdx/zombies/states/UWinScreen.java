@@ -3,7 +3,7 @@ package com.mygdx.zombies.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.zombies.Player;
+import com.mygdx.zombies.entities.Player;
 import com.mygdx.zombies.Zombies;
 
 import static com.mygdx.zombies.states.StateManager.StateID.MAINMENU;
@@ -52,7 +52,7 @@ public class UWinScreen extends State {
         //#changed4 UI element positioning now utilises constants rather than e.g. Gdx.graphics.getWidth(), which has now fixed scaling
         UIBatch.draw(banner, Zombies.InitialWindowWidth/2f-banner.getWidth()/2f, Zombies.InitialWindowHeight-banner.getHeight()-15); //#changed4
         Zombies.mainFont.draw(UIBatch, "Bonus Points: " + (int) pointsFromTime,Zombies.InitialWindowWidth/2f-200, Zombies.InitialWindowHeight/2f-75);
-        Zombies.mainFont.draw(UIBatch, "Recovered NPCs: " + Level.getDeliveredNPCs() + " * 1000", Zombies.InitialWindowWidth/2f-200, Zombies.InitialWindowHeight/2f-125);
+        Zombies.mainFont.draw(UIBatch, "Saved NPCs: " + Level.getDeliveredNPCs() + " * 1000", Zombies.InitialWindowWidth/2f-200, Zombies.InitialWindowHeight/2f-125);
         Zombies.mainFont.draw(UIBatch, "Total Score: " + (int) totalPoints, Zombies.InitialWindowWidth/2f-200, Zombies.InitialWindowHeight/2f-175);
         Zombies.mainFont.draw(UIBatch, "[click to continue]", Zombies.InitialWindowWidth/2f-230, Zombies.InitialWindowHeight/2f-250);
         UIBatch.end();

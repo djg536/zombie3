@@ -1,4 +1,4 @@
-package com.mygdx.zombies;
+package com.mygdx.zombies.entities;
 
 import java.util.ArrayList;
 
@@ -13,6 +13,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.zombies.InfoContainer;
+import com.mygdx.zombies.Zombies;
 
 /**
  * Generic Entity class for handling safe flag deletion system
@@ -43,7 +45,7 @@ public class Entity implements Steerable<Vector2> {
 	 * @param bodyID - defines the types of object, used in collision events
 	 * @param fixtureDef - the Box2D fixture definition to use
 	 */
-	void GenerateBodyRectangle(Vector2 dimens, World box2dWorld, InfoContainer.BodyID bodyID, FixtureDef fixtureDef) {
+    protected void GenerateBodyRectangle(Vector2 dimens, World box2dWorld, InfoContainer.BodyID bodyID, FixtureDef fixtureDef) {
 		this.box2dWorld = box2dWorld;
 		body = box2dWorld.createBody(new BodyDef() {
 			{
@@ -125,7 +127,7 @@ public class Entity implements Steerable<Vector2> {
 	 * @param steering steering behaviour to apply
 	 * @param delta time update
 	 */
-	protected void applySteering(SteeringAcceleration<Vector2> steering, float delta) {
+	private void applySteering(SteeringAcceleration<Vector2> steering, float delta) {
 		boolean anyAccelerations = false;
 		// Update position and linear velocity
 		if (!steeringOutput.linear.isZero()) {

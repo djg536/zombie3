@@ -1,4 +1,4 @@
-package com.mygdx.zombies;
+package com.mygdx.zombies.entities;
 
 //#changed4 Removed unused imports
 import com.mygdx.zombies.items.Projectile;

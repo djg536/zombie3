@@ -2,9 +2,9 @@ package com.mygdx.zombies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.zombies.entities.Entity;
 import com.mygdx.zombies.states.Level;
 import com.mygdx.zombies.states.StateManager.GateDirection;
 
@@ -12,7 +12,7 @@ import com.mygdx.zombies.states.StateManager.GateDirection;
  * added for assessment 3, simple arrow to point at gate to next level
  */
 
-public class GatePointer extends Entity{
+public class GatePointer extends Entity {
 
     private SpriteBatch spriteBatch;
     private Sprite sprite;

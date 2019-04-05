@@ -1,4 +1,4 @@
-package com.mygdx.zombies;
+package com.mygdx.zombies.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.mygdx.zombies.InfoContainer;
+import com.mygdx.zombies.SteeringPresets;
+import com.mygdx.zombies.Zombies;
 import com.mygdx.zombies.items.Projectile;
 import com.mygdx.zombies.states.Level;
 
@@ -65,7 +68,7 @@ public class NPC extends Entity {
 	 * #changed4 set flag aliveNPC to false if health <= 0
 	 * @param health - the value to set the health to
 	 */
-	void setHealth(int health) {
+	public void setHealth(int health) {
 		this.health = health;
 		if(health <= 0) {
 			getInfo().flagForDeletion();
@@ -73,7 +76,7 @@ public class NPC extends Entity {
 		}
 	}
 	
-	Integer getHealth() {
+	public Integer getHealth() {
 		return health;
 	}
 	
@@ -83,19 +86,13 @@ public class NPC extends Entity {
 	public void update(float delta) {
 		super.update(delta);
 		Vector2 bodyPosition = body.getPosition().scl(Zombies.PhysicsDensity);
-		Vector2 playerPosition = new Vector2(player.getPositionX(), player.getPositionY());
-		double distance = Zombies.distanceBetween(bodyPosition, playerPosition);
 		double angleRads = Zombies.angleBetweenRads(new Vector2(player.getPositionX(), player.getPositionY()), bodyPosition);
 		float angleDegrees = (float) Math.toDegrees(angleRads);
 		
-		//Move towards the player until closeby, #changed4 then wander around nearby to player
-		if(distance > 150) {
-			this.steeringBehavior = SteeringPresets.getArrive(this, player);
-			this.currentMode = SteeringState.ARRIVE;
-		} else {
-			this.steeringBehavior = SteeringPresets.getWander(this);
-			this.currentMode = SteeringState.WANDER;
-		}
+		//Move towards the player until close by, #changed4 using gdx-AI
+		this.steeringBehavior = SteeringPresets.getArrive(this, player);
+		this.currentMode = SteeringState.ARRIVE;
+
 		sprite.setPosition(bodyPosition.x - sprite.getWidth()/2, bodyPosition.y - sprite.getHeight()/2);
 		sprite.setRotation(angleDegrees);
 		//#changed4 added NPC shooting ability - shoots at closest zombie to player every few seconds as extra 'protection'

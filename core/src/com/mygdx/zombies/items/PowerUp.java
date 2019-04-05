@@ -1,8 +1,8 @@
 package com.mygdx.zombies.items;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.zombies.Enemy;
-import com.mygdx.zombies.Player;
+import com.mygdx.zombies.entities.Enemy;
+import com.mygdx.zombies.entities.Player;
 import com.mygdx.zombies.Zombies;
 import com.mygdx.zombies.states.Level;
 import java.util.ArrayList;

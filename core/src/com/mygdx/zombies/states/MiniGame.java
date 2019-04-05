@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.zombies.Goose;
-import com.mygdx.zombies.Player;
+import com.mygdx.zombies.entities.Player;
 import com.mygdx.zombies.Zombies;
 import java.util.Random;
 
@@ -47,7 +47,7 @@ public class MiniGame extends State {
         // Geese initially pop up for 3 seconds, pop up for less time as the game progresses
         goosePopUpTime = 3000;
 
-        // Initally spawn geese every 2 seconds, spawn faster as the game progresses
+        // Initially spawn geese every 2 seconds, spawn faster as the game progresses
         spawnInterval = 2000;
 
         // Camera used to translate mouse screen coordinates into world coordinates

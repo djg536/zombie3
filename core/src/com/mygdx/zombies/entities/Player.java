@@ -1,4 +1,4 @@
-package com.mygdx.zombies;
+package com.mygdx.zombies.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.mygdx.zombies.InfoContainer;
+import com.mygdx.zombies.Zombies;
 import com.mygdx.zombies.items.MeleeWeapon;
 import com.mygdx.zombies.items.PowerUp;
 import com.mygdx.zombies.items.RangedWeapon;
@@ -165,7 +167,7 @@ public class Player extends Entity {
 	/**Set the current weapon, updating the player texture appropriately
 	 * @param weapon - the weapon to equip
 	 */
-	void setWeapon(Weapon weapon) {
+	public void setWeapon(Weapon weapon) {
 		//If weapon is melee type, do not use equipped texture
 		if(weapon instanceof MeleeWeapon)
 			setUnequippedTexture();
@@ -297,7 +299,7 @@ public class Player extends Entity {
 	/**
 	 * @return true if hands are moving
 	 */
-	boolean isSwinging() {
+	public boolean isSwinging() {
 		return weapon instanceof MeleeWeapon && swingStep > 0 && swingStep < 10;
 	}
 
@@ -400,20 +402,20 @@ public class Player extends Entity {
 	/** Give the player a power up, replacing the previous one
 	 * @param powerUp - the power up to apply to the player
 	 */
-	void setPowerUp(PowerUp powerUp) {
+	public void setPowerUp(PowerUp powerUp) {
 		Zombies.soundPowerUp.play();
 		this.powerUp = powerUp;
 		health += powerUp.getHealthBoost();
 	}
 
-	Float getHealth() {
+	public Float getHealth() {
 		return health;
 	}
 
 	/** Sets the health to the given value, restarting the current level if depleted
 	 * @param health - the value to set the health to
 	 */
-	void setHealth(float health) {
+	public void setHealth(float health) {
 		Player.health = health;
 		//Restart current level from last entry point if health depleted
 
@@ -471,7 +473,7 @@ public class Player extends Entity {
 		return counter > deathMarker + 5;
 	}
 
-	float getDamage() {
+	public float getDamage() {
 		return charDamage;
 	}
 

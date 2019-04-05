@@ -6,6 +6,7 @@ import com.badlogic.gdx.ai.steer.behaviors.Wander;
 import com.badlogic.gdx.ai.steer.limiters.LinearAccelerationLimiter;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.zombies.entities.Entity;
 
 /**
  * Presets for AI movement implementing wander, seek, and arrive functionality.
@@ -18,14 +19,13 @@ public class SteeringPresets {
      * @return wander preset
      */
     public static Wander<Vector2> getWander(Entity steeringEntity) {
-        Wander<Vector2> wander = new Wander<>(steeringEntity)
+        return new Wander<>(steeringEntity)
                 .setFaceEnabled(false)
                 .setLimiter(new LinearAccelerationLimiter(0.1f))
                 .setWanderOffset(3)
                 .setWanderOrientation(5)
                 .setWanderRadius(0.5f)
                 .setWanderRate(MathUtils.PI2 * 8);
-        return wander;
     }
 
     /**
@@ -35,8 +35,7 @@ public class SteeringPresets {
      * @return seek preset
      */
     public static Seek<Vector2> getSeek(Entity seeker, Entity target) {
-        Seek<Vector2> seek = new Seek<>(seeker, target);
-        return seek;
+        return new Seek<>(seeker, target);
     }
 
     /**
@@ -46,10 +45,9 @@ public class SteeringPresets {
      * @return arrive preset
      */
     public static Arrive<Vector2> getArrive(Entity runner, Entity target) {
-        Arrive<Vector2> arrive = new Arrive<>(runner, target)
+        return new Arrive<>(runner, target)
                 .setTimeToTarget(0.1f)
                 .setArrivalTolerance(1f)
                 .setDecelerationRadius(0.5f);
-        return arrive;
     }
 }

@@ -39,7 +39,7 @@ public class InfoContainer {
 		deletionFlagged = true;
 	}
 
-	boolean isDeletionFlagged() {
+	public boolean isDeletionFlagged() {
 		return deletionFlagged;
 	}
 }

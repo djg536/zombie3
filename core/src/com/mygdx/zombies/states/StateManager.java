@@ -1,7 +1,6 @@
 package com.mygdx.zombies.states;
 
 import com.badlogic.gdx.Gdx;
-import com.mygdx.zombies.Player;
 import com.mygdx.zombies.Zombies;
 
 /**

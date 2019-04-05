@@ -1,12 +1,11 @@
 package com.mygdx.zombies.items;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.mygdx.zombies.Entity;
+import com.mygdx.zombies.entities.Entity;
 import com.mygdx.zombies.InfoContainer;
 import com.mygdx.zombies.Zombies;
 import com.mygdx.zombies.states.Level;

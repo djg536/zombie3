@@ -1,6 +1,9 @@
 package com.mygdx.zombies;
 
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.zombies.entities.Enemy;
+import com.mygdx.zombies.entities.NPC;
+import com.mygdx.zombies.entities.Player;
 import com.mygdx.zombies.items.PowerUp;
 import com.mygdx.zombies.items.Projectile;
 import com.mygdx.zombies.items.Weapon;
@@ -117,7 +120,7 @@ public class CustomContactListener implements ContactListener {
 							zombie.setHealth(zombie.getHealth()-3);
 	
 							//Code for Assessment 3
-							zombie.hit = true;
+							zombie.setHit(true);
 							//Code for Assessment 3
 						}
 						else {

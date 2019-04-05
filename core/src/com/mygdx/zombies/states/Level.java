@@ -24,6 +24,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.zombies.*;
+import com.mygdx.zombies.entities.*;
 import com.mygdx.zombies.items.*;
 import com.mygdx.zombies.states.StateManager.StateID;
 import com.mygdx.zombies.states.StateManager.GateDirection;

@@ -32,14 +32,14 @@ public class Zombies extends Game {
 	public static Sound soundShoot;
 	public static Sound soundSelect;
 	public static Sound soundLaser;
-	static Sound soundSwing;
-	static Sound soundAmmo;
-	static Sound soundPowerUp;
+	public static Sound soundSwing;
+	public static Sound soundAmmo;
+	public static Sound soundPowerUp;
 	//#changed4 added throwing sound
 	public static Sound soundThrow;
 	public static Sound soundAmbientWind;
 	public static Sound soundEndMusic;
-	static Sound[] soundArrayZombie;
+	public static Sound[] soundArrayZombie;
 	public static Random random;
 	private StateManager stateManager;
 
@@ -76,7 +76,7 @@ public class Zombies extends Game {
 	 * @param p2 - the second point
 	 * @return - the angle in radians
 	 */
-	static double angleBetweenRads(Vector2 p1, Vector2 p2) {
+	public static double angleBetweenRads(Vector2 p1, Vector2 p2) {
 		double diffx = p1.x - p2.x;
 		double diffy = p1.y - p2.y;
 		return Math.atan2(diffy, diffx);

@@ -1,13 +1,14 @@
-package com.mygdx.zombies;
+package com.mygdx.zombies.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ai.steer.limiters.LinearAccelerationLimiter;
-import com.badlogic.gdx.ai.steer.limiters.LinearSpeedLimiter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.mygdx.zombies.InfoContainer;
+import com.mygdx.zombies.SteeringPresets;
+import com.mygdx.zombies.Zombies;
 import com.mygdx.zombies.states.Level;
 
 /**
@@ -31,8 +32,17 @@ public class Enemy extends Entity {
 	private Level level;
 	private double distanceToPlayer;
     double angleToPlayerRadians;
+
+	public boolean isHit() {
+		return hit;
+	}
+
+	public void setHit(boolean hit) {
+		this.hit = hit;
+	}
+
 	//Code for Assessment 3
-	boolean hit;
+	private boolean hit;
 	private boolean justHit;
 	private long originalTime;
 	private long timeRemaining;
@@ -216,7 +226,7 @@ public class Enemy extends Entity {
 		sprite.draw(spriteBatch);
 	}
 
-	int getHealth() {
+	public int getHealth() {
 		return health;
 	}
 

@@ -1,4 +1,4 @@
-package com.mygdx.zombies;
+package com.mygdx.zombies.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -95,8 +95,8 @@ public class Boss1 extends Enemy {
 
 	@Override
     public void move(){
-        if(hit)
-            hit = false;
+        if(isHit())
+            setHit(false);
         super.move();
     }
 	
