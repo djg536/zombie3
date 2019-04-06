@@ -33,14 +33,6 @@ public class Enemy extends Entity {
 	private double distanceToPlayer;
     double angleToPlayerRadians;
 
-	public boolean isHit() {
-		return hit;
-	}
-
-	public void setHit(boolean hit) {
-		this.hit = hit;
-	}
-
 	//Code for Assessment 3
 	private boolean hit;
 	private boolean justHit;
@@ -241,6 +233,14 @@ public class Enemy extends Entity {
 
 	double getDistanceToPlayer() {
 		return distanceToPlayer;
+	}
+
+	public boolean isHit() {
+		return hit;
+	}
+
+	public void setHit(boolean hit) {
+		this.hit = hit;
 	}
 
 	/**

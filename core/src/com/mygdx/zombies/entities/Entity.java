@@ -130,15 +130,15 @@ public class Entity implements Steerable<Vector2> {
 	private void applySteering(SteeringAcceleration<Vector2> steering, float delta) {
 		boolean anyAccelerations = false;
 		// Update position and linear velocity
-		if (!steeringOutput.linear.isZero()) {
-			body.applyForceToCenter(steeringOutput.linear, true);
-			body.applyLinearImpulse(steeringOutput.linear, body.localPoint2, true);
+		if (!steering.linear.isZero()) {
+			body.applyForceToCenter(steering.linear, true);
+			body.applyLinearImpulse(steering.linear, body.localPoint2, true);
 			anyAccelerations = true;
 		}
 		//Update orientation and angular velocity
 		if (isIndependentFacing()) {
-			if (steeringOutput.angular != 0) {
-				body.applyTorque(steeringOutput.angular, true);
+			if (steering.angular != 0) {
+				body.applyTorque(steering.angular, true);
 				anyAccelerations = true;
 			}
 		} else {
