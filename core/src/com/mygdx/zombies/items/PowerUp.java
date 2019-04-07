@@ -55,6 +55,7 @@ public class PowerUp {
 	public void applyAntidote(Level level) {
 		Player player = level.getPlayer();
 		player.setZombie(false);
+		level.setSwordSpawn(true);
 	}
 
 	public int getSpeedBoost() {

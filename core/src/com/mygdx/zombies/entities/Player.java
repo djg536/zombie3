@@ -380,17 +380,17 @@ public class Player extends Entity {
 		
 		if(isZombie) {
 			Zombies.pointsFont.draw(UIBatch, "You have " + (zombieCountdown-(counter-deathMarker)) + " seconds"
-										   + "\nto find the antidote ", 450, 500);
+										   + "\nto find the antidote ", 450, 600);
 			
-			UIBatch.draw(antidoteTexture, 830, 380);
+			UIBatch.draw(antidoteTexture, 830, 480);
 		}
-
+		
 		for (int i = 0; i < health; i++) {
 			hud.setPosition(100 + i * 50, 620);
 			hud.draw(UIBatch);
 		}
 	}
-
+	
 	public Body getBody() {
 		return body;
 	}

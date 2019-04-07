@@ -71,7 +71,8 @@ public class Level extends State {
     private static Logger logger;
     private static Handler handler;
     private boolean antidoteSpawn;
-
+    private boolean swordSpawn;
+   
 	/**
 	 * Constructor for the level
 	 * 
@@ -127,6 +128,7 @@ public class Level extends State {
         pauseMenu = new PauseMenu(this);
 
         antidoteSpawn = true;
+        swordSpawn = false;
 	}
 
 	public static Logger getLogger() {
@@ -336,13 +338,23 @@ public class Level extends State {
 		}
 	}
 
-	private void loadAntidote(){
+	private void postDeathSpawns(){
 		
 		int randIndex = (int) ((potentialCureSpawnPointList.size()-1)*Math.random());
 		Enemy randZombie = enemiesList.get(randIndex);
 		
-		pickUpsList.add(new PickUp(this, randZombie.getPositionX(), randZombie.getPositionY(), 
-				"pickups/cure.png", new PowerUp(0, 0, 0, false, true), InfoContainer.BodyID.PICKUP));
+		if(player.isZombie()) {
+			pickUpsList.add(new PickUp(this, randZombie.getPositionX(), randZombie.getPositionY(), 
+					"pickups/cure.png", new PowerUp(0, 0, 0, false, true), InfoContainer.BodyID.PICKUP));
+		}
+		else {
+			pickUpsList.add(new PickUp(this, randZombie.getPositionX(), randZombie.getPositionY(), "sword.png",
+					new MeleeWeapon(worldBatch), InfoContainer.BodyID.WEAPON));
+		}
+	}
+	
+	public void setSwordSpawn(boolean swordSpawn) {
+		this.swordSpawn = swordSpawn;
 	}
 
 	/**
@@ -577,8 +589,12 @@ public class Level extends State {
 		}
 
         if(player.isZombie() && antidoteSpawn && player.dropAnti()) {
-        	loadAntidote();
+        	postDeathSpawns();
         	antidoteSpawn = false;
+        }
+        else if(swordSpawn) {
+        	postDeathSpawns();
+        	swordSpawn = false;
         }
 	}
 	
