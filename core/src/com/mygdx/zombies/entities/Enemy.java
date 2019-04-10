@@ -99,7 +99,7 @@ public class Enemy extends Entity {
 	/**
 	 * Updates position based on whether player has been detected
 	 */
-	public void move() {
+	public void move(float delta) {
 
 		angleToPlayerRadians = Zombies.angleBetweenRads(new Vector2(getPositionX(), getPositionY()),
 			     new Vector2(player.getPositionX(), player.getPositionY()));
@@ -113,18 +113,20 @@ public class Enemy extends Entity {
 			if (wanderTimer == 0) {
 				//Walk in random direction
 				angleRadians = Math.random()*Math.PI*2;
+				this.currentMode = SteeringState.WANDER;
 				wanderTimer = 150;
 				alertSpeed = 0.2f;
 			}
 		}
 		else {
 			//Alert state
-			angleRadians = angleToPlayerRadians;			
+			angleRadians = angleToPlayerRadians;
+			this.currentMode = SteeringState.ARRIVE;
 			alertTimer --;
 		}
 		
 		int noise = (int)(level.getPlayer().getNoise()/(distanceToPlayer+1));
-		if(noise>=3||isPlayerInSight()) {
+		if(noise>=3 || isPlayerInSight()) {
 			//If player detected, increase movement speed and set time alerted for
 			alertTimer = noise*100;
 			alertSpeed = 1;
@@ -135,15 +137,18 @@ public class Enemy extends Entity {
 		//Code for Assessment 3
 		if (!hit) {
 			//Code for Assessment 3
-//			body.applyLinearImpulse(new Vector2((float) Math.cos(angleRadians) * -speed * alertSpeed,
-//				(float) Math.sin(angleRadians) * -speed * alertSpeed), body.getPosition(), true);
-			this.steeringBehavior = SteeringPresets.getArrive(this, player).setTimeToTarget(1/(speed*alertSpeed));
-			this.currentMode = SteeringState.ARRIVE;
+//			body.applyLinearImpulse(new Vector2((float) Math.cos(angleRadians) * -0.8f*speed*alertSpeed,
+//				(float) Math.sin(angleRadians) * -0.8f*speed*alertSpeed), body.getPosition(), true);#
+			if (this.currentMode == SteeringState.ARRIVE)
+				this.steeringBehavior = SteeringPresets.getArrive(this, player).setTimeToTarget(1/(speed*alertSpeed));
+			else if (this.currentMode == SteeringState.WANDER)
+				this.steeringBehavior = SteeringPresets.getWander(this);
+//			this.currentMode = SteeringState.ARRIVE;
 		}
 		//Code for Assessment 3
 		else{
 			
-			//#changed4 - fixed the timer implemented by the previous group, and made the knockback look realistic.
+			//#changed4 - fixed the timer implemented by the previous group, and made the knock-back look realistic.
 			//Did this by altering the number that the linear impulse is multiplied by, and changed the checking statement.
 			if (justHit) {
 				originalTime = System.nanoTime();
@@ -169,11 +174,12 @@ public class Enemy extends Entity {
 			}
 		}
 		//Code for Assessment 3
-			
+
 		//Update sprite transformation
 		angleDegrees = Math.toDegrees(angleRadians);
 		sprite.setPosition(getPositionX() - sprite.getWidth() / 2, getPositionY() - sprite.getHeight() / 2);
-		sprite.setRotation((float) angleDegrees);
+		//#changed4 - rotation based on movement direction vector (+270 to account for sprite image rotation)
+		sprite.setRotation(270f + (float) Math.toDegrees(this.vectorToAngle(this.getLinearVelocity())));
 	}
 
 	public void enableSpawnNpcOnDeath() {
@@ -206,10 +212,10 @@ public class Enemy extends Entity {
 	/** Update all aspects of enemy
 	 * @param inLights - whether the player is lit by light sources
 	 */
-	public void update(boolean inLights) {
-		super.update(Gdx.graphics.getDeltaTime());
+	public void update(boolean inLights, float delta) {
+		super.update(delta);
 		this.inLights = inLights;
-		move();
+		move(delta);
 		noiseStep();
 	}
 
@@ -235,7 +241,7 @@ public class Enemy extends Entity {
 		return distanceToPlayer;
 	}
 
-	public boolean isHit() {
+	boolean isHit() {
 		return hit;
 	}
 

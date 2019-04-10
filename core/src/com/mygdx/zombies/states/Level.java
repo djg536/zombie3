@@ -550,7 +550,7 @@ public class Level extends State {
 
 		//Update mobs
 		for (int i = 0; i < enemiesList.size(); i++)
-			enemiesList.get(i).update(this.inLights());
+			enemiesList.get(i).update(this.inLights(), delta);
 		for (NPC npc : npcsList)
 			npc.update(delta);
 		//Update GatePointer, added for assessment 3

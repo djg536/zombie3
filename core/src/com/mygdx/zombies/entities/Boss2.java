@@ -40,8 +40,8 @@ public class Boss2 extends Enemy {
     }
 
     @Override
-    public void update(boolean inLights) {
-        super.update(inLights);
+    public void update(boolean inLights, float delta) {
+        super.update(inLights, delta);
 
         //#changed4 Rewrote the code in this method to be more efficient and easier to read - replaced multiple IF statements with a single FOR loop
         //          Moved code to update numberToSpawn to setHealth as it is only updated when health is set

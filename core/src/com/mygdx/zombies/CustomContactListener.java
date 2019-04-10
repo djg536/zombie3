@@ -121,7 +121,6 @@ public class CustomContactListener implements ContactListener {
 	
 							//Code for Assessment 3
 							zombie.setHit(true);
-							//Code for Assessment 3
 						}
 						else {
 							player.setHealth(player.getHealth() - (player.getDamage()));
@@ -229,7 +228,8 @@ public class CustomContactListener implements ContactListener {
         switch(aType) {
 
             //changed for assessment 3 to only work when open
-            // apart from the mini game gate that is always open
+            //apart from the mini game gate that is always open
+            //#changed4 - note when player is no longer by gate (to remove option to proceed until next to the gate)
             case GATE:
                 if (bType == InfoContainer.BodyID.PLAYER) {
                     Player player = (Player) b.getObj();

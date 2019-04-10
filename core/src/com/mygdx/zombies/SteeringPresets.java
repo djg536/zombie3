@@ -21,11 +21,11 @@ public class SteeringPresets {
     public static Wander<Vector2> getWander(Entity steeringEntity) {
         return new Wander<>(steeringEntity)
                 .setFaceEnabled(false)
-                .setLimiter(new LinearAccelerationLimiter(0.1f))
+                .setLimiter(new LinearAccelerationLimiter(1f))
                 .setWanderOffset(3)
                 .setWanderOrientation(5)
-                .setWanderRadius(0.5f)
-                .setWanderRate(MathUtils.PI2 * 8);
+                .setWanderRadius(0.25f)
+                .setWanderRate(MathUtils.PI2 * 4);
     }
 
     /**

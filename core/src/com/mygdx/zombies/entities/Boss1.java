@@ -40,8 +40,8 @@ public class Boss1 extends Enemy {
 	}
 	
 	@Override
-	public void update(boolean inLights) {
-		super.update(inLights);
+	public void update(boolean inLights, float delta) {
+		super.update(inLights, delta);
 		
 		//Looping hand animation timer 
 		attackStep+=3;
@@ -94,10 +94,10 @@ public class Boss1 extends Enemy {
 	}
 
 	@Override
-    public void move(){
+    public void move(float delta){
         if(isHit())
             setHit(false);
-        super.move();
+        super.move(delta);
     }
 	
 	@Override
