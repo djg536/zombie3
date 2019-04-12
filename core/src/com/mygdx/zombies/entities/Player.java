@@ -48,7 +48,7 @@ public class Player extends Entity {
 	private static Texture equippedTexture;
 	private static Texture unequippedTexture;
 	private static Texture zombieTexture;
-	private static Texture antidoteTexture = new Texture("pickups/cure.png");
+	private static Texture antidoteTexture;
 	private static Level level;
 	//added for assessment 3
 	private boolean gateOpen;
@@ -99,6 +99,8 @@ public class Player extends Entity {
 		loadTextures();
 		hud = new Sprite(new Texture(Gdx.files.internal("player/heart.png")));
 		sprite = new Sprite(unequippedTexture);
+
+        antidoteTexture = new Texture("pickups/antidote.png");
 		
 	
 		//Update texture if set

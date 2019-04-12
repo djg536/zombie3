@@ -345,7 +345,7 @@ public class Level extends State {
 		
 		if(player.isZombie()) {
 			pickUpsList.add(new PickUp(this, randZombie.getPositionX(), randZombie.getPositionY(), 
-					"pickups/cure.png", new PowerUp(0, 0, 0, false, true), InfoContainer.BodyID.PICKUP));
+					"pickups/antidote.png", new PowerUp(0, 0, 0, false, true), InfoContainer.BodyID.PICKUP));
 		}
 		else {
 			pickUpsList.add(new PickUp(this, randZombie.getPositionX(), randZombie.getPositionY(), "sword.png",
