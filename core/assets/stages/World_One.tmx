@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="44" nextobjectid="102">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="44" nextobjectid="104">
  <tileset firstgid="1" source="Assets/Tileset.tsx"/>
  <tileset firstgid="1041" source="Assets/Roads.tsx"/>
  <tileset firstgid="14523" source="Assets/Lamp.tsx"/>
@@ -1436,6 +1436,26 @@
   <object id="77" name="gatePointer" x="1482" y="430.083">
    <properties>
     <property name="Direction" value="UP"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="102" name="textMarker" x="1113" y="1285">
+   <properties>
+    <property name="Direction" value="UP"/>
+    <property name="text">You've awoken outside Halifax. The infection
+is at its peak. Kill all the zombies and escape
+through the North-Eastern
+                         passage!</property>
+   </properties>
+   <point/>
+  </object>
+  <object id="103" name="textMarker" x="1113" y="1285">
+   <properties>
+    <property name="Direction" value="UP"/>
+    <property name="text">You've awoken outside Halifax. The infection
+is at its peak. Kill all the zombies and escape
+through the North-Eastern
+                         passage!</property>
    </properties>
    <point/>
   </object>

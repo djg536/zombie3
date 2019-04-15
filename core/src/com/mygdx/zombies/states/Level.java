@@ -72,6 +72,10 @@ public class Level extends State {
     private static Handler handler;
     private boolean antidoteSpawn;
     private boolean swordSpawn;
+    
+    private String storyText;
+    private float storyX;
+    private float storyY;
    
 	/**
 	 * Constructor for the level
@@ -97,7 +101,7 @@ public class Level extends State {
         initLogging();
 
 		String mapFile = String.format("stages/%s.tmx", path);
-
+		
 		map = new TmxMapLoader().load(mapFile);
 		renderer = new OrthogonalTiledMapRenderer(map, Zombies.WorldScale);
 
@@ -330,7 +334,14 @@ public class Level extends State {
 				case "potentialCureSpawnPoint":
 					potentialCureSpawnPointList.add(new Point(x, y));
 				break;
-
+				
+				case "textMarker":
+					storyText = (String) p.get("text");
+					storyX = x;
+					storyY = y;
+					
+				break;
+				
 				default:
 					logger.severe("Error importing stage: unrecognised object '" + name + "'");
 					throw new IllegalArgumentException();
@@ -487,6 +498,7 @@ public class Level extends State {
 		//Render world
 		worldBatch.setProjectionMatrix(camera.combined);
 		worldBatch.begin();
+		Zombies.gateFont.draw(worldBatch, storyText, storyX, storyY);
 		//Draw player
 		player.render();
 		//Draw mobs and game objects
@@ -535,7 +547,9 @@ public class Level extends State {
 	@Override
 	public void update(float delta) {
 		//Method to update everything in the state
-
+		
+		
+		
         if(gamePaused) {
             pauseMenu.update(delta);
             return;
