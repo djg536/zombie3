@@ -316,12 +316,14 @@
   <object id="132" name="potentialCureSpawnPoint" x="783" y="659">
    <point/>
   </object>
-  <object id="149" name="textMarker" x="201" y="482">
+  <object id="149" name="textMarker" x="174" y="471">
    <properties>
     <property name="Direction" value="UP"/>
-    <property name="text">I guess it's
-time for a
-Central Brawl...</property>
+    <property name="text">You must now cross
+the lake. Kill those
+zombies and keep
+moving... The end
+is nearly in sight!</property>
    </properties>
    <point/>
   </object>

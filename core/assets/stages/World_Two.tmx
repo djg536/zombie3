@@ -874,7 +874,7 @@
   <object id="96" name="NPCCarry" x="286" y="416">
    <point/>
   </object>
-  <object id="97" name="textMarker" x="163" y="554">
+  <object id="97" name="textMarker" x="143" y="528">
    <properties>
     <property name="Direction" value="UP"/>
     <property name="text">You've reached Physics! It's a shame

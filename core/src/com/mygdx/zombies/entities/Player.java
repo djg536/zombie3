@@ -141,7 +141,7 @@ public class Player extends Entity {
 		int typeNumber = type.ordinal()+1;
 		equippedTexture = new Texture(Gdx.files.internal("player/player" + typeNumber + "_equipped.png"));
 		unequippedTexture = new Texture(Gdx.files.internal("player/player" + typeNumber + "_unequipped.png"));
-		zombieTexture = new Texture(Gdx.files.internal("zombie/zombie1.png"));
+		zombieTexture = new Texture(Gdx.files.internal("zombie/ZombiePlayer.png"));
 	}
 	
 	/** Set the player type and update textures accordingly
@@ -332,7 +332,6 @@ public class Player extends Entity {
 		updateCounter();
 		
 		if (deathMarker > 0) {	
-			sprite.rotate(-90);
 			if(health > 0) {
 				setZombie(false);
 			}

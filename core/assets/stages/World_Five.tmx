@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="93">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="94">
  <tileset firstgid="1" source="Assets/Tileset.tsx"/>
  <tileset firstgid="1041" source="Assets/Alt_Colour.tsx"/>
  <tileset firstgid="2081" source="Assets/Roads.tsx"/>
@@ -606,6 +606,13 @@
    <point/>
   </object>
   <object id="92" name="NPCCarry" x="115" y="795">
+   <point/>
+  </object>
+  <object id="93" name="textMarker" x="46.6667" y="753">
+   <properties>
+    <property name="Direction" value="UP"/>
+    <property name="text" value="If anything good has come out of the apocalypse...                                             ... No more queues in Courtyard..."/>
+   </properties>
    <point/>
   </object>
  </objectgroup>

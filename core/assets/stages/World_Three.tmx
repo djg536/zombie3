@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="48">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="48">
  <tileset firstgid="1" source="Assets/Roads.tsx"/>
  <tileset firstgid="13483" source="Assets/Tileset.tsx"/>
  <tileset firstgid="14523" source="Assets/Alt_Colour.tsx"/>
@@ -532,7 +532,7 @@
   <object id="47" name="textMarker" x="28" y="795">
    <properties>
     <property name="Direction" value="UP"/>
-    <property name="text">I guess it's
+    <property name="text">Looks like it's
 time for a
 Central Brawl...</property>
    </properties>

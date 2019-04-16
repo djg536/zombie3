@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="75" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="88">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="75" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="89">
  <tileset firstgid="1" source="Assets/Tileset.tsx"/>
  <tileset firstgid="1041" source="Assets/Roads.tsx"/>
  <tileset firstgid="14523" source="Assets/Lamp.tsx"/>
@@ -654,7 +654,7 @@
 </data>
  </layer>
  <objectgroup id="11" name="Entries">
-  <object id="1" name="entry" x="95.3236" y="1509.56">
+  <object id="1" name="entry" x="61.3236" y="1509.56">
    <properties>
     <property name="EntryID" type="int" value="0"/>
    </properties>
@@ -738,7 +738,18 @@
   <object id="56" name="boss1" x="2081.82" y="606.061">
    <point/>
   </object>
-  <object id="87" name="NPCCarry" x="433.333" y="1481.33">
+  <object id="87" name="NPCCarry" x="88.333" y="1108.33">
+   <point/>
+  </object>
+  <object id="88" name="textMarker" x="103" y="1468.33">
+   <properties>
+    <property name="Direction" value="UP"/>
+    <property name="text">That villain Koen Lamberts is lurking
+at Heslington Church, raising new zombies
+for his army! Kill him
+and put an end to the
+apocalypse (and this game at last...)</property>
+   </properties>
    <point/>
   </object>
  </objectgroup>
