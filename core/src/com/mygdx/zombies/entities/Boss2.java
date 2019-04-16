@@ -49,7 +49,7 @@ public class Boss2 extends Enemy {
         final float bulletSpray = 0.1f;
 
         projectileSpawnStep++;
-        if (projectileSpawnStep > 40) {
+        if (projectileSpawnStep > 40 && isPlayerInSight() && !level.getPlayer().isZombie()) {
             projectileSpawnStep = 0;
 
             for (int i = 0; i < numberToSpawn; i++) {

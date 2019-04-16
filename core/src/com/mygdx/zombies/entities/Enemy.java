@@ -113,6 +113,7 @@ public class Enemy extends Entity {
 			if (wanderTimer == 0) {
 				//Walk in random direction
 				angleRadians = Math.random()*Math.PI*2;
+				//#changed4 - change mode to wander if player cannot be seen
 				this.currentMode = SteeringState.WANDER;
 				wanderTimer = 150;
 				alertSpeed = 0.2f;
@@ -121,6 +122,7 @@ public class Enemy extends Entity {
 		else {
 			//Alert state
 			angleRadians = angleToPlayerRadians;
+			//#changed4 - change mode to arrive (seek alternative with option for speed change) if player can be seen
 			this.currentMode = SteeringState.ARRIVE;
 			alertTimer --;
 		}
@@ -132,18 +134,15 @@ public class Enemy extends Entity {
 			alertSpeed = 1;
 		}
 		
-		//Move Box2D body in angleRadians, accounting for speed attributes
-
+		//#changed4 - sets speed of enemies based on speed attribute and alertness (quicker when hunting for player)
+		setMaxLinearSpeed(0.4f*speed*alertSpeed);
 		//Code for Assessment 3
 		if (!hit) {
-			//Code for Assessment 3
-//			body.applyLinearImpulse(new Vector2((float) Math.cos(angleRadians) * -0.8f*speed*alertSpeed,
-//				(float) Math.sin(angleRadians) * -0.8f*speed*alertSpeed), body.getPosition(), true);#
+			//#changed4 - using gdx-AI to determine steering function of enemies based on current mode
 			if (this.currentMode == SteeringState.ARRIVE)
-				this.steeringBehavior = SteeringPresets.getArrive(this, player).setTimeToTarget(1/(speed*alertSpeed));
+				this.steeringBehavior = SteeringPresets.getArrive(this, player);
 			else if (this.currentMode == SteeringState.WANDER)
 				this.steeringBehavior = SteeringPresets.getWander(this);
-//			this.currentMode = SteeringState.ARRIVE;
 		}
 		//Code for Assessment 3
 		else{
@@ -190,7 +189,7 @@ public class Enemy extends Entity {
 	 * @return true if the player is within 40 degrees of the zombie's line of sight
 	 * and close enough, considering how well lit player is
 	 */
-	private boolean isPlayerInSight() {
+	public boolean isPlayerInSight() {
 		return (Math.abs(angleDegrees-Math.toDegrees(angleRadians))<40) &&
 				(distanceToPlayer < 200 || (inLights && distanceToPlayer < 1000));
 	}
