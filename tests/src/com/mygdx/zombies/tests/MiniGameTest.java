@@ -5,7 +5,6 @@ import com.mygdx.zombies.Goose;
 import com.mygdx.zombies.states.MiniGame;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 
@@ -120,7 +119,7 @@ public class MiniGameTest {
         goose.timeRemaining -= 2990;
         long gooseTimeRemaining = goose.timeRemaining;
         long points = miniGame.calcPoints(goose);
-        assertEquals("2990ms passed, time remaining shoudl be 10ms", gooseTimeRemaining, miniGame.goosePopUpTime - 2990);
+        assertEquals("2990ms passed, time remaining should be 10ms", gooseTimeRemaining, miniGame.goosePopUpTime - 2990);
         assertEquals("Should get only the base 100 points.", 100, points);
     }
 
