@@ -151,25 +151,22 @@ public class Enemy extends Entity {
 			//Did this by altering the number that the linear impulse is multiplied by, and changed the checking statement.
 			if (justHit) {
 				originalTime = System.nanoTime();
-				//System.out.println("Time hit: " + originalTime);
 				justHit = false;
 			}
 			long newTime = System.nanoTime();
-			//System.out.println("Time stuff is happening: " + newTime);
 
 			timeRemaining = newTime - originalTime;
-			//System.out.println("Time difference: " + timeRemaining);
 
 			body.applyLinearImpulse(new Vector2((float) Math.cos(angleRadians) * 500,
 					(float) Math.sin(angleRadians) * 500), body.getPosition(), true);
-			System.out.println("Zombie knock back");
+			Level.getLogger().fine("Zombie knock back");
 
 			originalTime = newTime;
 			if (timeRemaining > 3000000) {
 				hit = false;
 				justHit = true;
 				timeRemaining = 0;
-				System.out.println("Zombie returns");
+				Level.getLogger().fine("Zombie returns");
 			}
 		}
 		//Code for Assessment 3

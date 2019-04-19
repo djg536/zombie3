@@ -394,7 +394,7 @@ public class Level extends State {
 	@Override
 	public void resize(int width, int height) {
 		camera.viewportWidth = width * Zombies.InitialViewportWidth / (float) Zombies.InitialViewportWidth;
-		camera.viewportHeight = height;
+		camera.viewportHeight = height * Zombies.InitialViewportHeight / (float) Zombies.InitialViewportHeight;
 		camera.update();
 	}
 
@@ -499,23 +499,25 @@ public class Level extends State {
 		worldBatch.setProjectionMatrix(camera.combined);
 		worldBatch.begin();
 		Zombies.gateFont.draw(worldBatch, storyText, storyX, storyY);
-		//Draw player
-		player.render();
 		//Draw mobs and game objects
-		for (Enemy enemy : enemiesList)
-			enemy.render();
-		for (Projectile bullet : bulletsList)
+        for (Projectile bullet : bulletsList)
 			bullet.render();
-		for(PickUp pickUp : pickUpsList)
+        for(PickUp pickUp : pickUpsList)
 			pickUp.render();
-		for(NPC npc : npcsList)
-			npc.render();
-		for (GatePointer gatePointer : gatePointerList)
+        for (GatePointer gatePointer : gatePointerList)
 			gatePointer.render();
-		if (miniGamePointer != null)
-		    miniGamePointer.render();
-		worldBatch.end();
-		
+        if (miniGamePointer != null) {
+            miniGamePointer.render();
+        }
+        for (Enemy enemy : enemiesList)
+            enemy.render();
+        for(NPC npc : npcsList)
+            npc.render();
+        //Draw player
+        player.render();
+
+        worldBatch.end();
+
 		//if(antidote != null) {
 		//	antidote.render();
 		//}

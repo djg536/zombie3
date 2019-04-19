@@ -45,7 +45,7 @@ public class BriefingScreen extends State {
 		//Draw artwork
 		banner.draw(UIBatch);
 		//Draw text which explains the premise
-		Zombies.mainFont.draw(UIBatch, "The apocalyse has arrived, and The University of\n"
+		Zombies.mainFont.draw(UIBatch, "The apocalypse has arrived, and The University of\n"
 									 + "York is now swarming with zombies. There are few\n"
 									 + "survivors, but the fight is not over yet.\n\n"
 									 + "Rumour has it that there is a    cure, somewhere.\n"

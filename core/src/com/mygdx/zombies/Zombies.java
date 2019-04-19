@@ -77,9 +77,9 @@ public class Zombies extends Game {
 	 * @return - the angle in radians
 	 */
 	public static double angleBetweenRads(Vector2 p1, Vector2 p2) {
-		double diffx = p1.x - p2.x;
-		double diffy = p1.y - p2.y;
-		return Math.atan2(diffy, diffx);
+		double diffX = p1.x - p2.x;
+		double diffY = p1.y - p2.y;
+		return Math.atan2(diffY, diffX);
 	}
 	
 	/** Pythagorean algorithm to calculate the distance between two points

@@ -22,7 +22,7 @@ public class StateManager {
 
 	}
 
-	//Enum of directions, used to point GatePointer torwards gate, added for assessment3
+	//Enum of directions, used to point GatePointer towards gate, added for assessment3
 	public enum GateDirection {
 		UP,RIGHT,DOWN,LEFT
 	}
@@ -132,7 +132,7 @@ public class StateManager {
 				tempState = new MiniGame("game");
 				break;
 			default:
-				System.err.println("Error: Unrecognised gate destination");
+				Level.getLogger().severe("Error: Unrecognised gate destination");
 				break;
 		}
 
