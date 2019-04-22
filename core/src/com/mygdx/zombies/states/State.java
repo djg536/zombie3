@@ -21,13 +21,6 @@ public class State {
 		//Resize to account for window dimensions
 		resize();
 	}
-
-	/**
-	 * Constructor for testable states.
-	 * @param bool useless parameter that allows for a new constructor
-	 */
-	public State(boolean bool) {
-	}
 	
 	public SpriteBatch getWorldBatch() {
 		return worldBatch;

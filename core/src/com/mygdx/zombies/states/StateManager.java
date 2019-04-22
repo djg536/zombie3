@@ -51,9 +51,8 @@ public class StateManager {
 	/**
 	 * Load a new state, clearing the memory of the old state
 	 * @param newState - the new state to load
-	 * @param aliveNPC - pass through how many NPCs are to go to the next state
 	 */
-	public static void loadState(State newState, boolean aliveNPC) {
+	public static void loadState(State newState) {
 		currentState.dispose();
 		currentState = newState;
 	}
@@ -136,7 +135,7 @@ public class StateManager {
 				break;
 		}
 
-		loadState(tempState, aliveNPC);
+		loadState(tempState);
 	}
 
 	/**

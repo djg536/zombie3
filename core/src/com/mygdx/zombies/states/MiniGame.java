@@ -67,7 +67,7 @@ public class MiniGame extends State {
      * ONLY EVER USE FOR TESTING.
      */
     public MiniGame(int windowWidth, int windowHeight) {
-        super(true);
+        super();
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         points = 0;

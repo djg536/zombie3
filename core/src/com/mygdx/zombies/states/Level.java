@@ -596,13 +596,15 @@ public class Level extends State {
         }
         //#changed4 If 'E' is pressed while over gate, go to next level
 		//NPCs are 'delivered' at end of stage 3 and 6, with bonus 1000 points given for each 'delivered' NPC.
-		if (Gdx.input.isKeyPressed(Input.Keys.E)  && listener.isColliding()) {
-			Gate gate = (Gate) listener.getObjectA();
-			if ((gate.getDestination() == StateID.STAGE4 || gate.getDestination() == StateID.UWIN) && aliveNPC)
-				deliveredNPCs += 1;
-			StateManager.loadState(gate.getDestination(), gate.getEntryID(), aliveNPC);
-			player.closeGate();
-		}
+        if(Gdx.input.isKeyPressed(Input.Keys.E) && listener.getObjectA() instanceof Gate) {
+            Gate gate = (Gate) listener.getObjectA();
+            if (gate.isColliding()) {
+                if ((gate.getDestination() == StateID.STAGE4 || gate.getDestination() == StateID.UWIN) && aliveNPC)
+                    deliveredNPCs += 1;
+                StateManager.loadState(gate.getDestination(), gate.getEntryID(), aliveNPC);
+                player.closeGate();
+            }
+        }
 
         if(player.isZombie() && antidoteSpawn && player.dropAnti()) {
         	postDeathSpawns();

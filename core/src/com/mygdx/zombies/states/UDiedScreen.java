@@ -22,7 +22,7 @@ public class UDiedScreen extends State {
     public void update(float delta) {
         // If mouse button is pressed, return to the level
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.justTouched()) {
-            StateManager.loadState(new Level(level.getPath(), level.getSpawnEntryID(), level.isAliveNPC()), level.isAliveNPC());
+            StateManager.loadState(new Level(level.getPath(), level.getSpawnEntryID(), level.isAliveNPC()));
         }
     }
 

@@ -14,6 +14,7 @@ public class Gate extends Entity {
 	
 	private StateID destination;
 	private int entryID;
+    private boolean playerColliding;
 	
 	/** Constructor for the gate
 	 * @param world - the Box2D world the create the gate in
@@ -38,12 +39,28 @@ public class Gate extends Entity {
 				world, InfoContainer.BodyID.GATE, fixtureDef);	
 		body.setTransform(rect.x / Zombies.PhysicsDensity, rect.y / Zombies.PhysicsDensity, 0);
 	}
+
+    /**
+     * #changed4
+     * @return true if player is colliding with a gate, false otherwise
+     */
+    public boolean isColliding() {
+        return playerColliding;
+    }
 	
 	public StateID getDestination() {
 		return destination;
 	}
-	
-	public int getEntryID() {
+
+    /**
+     * Set whether player is over the gate
+     * @param playerColliding whether the player is over the gate
+     */
+    void setPlayerColliding(boolean playerColliding) {
+        this.playerColliding = playerColliding;
+    }
+
+    public int getEntryID() {
 		return entryID;
 	}
 }

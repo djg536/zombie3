@@ -186,7 +186,7 @@ public class Enemy extends Entity {
 	 * @return true if the player is within 40 degrees of the zombie's line of sight
 	 * and close enough, considering how well lit player is
 	 */
-	public boolean isPlayerInSight() {
+	boolean isPlayerInSight() {
 		return (Math.abs(angleDegrees-Math.toDegrees(angleRadians))<40) &&
 				(distanceToPlayer < 200 || (inLights && distanceToPlayer < 1000));
 	}

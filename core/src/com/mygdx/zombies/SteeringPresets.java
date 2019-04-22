@@ -1,7 +1,6 @@
 package com.mygdx.zombies;
 
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
-import com.badlogic.gdx.ai.steer.behaviors.Seek;
 import com.badlogic.gdx.ai.steer.behaviors.Wander;
 import com.badlogic.gdx.ai.steer.limiters.LinearAccelerationLimiter;
 import com.badlogic.gdx.math.MathUtils;
@@ -26,16 +25,6 @@ public class SteeringPresets {
                 .setWanderOrientation(5)
                 .setWanderRadius(0.25f)
                 .setWanderRate(MathUtils.PI2 * 4);
-    }
-
-    /**
-     * Seek functionality for enemy movement
-     * @param seeker the enemy character that will move
-     * @param target the destination point
-     * @return seek preset
-     */
-    public static Seek<Vector2> getSeek(Entity seeker, Entity target) {
-        return new Seek<>(seeker, target);
     }
 
     /**

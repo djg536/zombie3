@@ -16,24 +16,11 @@ import com.mygdx.zombies.states.StateManager;
 public class CustomContactListener implements ContactListener {
 
     private Level level;
-    private boolean colliding;
     private Object objectA;
     private Object objectB;
 
     public CustomContactListener(Level level) {
         this.level = level;
-    }
-
-    /**
-     * #changed4
-     * @return true if player is colliding with a gate, false otherwise
-     */
-    public boolean isColliding() {
-        return colliding;
-    }
-
-    public void setColliding(boolean colliding) {
-        this.colliding = colliding;
     }
 
     public Object getObjectA() {
@@ -82,7 +69,7 @@ public class CustomContactListener implements ContactListener {
 					Player player = (Player)b.getObj();
 					Gate gate = (Gate) a.getObj();
 					if (player.getGate() || gate.getDestination() == StateManager.StateID.MINIGAMEIG) {
-					    colliding = true;
+					    gate.setPlayerColliding(true);
 					    objectA = a.getObj();
 					    objectB = b.getObj();
 						Level.getLogger().fine("Player has contacted open gate");
@@ -235,7 +222,7 @@ public class CustomContactListener implements ContactListener {
                     Player player = (Player) b.getObj();
                     Gate gate = (Gate) a.getObj();
                     if ((player.getGate() || gate.getDestination() == StateManager.StateID.MINIGAMEIG)) {
-                        colliding = false;
+                        gate.setPlayerColliding(false);
                         Level.getLogger().fine("Player has stopped contact with open gate");
                     }
                 break;
