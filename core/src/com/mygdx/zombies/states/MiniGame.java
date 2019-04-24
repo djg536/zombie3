@@ -33,6 +33,7 @@ public class MiniGame extends State {
     private int windowHeight;
 
     MiniGame(String returnState) {
+        super();
         this.returnState = returnState;
         background = new Texture("minigame/background.jpg");
         points = 0;

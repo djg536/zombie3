@@ -7,7 +7,6 @@ import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -49,18 +48,13 @@ public class Level extends State {
 	private ArrayList<PointLight> lightsList;
 	private ArrayList<NPC> npcsList;
 	private boolean aliveNPC;
-
-	static int getDeliveredNPCs() {
-		return deliveredNPCs;
-	}
-
 	private static int deliveredNPCs;
 	private ArrayList<Gate> gatesList;
 	private ArrayList<GatePointer> gatePointerList;
 	private GatePointer miniGamePointer;
 	private String path;
 	private int spawnEntryID;
-	private Box2DDebugRenderer box2DDebugRenderer;
+	//private Box2DDebugRenderer box2DDebugRenderer;
 	private boolean gamePaused;
     //#changed4 added pauseMenu attribute
 	private PauseMenu pauseMenu;
@@ -72,7 +66,6 @@ public class Level extends State {
     private static Handler handler;
     private boolean antidoteSpawn;
     private boolean swordSpawn;
-    
     private String storyText;
     private float storyX;
     private float storyY;
@@ -84,7 +77,7 @@ public class Level extends State {
 	 * @param spawnEntryID - the id of an entry to spawn the player at
 	 */
 	public Level(String path, int spawnEntryID, boolean aliveNPC) {
-		super();	
+		super();
 		
 		this.path = path;
 		this.spawnEntryID = spawnEntryID;
@@ -106,7 +99,7 @@ public class Level extends State {
 		renderer = new OrthogonalTiledMapRenderer(map, Zombies.WorldScale);
 
 		box2dWorld = new World(new Vector2(0, 0), true);
-		box2DDebugRenderer = new Box2DDebugRenderer();
+		//box2DDebugRenderer = new Box2DDebugRenderer();
 
 		MapBodyBuilder.buildShapes(map, Zombies.PhysicsDensity / Zombies.WorldScale, box2dWorld);
 					
@@ -134,6 +127,10 @@ public class Level extends State {
         antidoteSpawn = true;
         swordSpawn = false;
 	}
+
+    static int getDeliveredNPCs() {
+        return deliveredNPCs;
+    }
 
 	public static Logger getLogger() {
 	    return logger;
@@ -530,8 +527,8 @@ public class Level extends State {
 		player.hudRender();
 		UIBatch.end();
 
-		//Enable this line to show Box2D physics debug info
-        box2DDebugRenderer.render(box2dWorld, camera.combined.scl(Zombies.PhysicsDensity));
+		//Enable the below line to show Box2D physics debug info
+        //box2DDebugRenderer.render(box2dWorld, camera.combined.scl(Zombies.PhysicsDensity));
 	}
 		
 	public World getBox2dWorld() {

@@ -11,24 +11,34 @@ public class State {
 	SpriteBatch worldBatch;
 	protected SpriteBatch UIBatch;
 	protected boolean aliveNPC;
+	private static boolean testing = false;
 
 	/**
 	 * Constructor for the state class
 	 */
 	public State() {
+	    if(testing)
+	        return;
 		worldBatch = new SpriteBatch();
 		UIBatch = new SpriteBatch();
 		//Resize to account for window dimensions
 		resize();
 	}
-	
-	public SpriteBatch getWorldBatch() {
+
+    public SpriteBatch getWorldBatch() {
 		return worldBatch;
 	}
 	
 	public SpriteBatch getUIBatch() {
 		return UIBatch;
 	}
+
+    /**
+     * Enables a special mode for unit testing only
+     */
+	public static void enableTestingMode() {
+        testing = true;
+    }
 
 	/**
 	 * Virtual render method

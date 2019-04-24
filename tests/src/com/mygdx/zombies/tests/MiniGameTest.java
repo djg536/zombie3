@@ -5,15 +5,17 @@ import com.mygdx.zombies.Goose;
 import com.mygdx.zombies.states.MiniGame;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import java.util.ArrayList;
-
+import static com.mygdx.zombies.states.State.enableTestingMode;
 import static org.junit.Assert.*;
 
 @RunWith(GdxTestRunner.class)
 public class MiniGameTest {
 
     // New class for assessment 3
+    public MiniGameTest() {
+        enableTestingMode();
+    }
 
     @Test
     // Test U1
