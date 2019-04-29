@@ -97,15 +97,13 @@ public class CustomContactListener implements ContactListener {
 
 			case PLAYER:
 
-				// If Player is not zombie (for assessment 4)
+				// If Player is not zombie (#changed4)
 				if(!((Player)a.getObj()).isZombie()) {
 					if (bType == InfoContainer.BodyID.ZOMBIE) {
 						Player player = (Player)a.getObj();
-						if (player.isSwinging()) {
-							player.setHealth(player.getHealth()-player.getDamage());
+						if(player.isSwingAtCriticalPoint()) {
 							Enemy zombie = (Enemy)b.getObj();
 							zombie.setHealth(zombie.getHealth()-3);
-	
 							//Code for Assessment 3
 							zombie.setHit(true);
 						}
