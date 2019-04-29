@@ -44,7 +44,7 @@ public class NPC extends Entity {
 				density = 40;
 				friction = 0.5f;
 				restitution = 0f;
-				//#changed4 added collision with walls, players, zombies and bullets (NPCs can now be shot by players)
+				//#changed4 added collision with walls, players, zombies and zombie bullets
 				filter.categoryBits = Zombies.npcFilter;
 				filter.maskBits = (short) (Zombies.playerFilter | Zombies.wallFilter |
 						Zombies.zombieFilter | Zombies.zombieProjectileFilter | Zombies.npcFilter);
@@ -113,7 +113,7 @@ public class NPC extends Entity {
 			}
 
 			float shootAngle = (float) (angleToZombieRadians + (Math.PI + bulletSpray - (bulletSpray) / 2));
-			if (level.getEnemiesList().size() != 0)
+			if (level.getEnemiesList().size() != 0) // if there are zombies still alive
 				level.getBulletsList().add(new Projectile(level, getPositionX(), getPositionY(), shootAngle, Projectile.ProjectileType.BULLET));
 		}
 	}

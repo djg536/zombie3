@@ -56,16 +56,16 @@ public class Level extends State {
 	private int spawnEntryID;
 	//private Box2DDebugRenderer box2DDebugRenderer;
 	private boolean gamePaused;
-    //#changed4 added pauseMenu attribute
+    //#changed4 added following fields
 	private PauseMenu pauseMenu;
-    //#changed4 added the following line
 	private ArrayList<Point> potentialCureSpawnPointList;
 	private CustomContactListener listener;
-	//#changed4 added logger, handler and antidoteSpawn
+
     private static Logger logger;
     private static Handler handler;
     private boolean antidoteSpawn;
     private boolean swordSpawn;
+
     private String storyText;
     private float storyX;
     private float storyY;
@@ -75,6 +75,7 @@ public class Level extends State {
 	 * 
 	 * @param path - filename of .tmx file for tiled grid
 	 * @param spawnEntryID - the id of an entry to spawn the player at
+	 * @param aliveNPC - whether the NPC is alive in the instance of level
 	 */
 	public Level(String path, int spawnEntryID, boolean aliveNPC) {
 		super();
@@ -331,7 +332,7 @@ public class Level extends State {
 				case "potentialCureSpawnPoint":
 					potentialCureSpawnPointList.add(new Point(x, y));
 				break;
-				
+
 				case "textMarker":
 					storyText = (String) p.get("text");
 					storyX = x;
@@ -408,7 +409,7 @@ public class Level extends State {
 	 */
 	private void initLights() {
 		
-		//Set up rayhandler
+		//Set up ray handler
 		rayHandler = new RayHandler(box2dWorld);
 		rayHandler.setShadows(true);
 		rayHandler.setAmbientLight(.4f);

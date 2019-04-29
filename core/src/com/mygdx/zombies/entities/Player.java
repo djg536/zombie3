@@ -196,7 +196,7 @@ public class Player extends Entity {
 
     /**
      * @return whether the player's hands are at the critical position necessary to inflict a damaging melee attack
-     * #changed4 added this procedure
+     * #changed4 added this method
      */
 	public boolean isSwingAtCriticalPoint() {
 	    return weapon instanceof MeleeWeapon && swingStep >= 2 && swingStep <= 8;
@@ -309,7 +309,7 @@ public class Player extends Entity {
 	/**
 	 * @return true if hands are moving
 	 */
-	private boolean isSwinging() {
+	public boolean isSwinging() {
 		return weapon instanceof MeleeWeapon && swingStep > 0 && swingStep < 10;
 	}
 

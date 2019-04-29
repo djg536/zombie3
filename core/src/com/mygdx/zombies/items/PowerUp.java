@@ -23,7 +23,9 @@ public class PowerUp {
 	 * @param speedBoost - the extra speed to give to the player
 	 * @param healthBoost - the amount of health to give to the player
 	 * @param stealthBoost - the stealth boost to give to the player
-	 * #changed4 added cure and antidote parameters
+	 * @param cure - boolean for whether to spawn the cure or not
+	 * @param antidote - boolean for whether to spawn the antidote or not
+	 * #changed4 - added cure and antidote parameters
 	 */
 	public PowerUp(int speedBoost, int healthBoost, int stealthBoost, boolean cure, boolean antidote) {
 		this.speedBoost = speedBoost+1;
@@ -37,7 +39,7 @@ public class PowerUp {
 	/**
 	 * Apply the cure around the player
 	 * @param level - an instance of level containing a player instance to apply to
-	 * #changed4 added this method
+	 * #changed4 - added this method
 	 */
 	public void applyCure(Level level) {
 

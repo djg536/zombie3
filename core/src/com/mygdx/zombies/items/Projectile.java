@@ -27,7 +27,7 @@ public class Projectile extends Entity {
 	 * @param y - the y spawn coordinate
 	 * @param angle - the angle to move
 	 * @param projectileType - the type of projectile, which determines attribute values
-	 * #changed4 removed attribute parameters as now replaced by projectileType
+	 * #changed4 - removed attribute parameters as now replaced by projectileType
 	 */
 	public Projectile(Level level, int x, int y, float angle, ProjectileType projectileType) {
 
