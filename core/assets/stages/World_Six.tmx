@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="75" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="89">
+<map version="1.2" tiledversion="2018.11.14" orientation="orthogonal" renderorder="right-down" width="75" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="89">
  <tileset firstgid="1" source="Assets/Tileset.tsx"/>
  <tileset firstgid="1041" source="Assets/Roads.tsx"/>
  <tileset firstgid="14523" source="Assets/Lamp.tsx"/>
@@ -744,9 +744,9 @@
   <object id="88" name="textMarker" x="103" y="1468.33">
    <properties>
     <property name="Direction" value="UP"/>
-    <property name="text">That villain Koen Lamberts is lurking
+    <property name="text">That Koen Lamberts is lurking
 at Heslington Church, raising new zombies
-for his army! Kill him
+for his army! Stop him
 and put an end to the
 apocalypse (and this game at last...)</property>
    </properties>
